@@ -1,5 +1,5 @@
 #include "UCW.h"
-
+#include<iostream>
 UCW *game = nullptr;
 int main(int argc, char * argv[]) {
 
