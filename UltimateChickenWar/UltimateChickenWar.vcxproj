@@ -122,6 +122,7 @@
     <ClCompile Include="UCW.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ECS.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="UCW.h" />

@@ -14,7 +14,9 @@ int lv1[9][16] =
 	5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,
 	5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0
 };
-SDL_Rect pos[25][25];
+
+SDL_Rect pos[9][16];
+
 Map::Map() {
 	flow = TextureManager::LoadTexture("assets/flow.png");
 	lowsnow = TextureManager::LoadTexture("assets/lowsnow.png");
@@ -33,11 +35,7 @@ Map::Map() {
 	dest.w = 64;
 	dest.x = 0;
 	dest.y = 0;
-
-
-
 }
-
 
 Map::~Map() {
 	SDL_DestroyTexture(flow);
@@ -51,11 +49,8 @@ void Map::LoadMap(int arr[9][16]) {
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
 			map[row][column] = arr[row][column];
-
-
 		}
 	}
-
 }
 
 void Map::DrawMap() {
@@ -66,13 +61,10 @@ void Map::DrawMap() {
 			if (row % 2 == 0) {
 				dest.x = column * 64;
 				dest.y = row * 64 - 16 * row;
-
 			}
 			else {
 				dest.x = column * 64 + 32;
 				dest.y = row * 64 - 16 * row;
-
-
 			}
 			switch (type) {
 			case 0:
@@ -95,11 +87,7 @@ void Map::DrawMap() {
 			default:
 				break;
 			}
-
 		}
-
 	}
-
-
 }
 
