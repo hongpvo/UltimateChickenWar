@@ -120,12 +120,18 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="UCW.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Component.h" />
     <ClInclude Include="ECS.h" />
+    <ClInclude Include="Keyboard_Controller.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="UCW.h" />
+    <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

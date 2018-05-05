@@ -1,6 +1,9 @@
 #include "UCW.h"
 #include "Map.h"
 #include "ECS.h"
+#include "TransformComponent.h"
+#include "SpriteComponent.h"
+#include "Keyboard_Controller.h"
 
 
 
@@ -9,6 +12,13 @@ Map* map;
 SDL_Renderer* UCW::renderer = nullptr;
 SDL_Event UCW::event;
 SDL_Rect position[25][25];
+
+//test manager
+Manager manager;
+auto& player(manager.addEntity());
+
+
+
 
 UCW::UCW()
 {
@@ -45,8 +55,6 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 
 	map = new Map();
 	//getPosition
-
-
 	for (int row = 0; row < 25; row++) {
 		for (int column = 0; column < 25; column++) {
 			position[row][column].h = 32;
@@ -62,6 +70,11 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 
 		}
 	}
+	//test ECS
+	player.addComponent<TransformComponent>(position[20][10], 1);
+	player.addComponent<SpriteComponent>("assets/chicken.png");
+	player.addComponent<Keyboard_Controller>();
+	//player.addComponent<ColliderComponent>("player");
 }
 
 void UCW::handleEvents() {
