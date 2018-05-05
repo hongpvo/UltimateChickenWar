@@ -1,7 +1,7 @@
 #include "UCW.h"
-#include<iostream>
+#include <iostream>
 UCW *game = nullptr;
-int main(int argc, char * argv[]) {
+int main(int argc, char *args[]) {
 
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;

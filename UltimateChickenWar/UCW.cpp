@@ -1,9 +1,8 @@
 #include "UCW.h"
 #include "Map.h"
-#include "ECS.h"
-#include "TransformComponent.h"
-#include "SpriteComponent.h"
-#include "Keyboard_Controller.h"
+#include "Component.h"
+#include "TextureManager.h"
+#include "Vector2D.h"
 
 
 
@@ -16,9 +15,6 @@ SDL_Rect position[25][25];
 //test manager
 Manager manager;
 auto& player(manager.addEntity());
-
-
-
 
 UCW::UCW()
 {

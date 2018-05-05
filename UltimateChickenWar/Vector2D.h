@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include <iostream>
 class Vector2D {
 public:
