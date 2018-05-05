@@ -4,8 +4,6 @@
 #include <vector>
 #include <iostream>
 
-//class ColliderComponent;
-
 class UCW
 {
 public:
@@ -22,8 +20,6 @@ public:
 	static SDL_Renderer* renderer;
 	static SDL_Event event;
 	
-	//static std::vector<ColliderComponent*> colliders;
-
 	bool running() { return isRunning; };
 private:
 	bool isRunning;

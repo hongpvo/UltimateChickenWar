@@ -1,22 +1,14 @@
 #include "UCW.h"
+#include "Map.h"
 
 
 
 
-//Map* map;
+Map* map;
 
 SDL_Renderer* UCW::renderer = nullptr;
 SDL_Event UCW::event;
 SDL_Rect position[25][25];
-
-/*
-auto& player(manager.addEntity());
-auto& wall(manager.addEntity());
-
-auto& tile0(manager.addEntity());
-auto& tile1(manager.addEntity());
-auto& tile2(manager.addEntity());
-*/
 
 UCW::UCW()
 {
@@ -70,27 +62,6 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 
 		}
 	}
-
-
-	//ecs
-
-	//tile0.addComponent<TileComponent>(200, 200, 32, 32, 0);
-	//tile1.addComponent<TileComponent>(250, 250, 32, 32, 1);
-	//tile1.addComponent<ColliderComponent>("mount");
-	//tile2.addComponent<TileComponent>(150, 150, 32, 32, 2);
-	//tile2.addComponent<ColliderComponent>("grass");
-
-	//player.addComponent<TransformComponent>(position[20][10], 1);
-	//player.addComponent<SpriteComponent>("assets/chicken.png");
-	//player.addComponent<Keyboard_Controller>();
-	//player.addComponent<ColliderComponent>("player");
-
-	//wall.addComponent<TransformComponent>(position[11][11],1);
-	//wall.addComponent<SpriteComponent>("assets/mout.png");
-	//wall.addComponent<ColliderComponent>("mout");
-
-
-
 }
 
 void UCW::handleEvents() {
