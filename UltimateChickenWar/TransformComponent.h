@@ -104,8 +104,8 @@ public:
 		posRow = rowindex;
 		posCol = columnindex;
 		//test
-		std::cout << "Row: " <<posRow<<std::endl;
-		std::cout << "Column: "<<posCol<<std::endl;
+		//std::cout << "Row: " <<posRow<<std::endl;
+		//std::cout << "Column: "<<posCol<<std::endl;
 	}
 
 

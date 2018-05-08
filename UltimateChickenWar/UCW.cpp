@@ -67,9 +67,10 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		}
 	}
 	//test ECS
-	player.addComponent<TransformComponent>(position[0][0], 1);
+	player.addComponent<TransformComponent>(position[1][1], 1);
 	player.addComponent<SpriteComponent>("assets/chicken.png");
 	player.addComponent<Keyboard_Controller>();
+	player.addComponent<Mouse_Controller>();
 	//player.addComponent<ColliderComponent>("player");
 }
 
