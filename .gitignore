@@ -6,6 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+UltimateChickenWar.vcxproj.filters
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
