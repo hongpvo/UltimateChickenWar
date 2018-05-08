@@ -50,13 +50,17 @@ public:
 			for (int column = 0; column < 16; column++) {
 				positionRC[row][column].h = 100;
 				positionRC[row][column].w = 108;
-				if (row % 2 == 0) {
-					positionRC[row][column].x = (column * 108) / 2;
-					positionRC[row][column].y = (row * 100 - 32 * row) / 2;
+				if (row == 0) {
+					positionRC[row][column].x = 54 + 108*column;
+					positionRC[row][column].y = 50;
+				}
+				else if (row % 2 == 0) {
+					positionRC[row][column].x = 54 + 108 * column ;
+					positionRC[row][column].y = 50 + 68 * row;
 				}
 				else {
-					positionRC[row][column].x = (column * 108 + 54) / 2;
-					positionRC[row][column].y = (row * 100 - 32 * row) / 2;
+					positionRC[row][column].x = 108 + 108 * column;
+					positionRC[row][column].y = 50 + 68 * row;
 				}
 
 			}
@@ -77,9 +81,11 @@ public:
 
 	void getPosition() {
 		//get distance
+		int a = 54;
+		int b = 50;
 		for (int row = 0; row < 9; row++) {
 			for (int column = 0; column < 16; column++) {
-				gPosition[row][column] = sqrt((position.x - positionRC[row][column].x)*(position.x - positionRC[row][column].x) + (position.y - positionRC[row][column].y)*(position.y - positionRC[row][column].y));
+				gPosition[row][column] = sqrt((position.x+a - positionRC[row][column].x)*(position.x+a - positionRC[row][column].x) + (position.y+b - positionRC[row][column].y)*(position.y+b - positionRC[row][column].y));
 			}
 		}
 		//find the closet distance
@@ -88,7 +94,7 @@ public:
 		int columnindex = 0;
 		for (int row = 0; row < 9; row++) {
 			for (int column = 0; column < 16; column++) {
-				if (gPosition[row][column] < min) {
+				if (gPosition[row][column] <= min) {
 					min = gPosition[row][column];
 					rowindex = row;
 					columnindex = column;

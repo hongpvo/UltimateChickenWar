@@ -16,28 +16,28 @@ public:
 		if (UCW::event.type == SDL_KEYDOWN) {
 			switch (UCW::event.key.keysym.sym) {				
 			case SDLK_q:
-				transform->position.x -= 50;
-				transform->position.y -= 81;
+				transform->position.x -= 54;
+				transform->position.y -= 68;
 				break;
 			case SDLK_a:
-				transform->position.x -= 100;
+				transform->position.x -= 108;
 				transform->position.y -= 0;
 				break;
 			case SDLK_z:
-				transform->position.x -= 50;
-				transform->position.y += 81;
+				transform->position.x -= 54;
+				transform->position.y += 68;
 				break;
 			case SDLK_e:
-				transform->position.x += 50;
-				transform->position.y -= 81;
+				transform->position.x += 54;
+				transform->position.y -= 68;
 				break;
 			case SDLK_d:
-				transform->position.x += 100;
+				transform->position.x += 108;
 				transform->position.y += 0;
 				break;
 			case SDLK_c:
-				transform->position.x += 100;
-				transform->position.y += 81;
+				transform->position.x += 54;
+				transform->position.y += 68;
 				break;
 			default:
 				break;
