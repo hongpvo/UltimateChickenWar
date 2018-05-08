@@ -10,7 +10,7 @@ Map* map;
 
 SDL_Renderer* UCW::renderer = nullptr;
 SDL_Event UCW::event;
-SDL_Rect position[25][25];
+SDL_Rect position[9][16];
 
 //test manager
 Manager manager;
@@ -48,20 +48,20 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 
 	}
 
-
+	
 	map = new Map();
 	//getPosition
-	for (int row = 0; row < 25; row++) {
-		for (int column = 0; column < 25; column++) {
+	for (int row = 0; row < 9; row++) {
+		for (int column = 0; column < 16; column++) {
 			position[row][column].h = 100;
 			position[row][column].w = 108;
 			if (row % 2 == 0) {
-				position[row][column].x = column * 108;
-				position[row][column].y = row * 100 - 25 * row;
+				position[row][column].x = (column * 108)/2;
+				position[row][column].y = (row * 100 - 32 * row)/2;
 			}
 			else {
-				position[row][column].x = column * 108 + 56;
-				position[row][column].y = row * 100 - 25 * row;
+				position[row][column].x = (column * 108 + 54)/2;
+				position[row][column].y = (row * 100 - 32 * row)/2;
 			}
 
 		}
@@ -102,7 +102,7 @@ void UCW::clean() {
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
-	std::cout << " Game Cleaned" << std::endl;
+	std::cout << "Game Cleaned" << std::endl;
 
 };
 
