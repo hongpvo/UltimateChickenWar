@@ -53,21 +53,21 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	//getPosition
 	for (int row = 0; row < 25; row++) {
 		for (int column = 0; column < 25; column++) {
-			position[row][column].h = 32;
-			position[row][column].w = 32;
+			position[row][column].h = 100;
+			position[row][column].w = 108;
 			if (row % 2 == 0) {
-				position[row][column].x = column * 32;
-				position[row][column].y = row * 32 - 8 * row;
+				position[row][column].x = column * 108;
+				position[row][column].y = row * 100 - 25 * row;
 			}
 			else {
-				position[row][column].x = column * 32 + 16;
-				position[row][column].y = row * 32 - 8 * row;
+				position[row][column].x = column * 108 + 56;
+				position[row][column].y = row * 100 - 25 * row;
 			}
 
 		}
 	}
 	//test ECS
-	player.addComponent<TransformComponent>(position[20][10], 1);
+	player.addComponent<TransformComponent>(position[5][5], 2);
 	player.addComponent<SpriteComponent>("assets/chicken.png");
 	player.addComponent<Keyboard_Controller>();
 	//player.addComponent<ColliderComponent>("player");

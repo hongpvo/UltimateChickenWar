@@ -10,7 +10,7 @@ int main(int argc, char *args[]) {
 	int frameTime;
 
 	game = new UCW();
-	game->init("ULITMATE CHICKEN WAR", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 16 * 32, 5 * 32 + 16 * 4, false);
+	game->init("ULITMATE CHICKEN WAR", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1920, 1080, true);
 	while (game->running()) {
 
 		frameStart = SDL_GetTicks();

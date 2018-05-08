@@ -18,21 +18,21 @@ int lv1[9][16] =
 SDL_Rect pos[9][16];
 
 Map::Map() {
-	flow = TextureManager::LoadTexture("assets/flow.png");
-	lowsnow = TextureManager::LoadTexture("assets/lowsnow.png");
-	yeltree = TextureManager::LoadTexture("assets/yeltree.png");
+	flow = TextureManager::LoadTexture("assets/grass/grass1.png");
+	lowsnow = TextureManager::LoadTexture("assets/grass/grass4.png");
+	yeltree = TextureManager::LoadTexture("assets/sand/sand1.png");
 	water = TextureManager::LoadTexture("assets/water.png");
 	mount = TextureManager::LoadTexture("assets/mout.png");
-	pyah = TextureManager::LoadTexture("assets/pyah.png");
+	pyah = TextureManager::LoadTexture("assets/water/water1.png");
 
 	LoadMap(lv1);
 	src.x = 0;
 	src.y = 0;
-	src.h = 64;
-	src.w = 64;
+	src.h = 100;
+	src.w = 108;
 
-	dest.h = 64;
-	dest.w = 64;
+	dest.h = 100;
+	dest.w = 108;
 	dest.x = 0;
 	dest.y = 0;
 }
@@ -59,12 +59,12 @@ void Map::DrawMap() {
 		for (int column = 0; column < 16; column++) {
 			type = map[row][column];
 			if (row % 2 == 0) {
-				dest.x = column * 64;
-				dest.y = row * 64 - 16 * row;
+				dest.x = column * 108 ;
+				dest.y = row * 100 - 32 * row ;
 			}
 			else {
-				dest.x = column * 64 + 32;
-				dest.y = row * 64 - 16 * row;
+				dest.x = column * 108 + 54;
+				dest.y = row * 100 - 32 * row  ;
 			}
 			switch (type) {
 			case 0:
