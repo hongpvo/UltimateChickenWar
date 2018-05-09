@@ -14,7 +14,8 @@ SDL_Rect position[9][16];
 
 //test manager
 Manager manager;
-auto& player(manager.addEntity());
+auto& player1(manager.addEntity());
+auto& player2(manager.addEntity());
 
 UCW::UCW()
 {
@@ -67,11 +68,20 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		}
 	}
 	//test ECS
-	player.addComponent<TransformComponent>(position[1][1], 1);
-	player.addComponent<SpriteComponent>("assets/chicken.png");
-	player.addComponent<Keyboard_Controller>();
-	player.addComponent<Mouse_Controller>();
+	player1.addComponent<TransformComponent>(position[1][1], 1);
+	player1.addComponent<SpriteComponent>("assets/chicken.png");
+	player1.addComponent<Keyboard_Controller>();
+	player1.addComponent<StatsComponent>(1);
+	
 	//player.addComponent<ColliderComponent>("player");
+
+	player2.addComponent<TransformComponent>(position[2][1], 1);
+	player2.addComponent<SpriteComponent>("assets/chicken1.png");
+	player2.addComponent<Keyboard_Controller>();
+	player2.addComponent<StatsComponent>(2);
+	
+	player2.addComponent<Mouse_Controller>(2, player1.getComponent<TransformComponent>());
+	player1.addComponent<Mouse_Controller>(1, player2.getComponent<TransformComponent>());
 }
 
 void UCW::handleEvents() {

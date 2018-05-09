@@ -7,16 +7,22 @@
 class Mouse_Controller : public Component {
 public:
 	TransformComponent * transform;
-	int chi_row, chi_col; //chicken position
+	//StatsComponent *stats;
+	int chi_row, chi_col, player_num; //chicken position
 	double dist[9][16];
 	SDL_Rect positionRC[9][16];
+	int mouse_x, mouse_y;
+	TransformComponent opponent_position;
 
-	Mouse_Controller() = default;
+	Mouse_Controller(int index, TransformComponent opponent) {
+		player_num = index;
+		opponent_position = opponent;
+	}
 
 	void init() override {
 		transform = &entity->getComponent<TransformComponent>();
 		
-		//get array of centroids
+		//get array of centroids of tiles
 		for (int row = 0; row < 9; row++) {
 			for (int column = 0; column < 16; column++) {
 				positionRC[row][column] = transform->positionRC[row][column];
@@ -24,15 +30,14 @@ public:
 		}
 	}
 	void update() override {
-		//check if mouse is down
 		transform->getPosition();
 		//Get position of chicken
 		chi_row = transform->posRow;
 		chi_col = transform->posCol;
+		//check if mouse is down
 		if (UCW::event.type == SDL_MOUSEBUTTONDOWN) {
 			//get mouse state
 			std::cout << "Mouse pressed" << std::endl;
-			int mouse_x, mouse_y;
 			SDL_GetMouseState(&mouse_x, &mouse_y);
 			//std::cout << "row: " << mouse_x << ", col: " << mouse_y << std::endl;
 			//calculate distance from all the centroids
@@ -81,6 +86,11 @@ public:
 					transform->position.y = mouse_row * 68;
 				}
 			}
+			
+			//get other player's position:
+			
+			//attack movement;
+			//if (player_num == 1)
 		}
 	}
 }; 

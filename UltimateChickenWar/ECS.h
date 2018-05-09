@@ -108,4 +108,8 @@ public:
 		return *e;
 
 	}
+
+	std::vector<std::unique_ptr<Entity>> getEntityList() {
+		return entities;
+	}
 };

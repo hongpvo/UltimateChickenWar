@@ -62,5 +62,8 @@
     <ClInclude Include="Mouse_Controller.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="StatsComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
