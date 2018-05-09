@@ -57,11 +57,11 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 			position[row][column].h = 100;
 			position[row][column].w = 108;
 			if (row % 2 == 0) {
-				position[row][column].x = column * 108 ;
+				position[row][column].x = column * 104 ;
 				position[row][column].y = row * 100 - 32 * row ;
 			}
 			else {
-				position[row][column].x = column * 108 + 54 ;
+				position[row][column].x = column * 104 + 52 ;
 				position[row][column].y = row * 100 - 32 * row;
 			}
 

@@ -67,11 +67,11 @@ void Map::DrawMap() {
 		for (int column = 0; column < 16; column++) {
 			type = map[row][column];
 			if (row % 2 == 0) {
-				dest.x = column * 108 ;
+				dest.x = column * 104 ;
 				dest.y = row * 100 - 32 * row ;
 			}
 			else {
-				dest.x = column * 108 + 54;
+				dest.x = column * 104 + 52;
 				dest.y = row * 100 - 32 * row  ;
 			}
 			switch (type) {

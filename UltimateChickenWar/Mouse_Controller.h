@@ -152,14 +152,14 @@ public:
 				if (not_obj_col != mouse_col || not_obj_row != mouse_row) {
 					if ((obj_row % 2 == 1) && ((mouse_col == obj_col) || (mouse_col == obj_col + 1)) && (abs(mouse_row - obj_row) == 1)) {
 
-						obj->position.x = mouse_col * 108;
+						obj->position.x = mouse_col * 104;
 						obj->position.y = mouse_row * 68;
 						turn += 1;
 
 					}
 					else if ((obj_row % 2 == 0) && ((mouse_col == obj_col) || (mouse_col == obj_col - 1)) && (abs(mouse_row - obj_row) == 1)) {
 
-						obj->position.x = mouse_col * 108 + 54;
+						obj->position.x = mouse_col * 104 + 52;
 						obj->position.y = mouse_row * 68;
 						turn += 1;
 
@@ -167,12 +167,12 @@ public:
 					else if (((mouse_col == obj_col + 1) || (mouse_col == obj_col - 1)) && (mouse_row == obj_row)) {
 
 						if (mouse_row % 2 == 0) {
-							obj->position.x = mouse_col * 108;
+							obj->position.x = mouse_col * 104;
 							obj->position.y = mouse_row * 68;
 							turn += 1;
 						}
 						else {
-							obj->position.x = mouse_col * 108 + 54;
+							obj->position.x = mouse_col * 104 + 52;
 							obj->position.y = mouse_row * 68;
 							turn += 1;
 						}
