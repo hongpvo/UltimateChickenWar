@@ -80,8 +80,8 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	player2.addComponent<Keyboard_Controller>();
 	player2.addComponent<StatsComponent>(2);
 	
-	player2.addComponent<Mouse_Controller>(2, player1.getComponent<TransformComponent>());
-	player1.addComponent<Mouse_Controller>(1, player2.getComponent<TransformComponent>());
+	player2.addComponent<Mouse_Controller>(2, manager);
+	player1.addComponent<Mouse_Controller>(1, manager);
 }
 
 void UCW::handleEvents() {

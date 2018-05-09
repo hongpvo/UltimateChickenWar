@@ -41,8 +41,8 @@ public:
 class Entity {
 private:
 	bool active = true;
-	std::vector<std::unique_ptr<Component>> components;
-
+	//std::vector<std::unique_ptr<Component>> components;
+	std::vector<Component*> components;
 	ComponentArray componentArray;
 	ComponentBitSet componentBitSet;
 public:
@@ -68,7 +68,8 @@ public:
 	T& addComponent(TArgs&&... mArgs) {
 		T*c(new T(std::forward<TArgs>(mArgs)...));
 		c->entity = this;
-		std::unique_ptr<Component> uPtr{ c };
+		//std::unique_ptr<Component> uPtr{ c };
+		Component* uPtr{ c };
 		components.emplace_back(std::move(uPtr));
 
 		componentArray[getComponentTypeID<T>()] = c;
@@ -88,7 +89,8 @@ public:
 
 class Manager {
 private:
-	std::vector<std::unique_ptr<Entity>> entities;
+	//std::vector<std::unique_ptr<Entity>> entities;
+	std::vector<Entity*> entities;
 public:
 	void update() {
 		for (auto& e : entities) e->update();
@@ -97,19 +99,21 @@ public:
 		for (auto& e : entities) e->draw();
 	}
 	void refresh() {
-		entities.erase(std::remove_if(std::begin(entities), std::end(entities), [](const std::unique_ptr<Entity> &mEntity) {
+		//entities.erase(std::remove_if(std::begin(entities), std::end(entities), [](const std::unique_ptr<Entity> &mEntity) {
+		entities.erase(std::remove_if(std::begin(entities), std::end(entities), [](Entity* &mEntity) {
 			return !mEntity->isActive(); }), std::end(entities));
 	}
 
 	Entity& addEntity() {
 		Entity* e = new Entity();
-		std::unique_ptr<Entity> uPtr{ e };
+		//std::unique_ptr<Entity> uPtr{ e };
+		Entity* uPtr{ e };
 		entities.emplace_back(std::move(uPtr));
 		return *e;
 
 	}
 
-	std::vector<std::unique_ptr<Entity>> getEntityList() {
+	std::vector<Entity*> getEntityList() {
 		return entities;
 	}
 };
