@@ -116,6 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LoadTextureFromText.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="Keyboard_Controller.h" />
+    <ClInclude Include="LoadTextureFromText.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mouse_Controller.h" />
     <ClInclude Include="SpriteComponent.h" />
