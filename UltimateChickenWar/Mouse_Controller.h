@@ -3,8 +3,10 @@
 #include "UCW.h"
 #include "ECS.h"
 #include "Component.h"
+#include "Map.h"
 #include<vector>
 using namespace std;
+
 class Mouse_Controller : public Component {
 public:
 	TransformComponent * transform;
@@ -27,6 +29,21 @@ public:
 			opponent_num == 1;
 		}
 	}
+	//map for obstacle - input file later
+	int test[9][16] =
+	{	2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,
+		2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,
+		5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,
+		5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,
+		5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0
+	};
+	
+	
+	
 
 	void init() override {
 		transform = &entity->getComponent<TransformComponent>();
@@ -46,7 +63,7 @@ public:
 		//get other player's position:
 		opponent_row = transform_opponent->posRow;
 		opponent_col = transform_opponent->posCol;
-		
+
 		//Get position of chicken
 		chi_row = transform->posRow;
 		chi_col = transform->posCol;
@@ -62,7 +79,7 @@ public:
 				for (int column = 0; column < 16; column++) {
 					dist[row][column] = sqrt(pow(mouse_x - positionRC[row][column].x, 2) + pow(mouse_y - positionRC[row][column].y, 2));
 					double a = dist[row][column];
-				
+
 				}
 			}
 
@@ -81,12 +98,12 @@ public:
 				}
 			}
 			//std::cout << "row: " << mouse_row << ", col: " << mouse_col << std::endl;
-			
+
 			//valid movement
 			cout << "turn: " << turn << endl;
 			TransformComponent* obj = NULL;
 			//player to be moved
-			int obj_row = 0; 
+			int obj_row = 0;
 			int obj_col = 0;
 			//player not moving
 			int not_obj_row = 0;
@@ -131,37 +148,39 @@ public:
 			std::cout << "not_obj_row: " << not_obj_row << ", not_obj_col: " << not_obj_col << std::endl;
 			std::cout << "obj_row: " << obj_row << ", obj_col: " << obj_col << std::endl;
 			std::cout << "row: " << mouse_row << ", col: " << mouse_col << std::endl;
-			if (not_obj_col != mouse_col || not_obj_row != mouse_row) {
-				if ((obj_row % 2 == 1) && ((mouse_col == obj_col) || (mouse_col == obj_col + 1)) && (abs(mouse_row - obj_row) == 1)) {
+			if (test[mouse_row][mouse_col] != 5) {
+				if (not_obj_col != mouse_col || not_obj_row != mouse_row) {
+					if ((obj_row % 2 == 1) && ((mouse_col == obj_col) || (mouse_col == obj_col + 1)) && (abs(mouse_row - obj_row) == 1)) {
 
-					obj->position.x = mouse_col * 108;
-					obj->position.y = mouse_row * 68;
-					turn += 1;
-
-				}
-				else if ((obj_row % 2 == 0) && ((mouse_col == chi_col) || (mouse_col == obj_col - 1)) && (abs(mouse_row - obj_row) == 1)) {
-
-					obj->position.x = mouse_col * 108 + 54;
-					obj->position.y = mouse_row * 68;
-					turn += 1;
-
-				}
-				else if (((mouse_col == obj_col + 1) || (mouse_col == obj_col - 1)) && (mouse_row == obj_row)) {
-
-					if (mouse_row % 2 == 0) {
 						obj->position.x = mouse_col * 108;
 						obj->position.y = mouse_row * 68;
 						turn += 1;
+
 					}
-					else {
+					else if ((obj_row % 2 == 0) && ((mouse_col == obj_col) || (mouse_col == obj_col - 1)) && (abs(mouse_row - obj_row) == 1)) {
+
 						obj->position.x = mouse_col * 108 + 54;
 						obj->position.y = mouse_row * 68;
 						turn += 1;
-					}
 
+					}
+					else if (((mouse_col == obj_col + 1) || (mouse_col == obj_col - 1)) && (mouse_row == obj_row)) {
+
+						if (mouse_row % 2 == 0) {
+							obj->position.x = mouse_col * 108;
+							obj->position.y = mouse_row * 68;
+							turn += 1;
+						}
+						else {
+							obj->position.x = mouse_col * 108 + 54;
+							obj->position.y = mouse_row * 68;
+							turn += 1;
+						}
+
+					}
 				}
+				//valid attack
 			}
-			//valid attack
 		}
 	}
 }; 

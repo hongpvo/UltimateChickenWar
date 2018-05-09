@@ -15,6 +15,8 @@ int lv1[9][16] =
 	5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0
 };
 
+
+
 SDL_Rect pos[9][16];
 
 Map::Map() {
@@ -52,7 +54,13 @@ void Map::LoadMap(int arr[9][16]) {
 		}
 	}
 }
-
+void Map::GetMap(int arr[9][16]) {
+	for (int row = 0; row < 9; row++) {
+		for (int column = 0; column < 16; column++) {
+			arr[row][column] = lv1[row][column];
+		}
+	}
+}
 void Map::DrawMap() {
 	int type = 0;
 	for (int row = 0; row < 9; row++) {
@@ -84,6 +92,8 @@ void Map::DrawMap() {
 				break;
 			case 5:
 				TextureManager::Draw(pyah, src, dest);
+				
+				break;
 			default:
 				break;
 			}
