@@ -85,19 +85,28 @@ public:
 			//valid movement
 			cout << "turn: " << turn << endl;
 			TransformComponent* obj = NULL;
-			int obj_row = 0;
+			//player to be moved
+			int obj_row = 0; 
 			int obj_col = 0;
+			//player not moving
+			int not_obj_row = 0;
+			int not_obj_col = 0;
+
 			if (player_num == 1) { //for player1
 				if (turn % 2 == 0) {
 					//even turn -> this player moves
 					obj_row = chi_row;
 					obj_col = chi_col;
+					not_obj_row = opponent_row;
+					not_obj_col = opponent_col;
 					obj = transform;
 				}
 				else {
 					//odd turn -> opponent player moves
 					obj_row = opponent_row;
 					obj_col = opponent_col;
+					not_obj_col = chi_col;
+					not_obj_row = chi_row;
 					obj = transform_opponent;
 				}
 			}
@@ -106,41 +115,52 @@ public:
 					//even turn -> opponent player moves
 					obj_row = opponent_row;
 					obj_col = opponent_col;
+					not_obj_col = chi_col;
+					not_obj_row = chi_row;
 					obj = transform_opponent;
 				}
 				else {
 					//odd turn -> this player moves
 					obj_row = chi_row;
 					obj_col = chi_col;
+					not_obj_row = opponent_row;
+					not_obj_col = opponent_col;
 					obj = transform;
 				}
 			}
+			std::cout << "not_obj_row: " << not_obj_row << ", not_obj_col: " << not_obj_col << std::endl;
+			std::cout << "obj_row: " << obj_row << ", obj_col: " << obj_col << std::endl;
+			std::cout << "row: " << mouse_row << ", col: " << mouse_col << std::endl;
+			if (not_obj_col != mouse_col || not_obj_row != mouse_row) {
+				if ((obj_row % 2 == 1) && ((mouse_col == obj_col) || (mouse_col == obj_col + 1)) && (abs(mouse_row - obj_row) == 1)) {
 
-			if ((obj_row % 2 == 1) && ((mouse_col == obj_col)||(mouse_col == obj_col + 1)) && (abs(mouse_row - obj_row) == 1) ) {
 					obj->position.x = mouse_col * 108;
 					obj->position.y = mouse_row * 68;
 					turn += 1;
-				
-			}
-			else if ((obj_row % 2 == 0) && ((mouse_col == chi_col) || (mouse_col == obj_col - 1)) && (abs(mouse_row - obj_row) == 1)) {
-				
+
+				}
+				else if ((obj_row % 2 == 0) && ((mouse_col == chi_col) || (mouse_col == obj_col - 1)) && (abs(mouse_row - obj_row) == 1)) {
+
 					obj->position.x = mouse_col * 108 + 54;
 					obj->position.y = mouse_row * 68;
 					turn += 1;
-			}
-			else if ( ((mouse_col == obj_col +1) || (mouse_col == obj_col-1)) && (mouse_row == obj_row) ){
-				if (mouse_row % 2 == 0) {
-					obj->position.x = mouse_col * 108;
-					obj->position.y = mouse_row * 68;
-					turn += 1;
+
 				}
-				else {
-					obj->position.x = mouse_col * 108 + 54;
-					obj->position.y = mouse_row * 68;
-					turn += 1;
+				else if (((mouse_col == obj_col + 1) || (mouse_col == obj_col - 1)) && (mouse_row == obj_row)) {
+
+					if (mouse_row % 2 == 0) {
+						obj->position.x = mouse_col * 108;
+						obj->position.y = mouse_row * 68;
+						turn += 1;
+					}
+					else {
+						obj->position.x = mouse_col * 108 + 54;
+						obj->position.y = mouse_row * 68;
+						turn += 1;
+					}
+
 				}
 			}
-			
 			//valid attack
 		}
 	}
