@@ -120,7 +120,10 @@ void UCW::render() {
 	//this add stuffs to render
 	map->DrawMap();
 	manager.draw();
-	attack.draw();
+	if (player2.getComponent<StatsComponent>().attacking || player1.getComponent<StatsComponent>().attacking) {
+		attack.draw();
+	}
+	
 
 
 	SDL_RenderPresent(renderer);
