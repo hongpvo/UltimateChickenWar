@@ -14,7 +14,6 @@ public:
 	TransformComponent * transform_opponent;
 	StatsComponent* player_stats;
 	StatsComponent* opponent_stats;
-
 	//StatsComponent *stats;
 	int chi_row, chi_col, player_num, opponent_row, opponent_col, opponent_num; //chicken position
 	double dist[9][16];
@@ -23,7 +22,6 @@ public:
 	Entity* opponent = NULL;
 
 	Mouse_Controller(int index, Manager manager) {
-		
 		player_num = index;
 		if (player_num == 1) {
 			opponent = manager.getEntityList().at(1);
@@ -77,7 +75,7 @@ public:
 		if (UCW::event.type == SDL_MOUSEBUTTONDOWN) {
 			//cout << "chicken" << opponent_num << " row: " << opponent_row << "col: " << opponent_col << endl;
 			//get mouse state
-			//std::cout << "Mouse pressed" << std::endl;
+			std::cout << "Mouse pressed" << std::endl;
 			SDL_GetMouseState(&mouse_x, &mouse_y);
 			//std::cout << "row: " << mouse_x << ", col: " << mouse_y << std::endl;
 			//calculate distance from all the centroids
@@ -106,8 +104,9 @@ public:
 			//std::cout << "row: " << mouse_row << ", col: " << mouse_col << std::endl;
 
 			//valid movement
-			//cout << "turn: " << turn << endl;
+			cout << "turn: " << turn << endl;
 			TransformComponent* obj_transform = NULL;
+			TransformComponent* not_obj_transform = NULL;
 			StatsComponent* obj_stats = NULL;
 			StatsComponent* not_obj_stats = NULL;
 			//player to be moved
@@ -116,7 +115,7 @@ public:
 			//player not moving
 			int not_obj_row = 0;
 			int not_obj_col = 0;
-
+			
 			if (player_num == 1) { //for player1
 				if (turn % 2 == 0) {
 					//even turn -> this player moves
@@ -125,6 +124,7 @@ public:
 					not_obj_row = opponent_row;
 					not_obj_col = opponent_col;
 					obj_transform = transform;
+					not_obj_transform = transform_opponent;
 					obj_stats = player_stats;
 					not_obj_stats = opponent_stats;
 				}
@@ -135,11 +135,12 @@ public:
 					not_obj_col = chi_col;
 					not_obj_row = chi_row;
 					obj_transform = transform_opponent;
+					not_obj_transform = transform;
 					obj_stats = opponent_stats;
 					not_obj_stats = player_stats;
 				}
 			}
-			if (player_num == 2) {//for player2
+			if (player_num == 2) {
 				if (turn % 2 == 0) {
 					//even turn -> opponent player moves
 					obj_row = opponent_row;
@@ -147,6 +148,7 @@ public:
 					not_obj_col = chi_col;
 					not_obj_row = chi_row;
 					obj_transform = transform_opponent;
+					not_obj_transform = transform;
 					obj_stats = opponent_stats;
 					not_obj_stats = player_stats;
 				}
@@ -157,6 +159,7 @@ public:
 					not_obj_row = opponent_row;
 					not_obj_col = opponent_col;
 					obj_transform = transform;
+					not_obj_transform = transform_opponent;
 					obj_stats = player_stats;
 					not_obj_stats = opponent_stats;
 				}
@@ -196,20 +199,26 @@ public:
 					moveStart = SDL_GetTicks();
 				}
 				moveTime = SDL_GetTicks() - moveStart;
+				int obj_x = obj_transform->position.x +54;
+				int obj_y = obj_transform->position.y +50;
+				int not_obj_x = not_obj_transform->position.x + 54;
+				int not_obj_y = not_obj_transform->position.y + 50;
 				//cout << "mouse_x" << mouse_x << "mouse_y" << mouse_y << endl;
-				if (not_obj_col == mouse_col && not_obj_row == mouse_row && moveTime > 500 && abs(not_obj_col - obj_col) <= 1 && abs(not_obj_row - obj_row) <= 1 ){
+				if (not_obj_col == mouse_col && not_obj_row == mouse_row && moveTime > 500 && sqrt(pow(obj_x-not_obj_x,2) + pow(obj_y - not_obj_y, 2)) <= 86) {
 					obj_stats->attacking = 1;
+				}
 
-					if(1){
-					//if (obj_stats->entity->isActive()) {
-						if (mouse_x > 542 && mouse_x < 786 && mouse_y > 258 && mouse_y < 404) {
-							not_obj_stats->hp -= 1;
-							std::cout << "not_obj_row: " << not_obj_row << ", not_obj_col: " << not_obj_col << " ,hp: " << not_obj_stats->hp << std::endl;
-							//std::cout << "row: " << mouse_row << ", col: " << mouse_col << std::endl;	
-							obj_stats->attacking = 0;
-							turn++;
-							not_obj_stats->hp == 0 ? not_obj_stats->entity->setActive(0) : not_obj_stats->entity->setActive(1);
-						}
+				if (obj_stats->attacking){
+					if (mouse_x > 542 && mouse_x < 786 && mouse_y > 258 && mouse_y < 404) {
+						not_obj_stats->hp -= 1;
+						std::cout << "not_obj_row: " << not_obj_row << ", not_obj_col: " << not_obj_col << " ,hp: " << not_obj_stats->hp << std::endl;
+						//std::cout << "row: " << mouse_row << ", col: " << mouse_col << std::endl;
+						obj_stats->attacking = 0;
+						turn++;
+						//not_obj_stats->hp == 0 ? not_obj_stats->entity->setActive(0) : not_obj_stats->entity->setActive(0);
+					}
+					else if (mouse_x > 893 && mouse_x < 1081 && mouse_y > 258 && mouse_y < 404) {
+						obj_stats->attacking = 0;
 					}
 				}
 			}
