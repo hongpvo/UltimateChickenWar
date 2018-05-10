@@ -117,6 +117,7 @@ public:
 			int not_obj_col = 0;
 			
 			if (player_num == 1) { //for player1
+				
 				if (turn % 2 == 0) {
 					//even turn -> this player moves
 					obj_row = chi_row;
@@ -168,7 +169,12 @@ public:
 			//std::cout << "obj_row: " << obj_row << ", obj_col: " << obj_col << std::endl;
 			//std::cout << "row: " << mouse_row << ", col: " << mouse_col << std::endl;
 			if (test[mouse_row][mouse_col] != 5) {
-				if (not_obj_col != mouse_col || not_obj_row != mouse_row) {
+				if (!(obj_stats->isAlive)) {
+					obj_transform->position.x = 0;
+					obj_transform->position.y = 1500;
+					turn += 1;
+				}
+				if ((not_obj_col != mouse_col || not_obj_row != mouse_row) && !(not_obj_stats->choosing || obj_stats->choosing)) {
 					if ((obj_row % 2 == 1) && ((mouse_col == obj_col) || (mouse_col == obj_col + 1)) && (abs(mouse_row - obj_row) == 1)) {
 						obj_transform->position.x = mouse_col * 104;
 						obj_transform->position.y = mouse_row * 68;
@@ -206,16 +212,21 @@ public:
 				//cout << "mouse_x" << mouse_x << "mouse_y" << mouse_y << endl;
 				if (not_obj_col == mouse_col && not_obj_row == mouse_row && moveTime > 500 && sqrt(pow(obj_x-not_obj_x,2) + pow(obj_y - not_obj_y, 2)) <= 104) {
 					obj_stats->attacking = 1;
+					not_obj_stats->choosing = 1;
 				}
 
 				if (obj_stats->attacking){
 					if (mouse_x > 542 && mouse_x < 786 && mouse_y > 258 && mouse_y < 404) {
 						not_obj_stats->hp -= 1;
+						not_obj_stats->choosing = 0;
 						std::cout << "not_obj_row: " << not_obj_row << ", not_obj_col: " << not_obj_col << " ,hp: " << not_obj_stats->hp << std::endl;
 						//std::cout << "row: " << mouse_row << ", col: " << mouse_col << std::endl;
 						obj_stats->attacking = 0;
 						turn++;
-						//not_obj_stats->hp == 0 ? not_obj_stats->entity->setActive(0) : not_obj_stats->entity->setActive(0);
+						if (not_obj_stats->hp == 0) {
+							not_obj_stats->isAlive = 0;
+							not_obj_stats->entity->destroy();
+						}
 					}
 					else if (mouse_x > 893 && mouse_x < 1081 && mouse_y > 258 && mouse_y < 404) {
 						obj_stats->attacking = 0;

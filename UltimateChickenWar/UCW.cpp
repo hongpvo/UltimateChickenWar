@@ -123,8 +123,6 @@ void UCW::render() {
 	if (player2.getComponent<StatsComponent>().attacking || player1.getComponent<StatsComponent>().attacking) {
 		attack.draw();
 	}
-	
-
 
 	SDL_RenderPresent(renderer);
 
