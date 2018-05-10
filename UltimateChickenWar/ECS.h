@@ -56,7 +56,6 @@ public:
 	};
 
 	bool isActive() { return active; }
-	void setActive(bool state) { active = state; }
 	void destroy() {
 		active = false;
 	}
@@ -116,5 +115,8 @@ public:
 
 	std::vector<Entity*> getEntityList() {
 		return entities;
+	}
+	int returnlength() {
+		return size(entities);
 	}
 };
