@@ -165,6 +165,10 @@ public:
 					not_obj_stats = opponent_stats;
 				}
 			}
+			int obj_x = obj_transform->position.x + 52;
+			int obj_y = obj_transform->position.y + 50;
+			int not_obj_x = not_obj_transform->position.x + 52;
+			int not_obj_y = not_obj_transform->position.y + 50;
 			static Uint32 moveStart, moveTime;
 			//std::cout << "obj_row: " << obj_row << ", obj_col: " << obj_col << std::endl;
 			//std::cout << "row: " << mouse_row << ", col: " << mouse_col << std::endl;
@@ -205,20 +209,18 @@ public:
 					moveStart = SDL_GetTicks();
 				}
 				moveTime = SDL_GetTicks() - moveStart;
-				int obj_x = obj_transform->position.x +54;
-				int obj_y = obj_transform->position.y +50;
-				int not_obj_x = not_obj_transform->position.x + 54;
-				int not_obj_y = not_obj_transform->position.y + 50;
-				//cout << "mouse_x" << mouse_x << "mouse_y" << mouse_y << endl;
+					
 				if (not_obj_col == mouse_col && not_obj_row == mouse_row && moveTime > 500 && sqrt(pow(obj_x-not_obj_x,2) + pow(obj_y - not_obj_y, 2)) <= 104) {
 					obj_stats->attacking = 1;
-					not_obj_stats->choosing = 1;
+					obj_stats->choosing = 1;
 				}
-
+				
 				if (obj_stats->attacking){
-					if (mouse_x > 542 && mouse_x < 786 && mouse_y > 258 && mouse_y < 404) {
+					
+					if (mouse_x > 590 && mouse_x < 831 && mouse_y > 680 && mouse_y < 830) {
+						cout << "running" << endl;
 						not_obj_stats->hp -= 1;
-						not_obj_stats->choosing = 0;
+						obj_stats->choosing = 0;
 						std::cout << "not_obj_row: " << not_obj_row << ", not_obj_col: " << not_obj_col << " ,hp: " << not_obj_stats->hp << std::endl;
 						//std::cout << "row: " << mouse_row << ", col: " << mouse_col << std::endl;
 						obj_stats->attacking = 0;
@@ -228,9 +230,11 @@ public:
 							not_obj_stats->entity->destroy();
 						}
 					}
-					else if (mouse_x > 893 && mouse_x < 1081 && mouse_y > 258 && mouse_y < 404) {
+					else if (mouse_x > 952 && mouse_x < 1128 && mouse_y > 680 && mouse_y < 830) {
 						obj_stats->attacking = 0;
+						obj_stats->choosing = 0;
 					}
+					moveStart = 0;
 				}
 			}
 		}

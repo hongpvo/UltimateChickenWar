@@ -12,7 +12,7 @@ public:
 	SDL_Rect positionRC[9][16];
 	
 	int height = 100;
-	int width = 108;
+	int width = 104;
 	int scale = 1;
 	int speed = 3;
 	int posRow = 0;
@@ -81,7 +81,7 @@ public:
 
 	void getPosition() {
 		//get distance
-		int a = 54;
+		int a = 52;
 		int b = 50;
 		for (int row = 0; row < 9; row++) {
 			for (int column = 0; column < 16; column++) {

@@ -16,7 +16,7 @@ SDL_Rect position[9][16];
 TTF_Font* UCW::gFont=nullptr;
 //render texture
 //LoadTextureFromText gTextTexture;
-Popup attack("attack or not?",680, 1628);
+Popup attack("attack or not?",1500, 1728);
 
 
 //test manager
@@ -128,7 +128,7 @@ void UCW::render() {
 
 };
 void UCW::clean() {
-	
+	attack.clean();
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();

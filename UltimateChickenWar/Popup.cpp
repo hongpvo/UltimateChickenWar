@@ -9,15 +9,16 @@ Popup::Popup(std::string str,int h, int w) {
 
 	dest.h = 210;
 	dest.w = 610;
-	dest.x = 500;//1169;
-	dest.y = 225;//555;
+	dest.x = 550;//1169;
+	dest.y = 650;//555;
 	
 	height = h;
 	width = w;
 };
 Popup::~Popup(){
 	SDL_DestroyTexture(box);
-	gTextTexture.free(); };
+	gTextTexture.free(); 
+};
 void Popup::draw() {
 	box = TextureManager::LoadTexture("assets/button/box.png");
 	TextureManager::Draw(box, src, dest);
