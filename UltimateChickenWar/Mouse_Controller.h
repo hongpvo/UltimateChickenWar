@@ -172,7 +172,7 @@ public:
 			static Uint32 moveStart, moveTime;
 			//std::cout << "obj_row: " << obj_row << ", obj_col: " << obj_col << std::endl;
 			//std::cout << "row: " << mouse_row << ", col: " << mouse_col << std::endl;
-			if (test[mouse_row][mouse_col] != 5) {
+			if (test[mouse_row][mouse_col] != 5 || obj_stats->attacking) {
 				if (!(obj_stats->isAlive)) {
 					obj_transform->position.x = 0;
 					obj_transform->position.y = 1500;
@@ -216,7 +216,6 @@ public:
 				}
 				
 				if (obj_stats->attacking){
-					
 					if (mouse_x > 590 && mouse_x < 831 && mouse_y > 680 && mouse_y < 830) {
 						cout << "running" << endl;
 						not_obj_stats->hp -= 1;
