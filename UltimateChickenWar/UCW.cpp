@@ -3,7 +3,8 @@
 #include "Component.h"
 #include "TextureManager.h"
 #include "Vector2D.h"
-
+#include "LoadTextureFromText.h"
+#include "Popup.h"
 
 
 Map* map;
@@ -11,6 +12,12 @@ Map* map;
 SDL_Renderer* UCW::renderer = nullptr;
 SDL_Event UCW::event;
 SDL_Rect position[9][16];
+
+TTF_Font* UCW::gFont=nullptr;
+//render texture
+//LoadTextureFromText gTextTexture;
+Popup attack("attack or not?",680, 1628);
+
 
 //test manager
 Manager manager;
@@ -82,6 +89,13 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	
 	player2.addComponent<Mouse_Controller>(2, manager);
 	player1.addComponent<Mouse_Controller>(1, manager);
+
+	//Debugfont
+	if (TTF_Init() == -1)
+	{
+		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+	}
+
 }
 
 void UCW::handleEvents() {
@@ -106,13 +120,20 @@ void UCW::render() {
 	//this add stuffs to render
 	map->DrawMap();
 	manager.draw();
+	attack.draw();
+
+
 	SDL_RenderPresent(renderer);
 
 };
 void UCW::clean() {
+	
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
+	IMG_Quit();
+	TTF_Quit();
+
 	std::cout << "Game Cleaned" << std::endl;
 
 };

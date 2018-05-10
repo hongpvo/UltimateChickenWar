@@ -119,6 +119,7 @@
     <ClCompile Include="LoadTextureFromText.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Popup.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="UCW.cpp" />
     <ClCompile Include="Vector2D.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="LoadTextureFromText.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Mouse_Controller.h" />
+    <ClInclude Include="Popup.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="StatsComponent.h" />
     <ClInclude Include="TextureManager.h" />

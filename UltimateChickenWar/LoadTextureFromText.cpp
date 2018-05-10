@@ -1,16 +1,6 @@
 #include "LoadTextureFromText.h"
 
-//The window we'll be rendering to
-SDL_Window* gWindow = NULL;
 
-//The window renderer
-SDL_Renderer* gRenderer = NULL;
-
-//Globally used font
-TTF_Font *gFont = NULL;
-
-//Rendered texture
-LoadTextureFromText gTextTexture;
 
 LoadTextureFromText::LoadTextureFromText()
 {
@@ -46,7 +36,7 @@ bool LoadTextureFromText::loadFromFile(std::string path)
 		SDL_SetColorKey(loadedSurface, SDL_TRUE, SDL_MapRGB(loadedSurface->format, 0, 0xFF, 0xFF));
 
 		//Create texture from surface pixels
-		newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
+		newTexture = SDL_CreateTextureFromSurface(UCW::renderer, loadedSurface);
 		if (newTexture == NULL)
 		{
 			printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
@@ -75,7 +65,7 @@ bool LoadTextureFromText::loadFromRenderedText(std::string textureText, SDL_Colo
 	free();
 
 	//Render text surface
-	SDL_Surface* textSurface = TTF_RenderText_Solid(gFont, textureText.c_str(), textColor);
+	SDL_Surface* textSurface = TTF_RenderText_Solid(UCW::gFont, textureText.c_str(), textColor);
 	if (textSurface == NULL)
 	{
 		printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
@@ -83,7 +73,7 @@ bool LoadTextureFromText::loadFromRenderedText(std::string textureText, SDL_Colo
 	else
 	{
 		//Create texture from surface pixels
-		mTexture = SDL_CreateTextureFromSurface(gRenderer, textSurface);
+		mTexture = SDL_CreateTextureFromSurface(UCW::renderer, textSurface);
 		if (mTexture == NULL)
 		{
 			printf("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
@@ -146,7 +136,7 @@ void LoadTextureFromText::render(int x, int y, SDL_Rect* clip, double angle, SDL
 	}
 
 	//Render to screen
-	SDL_RenderCopyEx(gRenderer, mTexture, clip, &renderQuad, angle, center, flip);
+	SDL_RenderCopyEx(UCW::renderer, mTexture, clip, &renderQuad, angle, center, flip);
 }
 
 int LoadTextureFromText::getWidth()
