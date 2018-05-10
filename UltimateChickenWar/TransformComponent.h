@@ -49,17 +49,17 @@ public:
 		for (int row = 0; row < 9; row++) {
 			for (int column = 0; column < 16; column++) {
 				positionRC[row][column].h = 100;
-				positionRC[row][column].w = 108;
+				positionRC[row][column].w = 104;
 				if (row == 0) {
-					positionRC[row][column].x = 54 + 108*column;
+					positionRC[row][column].x = 52 + 104*column;
 					positionRC[row][column].y = 50;
 				}
 				else if (row % 2 == 0) {
-					positionRC[row][column].x = 54 + 108 * column ;
+					positionRC[row][column].x = 52 + 104 * column ;
 					positionRC[row][column].y = 50 + 68 * row;
 				}
 				else {
-					positionRC[row][column].x = 108 + 108 * column;
+					positionRC[row][column].x = 104 + 104 * column;
 					positionRC[row][column].y = 50 + 68 * row;
 				}
 

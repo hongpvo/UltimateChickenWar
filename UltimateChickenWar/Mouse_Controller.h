@@ -204,7 +204,7 @@ public:
 				int not_obj_x = not_obj_transform->position.x + 54;
 				int not_obj_y = not_obj_transform->position.y + 50;
 				//cout << "mouse_x" << mouse_x << "mouse_y" << mouse_y << endl;
-				if (not_obj_col == mouse_col && not_obj_row == mouse_row && moveTime > 500 && sqrt(pow(obj_x-not_obj_x,2) + pow(obj_y - not_obj_y, 2)) <= 86) {
+				if (not_obj_col == mouse_col && not_obj_row == mouse_row && moveTime > 500 && sqrt(pow(obj_x-not_obj_x,2) + pow(obj_y - not_obj_y, 2)) <= 104) {
 					obj_stats->attacking = 1;
 				}
 
