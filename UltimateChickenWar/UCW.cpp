@@ -8,10 +8,23 @@
 
 
 Map* map;
+int map_test[9][16]= 
+{ 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,
+2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,
+5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,
+5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,
+5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0
+};
 
 SDL_Renderer* UCW::renderer = nullptr;
 SDL_Event UCW::event;
 SDL_Rect position[9][16];
+SDL_Rect position_ini[6];
+SDL_Rect center_position[9][16];
 
 TTF_Font* UCW::gFont=nullptr;
 //render texture
@@ -21,9 +34,13 @@ Popup attack("attack or not?",1500, 1728);
 
 //test manager
 Manager manager;
-auto& player1(manager.addEntity());
-auto& player2(manager.addEntity());
+//auto& player1(manager.addEntity());
+//auto& player2(manager.addEntity());
 
+Entity* player[6];
+char* image[6] = { "assets/chicken.png", "assets/chicken1.png","assets/chicken.png", "assets/chicken1.png","assets/chicken.png", "assets/chicken1.png" };
+char* turn_indicator = { "assets/lowsnow.png" };
+//int position_ini[6][6] = { {1,1}, {2,2}, {3,3}, {4,4}, {5,5}, {6,6} };
 UCW::UCW()
 {
 }
@@ -74,6 +91,42 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 
 		}
 	}
+
+	position_ini[0] = position[0][0];
+	position_ini[1] = position[0][15];
+	position_ini[2] = position[1][0];
+	position_ini[3] = position[1][15];
+	position_ini[4] = position[2][0];
+	position_ini[5] = position[2][15];
+
+	for (int row = 0; row < 9; row++) {
+		for (int column = 0; column < 16; column++) {
+			center_position[row][column].h = 100;
+			center_position[row][column].w = 104;
+			if (row == 0) {
+				center_position[row][column].x = 52 + 104 * column;
+				center_position[row][column].y = 50;
+			}
+			else if (row % 2 == 0) {
+				center_position[row][column].x = 52 + 104 * column;
+				center_position[row][column].y = 50 + 68 * row;
+			}
+			else {
+				center_position[row][column].x = 104 + 104 * column;
+				center_position[row][column].y = 50 + 68 * row;
+			}
+		}
+	}
+	
+	for (int i = 0; i <= 5; i++) {
+		player[i] = &manager.addEntity();
+		player[i]->addComponent<TransformComponent>(position_ini[i], 1);
+		player[i]->addComponent<SpriteComponent>(image[i], turn_indicator);
+		player[i]->addComponent<Keyboard_Controller>();
+		player[i]->addComponent<StatsComponent>(i, i%2);
+	}
+	player[0]->getComponent<StatsComponent>().myturn = true;
+	/*
 	//test ECS
 	player1.addComponent<TransformComponent>(position[1][1], 1);
 	player1.addComponent<SpriteComponent>("assets/chicken.png");
@@ -87,9 +140,9 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	player2.addComponent<Keyboard_Controller>();
 	player2.addComponent<StatsComponent>(2);
 	
-	player2.addComponent<Mouse_Controller>(2, manager);
-	player1.addComponent<Mouse_Controller>(1, manager);
-
+	//player2.addComponent<Mouse_Controller>(2, manager);
+	//player1.addComponent<Mouse_Controller>(1, manager);
+	*/
 	//Debugfont
 	if (TTF_Init() == -1)
 	{
@@ -105,6 +158,9 @@ void UCW::handleEvents() {
 	case SDL_QUIT:
 		isRunning = false;
 		break;
+	case SDL_MOUSEBUTTONDOWN:
+		Mouse_Controller(&manager, center_position, map_test, &attack);
+		break;
 	default:
 		break;
 	}
@@ -116,18 +172,38 @@ void UCW::update() {
 };
 
 void UCW::render() {
+	attack.clean();
 	SDL_RenderClear(renderer);
+	//cout << "length: " << manager.returnlength() << endl;
 	//this add stuffs to render
 	map->DrawMap();
 	manager.draw();
-	if (player2.getComponent<StatsComponent>().attacking || player1.getComponent<StatsComponent>().attacking) {
-		attack.draw();
+	
+	bool draw_allowing = false;
+	for (int i = 0; i < manager.returnlength(); i++) {
+		if (player[i]->getComponent<StatsComponent>().choosing) {
+			draw_allowing = true;
+			break;
+		}
 	}
-
+	static bool running = false;
+	//if (draw_allowing && !running) {
+		if (draw_allowing){
+		attack.draw();
+		//cout << "drawing" << endl;
+		running = true;
+	}
+		attack.clean();
+	
+	//if (player1.getComponent<StatsComponent>().attacking || player2.getComponent<StatsComponent>().attacking) {
+	//	attack.draw();
+	//}
+	
 	SDL_RenderPresent(renderer);
 
 };
 void UCW::clean() {
+	//attack.clean();
 	attack.clean();
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
