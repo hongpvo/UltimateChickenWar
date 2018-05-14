@@ -38,6 +38,7 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 	bool moving_allow = 0;
 	int mouse_x, mouse_y, mouse_row, mouse_col;
 	turn = iterator % 6;
+	cout << "turn: " << turn << endl;
 	int j = 0;
 	for (int i = 0; i < 6; i++) {
 		player[i] = all_player_manager->getEntityList().at(i);
@@ -71,10 +72,10 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 		if (map[mouse_row][mouse_col] != 5 || stats_player->choosing) {
 			int count = 0;
 			static int defender = 0;
-			if (!(stats_player->isAlive)) {
+			/*if (!(stats_player->isAlive)) {
 				iterator += 1;
 				goto here; 
-			}
+			}*/
 			for (int i = 0; i <= 4; i++) {
 				if ((opponent_col[i] != mouse_col || opponent_row[i] != mouse_row) && !(stats_player->choosing)) {
 					//cout << "opponent" << i << " col: " << opponent_col[i] << ", row: " << opponent_row[i] << endl;
@@ -88,30 +89,6 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 			if (count == 5) moving_allow = true;
 			if (moving_allow) {
 				cout << "turn moving: " << turn << endl;
-				/*
-				if ((player_row % 2 == 1) && ((mouse_col == player_col) || (mouse_col == player_col + 1)) && (abs(mouse_row - player_row) == 1)) {
-					transform_player->position.x = mouse_col * 104;
-					transform_player->position.y = mouse_row * 68;
-					iterator += 1;
-				}
-				else if ((player_row % 2 == 0) && ((mouse_col == player_col) || (mouse_col == player_col - 1)) && (abs(mouse_row - player_row) == 1)) {
-					transform_player->position.x = mouse_col * 104 + 52;
-					transform_player->position.y = mouse_row * 68;					
-					iterator += 1;
-				}
-				else if (((mouse_col == player_col + 1) || (mouse_col == player_col - 1)) && (mouse_row == player_row)) {
-					if (mouse_row % 2 == 0) {
-						transform_player->position.x = mouse_col * 104;
-						transform_player->position.y = mouse_row * 68;
-						iterator += 1;
-					}
-					else {
-						transform_player->position.x = mouse_col * 104 + 52;
-						transform_player->position.y = mouse_row * 68;
-						iterator += 1;
-					}
-				}
-				*/
 
 				//render position of bounding box of mouse_col +52 = mouse_col_center
 				int mouse_center_x = position[mouse_row][mouse_col].x + 52;
@@ -125,17 +102,21 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 						transform_player->position.x = mouse_col * 104 + 52;
 						transform_player->position.y = mouse_row * 68;
 					}
-					iterator += 1;
+					//bool foundNextTurn = false;
+					while (1) {
+						iterator++;
+						turn = iterator % 6;
+						cout << "considering turn: " << turn << endl;
+						if (player[turn]->getComponent<StatsComponent>().isAlive) break;
+						//iterator++;
+					}
 				}
-				//moveTime = 0;
-				//moveStart = 0;
 			}
 
 
 			
 			static bool hit = false;
 			//count < 5 means mouse position = defender's position -->attack turn on
-			//if (count < 5 && moveTime > 500 && sqrt(pow(player_x - defender_x, 2) + pow(player_y - defender_y, 2)) <= 104){
 			for (int i = 0; i <= 4; i++) {
 				if (mouse_col == opponent_col[i] && mouse_row == opponent_row[i]){
 					//cout << "called" << endl;
@@ -150,39 +131,32 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 			int defender_y = transform_opponent[defender]->position.y + 50;
 			//check if close enough 
 			if (hit && sqrt(pow(player_x - defender_x, 2) + pow(player_y - defender_y, 2)) <= 104) {
-				//cout << "2nd function called" << endl;
-				//stats_player->attacking = 1;
 				stats_player->choosing = 1;
-				//display board -> only subtract health if choose attack option
 				if (mouse_x > 590 && mouse_x < 831 && mouse_y > 680 && mouse_y < 830) {
-					//while (stats_player->choosing) {
 					//choosing attack
-						//cout << "running" << endl;
 						stats_opponent[defender]->hp -= 1;
 						stats_player->choosing = 0;
 						//stats_player->attacking = 0;
-						iterator++;
+						//iterator++;
 						if (stats_opponent[defender]->hp == 0) {
 							stats_opponent[defender]->isAlive = 0;
 							transform_opponent[defender]->position.x = 0;
 							transform_opponent[defender]->position.y = 1500;
-							//stats_opponent[defender]->entity->destroy();
+						}
+						while (1) {
+							iterator++;
+							turn = iterator % 6;
+							cout << "considering turn: " << turn << endl;
+							if (player[turn]->getComponent<StatsComponent>().isAlive) break;
 						}
 						hit = false;
 				}
 					else if (mouse_x > 952 && mouse_x < 1128 && mouse_y > 680 && mouse_y < 830) {
-						//stats_player->attacking = 0;
 						stats_player->choosing = 0;
 						hit = false;
 					}
-					//turn off option board;
-					//display = false;
-					//attack->clean();
 			}
-			//moveStart = 0;
-				//hit = false;
 		}
-		//gettime = true;
 		gettime = true;
 	}
 		

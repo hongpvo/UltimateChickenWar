@@ -30,6 +30,8 @@ TTF_Font* UCW::gFont=nullptr;
 //render texture
 //LoadTextureFromText gTextTexture;
 Popup attack("attack or not?",1500, 1728);
+Popup final1("Player 1 wins", 1500, 1728);
+Popup final2("Player 2 wins", 1500, 1728);
 
 
 //test manager
@@ -135,11 +137,6 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	
 	//player.addComponent<ColliderComponent>("player");
 
-	player2.addComponent<TransformComponent>(position[2][1], 1);
-	player2.addComponent<SpriteComponent>("assets/chicken1.png");
-	player2.addComponent<Keyboard_Controller>();
-	player2.addComponent<StatsComponent>(2);
-	
 	//player2.addComponent<Mouse_Controller>(2, manager);
 	//player1.addComponent<Mouse_Controller>(1, manager);
 	*/
@@ -180,6 +177,26 @@ void UCW::render() {
 	manager.draw();
 	
 	bool draw_allowing = false;
+	for (int i = 0; i < manager.returnlength(); i++) {
+		if (player[i]->getComponent<StatsComponent>().choosing) {
+			draw_allowing = true;
+			break;
+		}
+	}
+	int numPlayerAlive =0;
+	int numPlayer1 = 0;
+	int numPlayer2 = 0;
+	for (int i = 0; i < manager.returnlength(); i++) {
+		if (player[i]->getComponent<StatsComponent>().isAlive) {
+			if (player[i]->getComponent<StatsComponent>().side == 0) numPlayer1++;
+			else numPlayer2++;
+		}
+	}
+	if (numPlayer2 == 0) final1.draw();
+	if (numPlayer1 == 0) final2.draw();
+	final1.clean();
+	final2.clean();
+	
 	for (int i = 0; i < manager.returnlength(); i++) {
 		if (player[i]->getComponent<StatsComponent>().choosing) {
 			draw_allowing = true;
