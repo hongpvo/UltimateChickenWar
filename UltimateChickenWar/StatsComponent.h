@@ -12,8 +12,8 @@ public:
 	//bool isActive;
 	StatsComponent(int index, int a) {
 		hp = 3;
-		atk = 20;
-		def = 20;
+		atk = 1;
+		def = 3;
 		acc = 0.9;
 		player_num = index;
 		attacking = 0;

@@ -7,7 +7,8 @@
 #include "Popup.h"
 #include "Menu.h"
 
-
+extern int lv1[9][16];
+extern int lv2[9][16];
 Map* map;
 int map_test[9][16]= 
 { 2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -86,7 +87,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
 			position[row][column].h = 100;
-			position[row][column].w = 108;
+			position[row][column].w = 104;
 			if (row % 2 == 0) {
 				position[row][column].x = column * 104 ;
 				position[row][column].y = row * 100 - 32 * row ;
@@ -135,15 +136,6 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	player[0]->getComponent<StatsComponent>().myturn = true;
 	/*
 	//test ECS
-	player1.addComponent<TransformComponent>(position[1][1], 1);
-	player1.addComponent<SpriteComponent>("assets/chicken.png");
-	player1.addComponent<Keyboard_Controller>();
-	player1.addComponent<StatsComponent>(1);
-	
-	//player.addComponent<ColliderComponent>("player");
-
-	//player2.addComponent<Mouse_Controller>(2, manager);
-	//player1.addComponent<Mouse_Controller>(1, manager);
 	*/
 	//Debugfont
 	if (TTF_Init() == -1)
@@ -190,6 +182,7 @@ void UCW::render() {
 
 	if (checkmenu == true) {
 		attack.clean();
+		map->LoadMap(lv1, lv2);
 		map->DrawMap();
 		manager.draw();
 

@@ -11,6 +11,7 @@
 #include "Popup.h"
 using namespace std;
 extern SDL_Rect position[9][16];
+extern int lv2[9][16];
 int* find_mouseRC(int mouse_x, int mouse_y, SDL_Rect center_position[9][16]);
 
 void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][16], int map[9][16], Popup* attack) {
@@ -72,10 +73,6 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 		if (map[mouse_row][mouse_col] != 5 || stats_player->choosing) {
 			int count = 0;
 			static int defender = 0;
-			/*if (!(stats_player->isAlive)) {
-				iterator += 1;
-				goto here; 
-			}*/
 			for (int i = 0; i <= 4; i++) {
 				if ((opponent_col[i] != mouse_col || opponent_row[i] != mouse_row) && !(stats_player->choosing)) {
 					//cout << "opponent" << i << " col: " << opponent_col[i] << ", row: " << opponent_row[i] << endl;
@@ -101,6 +98,14 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 					else {
 						transform_player->position.x = mouse_col * 104 + 52;
 						transform_player->position.y = mouse_row * 68;
+					}
+					if (lv2[mouse_row][mouse_col] == 1) {
+						stats_player->atk++;
+						lv2[mouse_row][mouse_col] = 0;
+					}
+					if (lv2[mouse_row][mouse_col] == 2) {
+						stats_player->def++;
+						lv2[mouse_row][mouse_col] = 0;
 					}
 					//bool foundNextTurn = false;
 					while (1) {
@@ -134,9 +139,10 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 				stats_player->choosing = 1;
 				if (mouse_x > 590 && mouse_x < 831 && mouse_y > 680 && mouse_y < 830) {
 					//choosing attack
-						stats_opponent[defender]->hp -= 1;
+						stats_opponent[defender]->def -= stats_player->atk;
+						if (stats_opponent[defender]->def == 0) stats_opponent[defender]->hp -= 1;
 						stats_player->choosing = 0;
-						//stats_player->attacking = 0;
+						cout << "def: " << stats_opponent[defender]->def << ", hp: " << stats_opponent[defender]->hp << endl;
 						//iterator++;
 						if (stats_opponent[defender]->hp == 0) {
 							stats_opponent[defender]->isAlive = 0;
