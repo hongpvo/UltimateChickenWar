@@ -6,7 +6,7 @@ Menu::Menu() {
 Menu::~Menu() {
 
 }
-int Menu::show() {
+int Menu::show(std::string labels[2]) {
 	int h[2] = { 900,1500 };
 	int w[2] = { 1728,1728 };
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 60);

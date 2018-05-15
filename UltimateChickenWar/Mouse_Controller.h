@@ -139,8 +139,16 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 				stats_player->choosing = 1;
 				if (mouse_x > 590 && mouse_x < 831 && mouse_y > 680 && mouse_y < 830) {
 					//choosing attack
+					if (stats_opponent[defender]->def > 0) {
 						stats_opponent[defender]->def -= stats_player->atk;
-						if (stats_opponent[defender]->def == 0) stats_opponent[defender]->hp -= 1;
+						if (stats_opponent[defender]->def < 0) {
+							stats_opponent[defender]->hp += stats_opponent[defender]->def;
+						}
+					}
+						else if (stats_opponent[defender]->def == 0) stats_opponent[defender]->hp -= 1;
+						if (stats_opponent[defender]->hp < 0) {
+							stats_opponent[defender]->hp = 0;
+						}
 						stats_player->choosing = 0;
 						cout << "def: " << stats_opponent[defender]->def << ", hp: " << stats_opponent[defender]->hp << endl;
 						//iterator++;

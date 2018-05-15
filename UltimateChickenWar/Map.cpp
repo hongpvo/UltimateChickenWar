@@ -89,13 +89,13 @@ void Map::DrawMap() {
 			if (row % 2 == 0) {
 				dest.x = column * 104 ;
 				dest.y = row * 100 - 32 * row ;
-				dest.w = 104 ;
+				dest.w = 108 ;
 				dest.h = 100 ;
 			}
 			else {
 				dest.x = column * 104 + 52;
 				dest.y = row * 100 - 32 * row ;
-				dest.w = 104;
+				dest.w = 108;
 				dest.h = 100;
 			}
 			switch (type) {
@@ -128,13 +128,13 @@ void Map::DrawMap() {
 			if (row % 2 == 0) {
 				dest.x = column * 104 + 10;
 				dest.y = row * 100 - 32 * row + 20;
-				dest.w = 104/1.5;
+				dest.w = 108/1.5;
 				dest.h = 100/1.5;
 			}
 			else {
 				dest.x = column * 104 + 52 + 10;
 				dest.y = row * 100 - 32 * row + 20;
-				dest.w = 104 / 1.5;
+				dest.w = 108 / 1.5;
 				dest.h = 100 / 1.5;
 			}
 			switch (type) {

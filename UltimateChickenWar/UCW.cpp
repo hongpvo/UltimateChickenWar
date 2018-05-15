@@ -6,6 +6,7 @@
 #include "LoadTextureFromText.h"
 #include "Popup.h"
 #include "Menu.h"
+#include <string>
 
 extern int lv1[9][16];
 extern int lv2[9][16];
@@ -48,6 +49,9 @@ char* turn_indicator = { "assets/lowsnow.png" };
 
 
 Menu menu;
+std::string labels[2] = { "Start","Exit" };
+std::string labels2[2] = { "Restart","Exit" };
+bool endgame = false;
 
 UCW::UCW()
 {
@@ -168,12 +172,17 @@ void UCW::update() {
 void UCW::render() {
 	//cout << "length: " << manager.returnlength() << endl;
 	//this add stuffs to render
-
+	int i;
 	SDL_RenderClear(renderer);
 	if (checkmenu == false) { 
-		int i = menu.show(); 
-		if (i == 0) {
+		if (endgame == false) i = menu.show(labels);
+		else i = menu.show(labels2);
+		if (i == 0 && endgame == false) {
 			checkmenu = true;
+		}
+		else if (i == 0 && endgame == true) {
+			checkmenu = true;
+			//add restart later
 		}
 		else if (i == 2) {
 			isRunning = false;
@@ -202,10 +211,19 @@ void UCW::render() {
 				else numPlayer2++;
 			}
 		}
-		if (numPlayer2 == 0) final1.draw();
-		if (numPlayer1 == 0) final2.draw();
+		if (numPlayer2 == 0) {
+			final1.draw();
+			checkmenu = false;
+			endgame = true;
+		}
+		if (numPlayer1 == 0) {
+			final2.draw();
+			checkmenu = false;
+			endgame = true;
+		}
 		final1.clean();
 		final2.clean();
+		
 
 		for (int i = 0; i < manager.returnlength(); i++) {
 			if (player[i]->getComponent<StatsComponent>().choosing) {
@@ -226,6 +244,9 @@ void UCW::render() {
 		//	attack.draw();
 		//}
 		SDL_RenderPresent(renderer);
+		if (endgame == true) {
+			SDL_Delay(5000);
+		}
 	}
 	
 
