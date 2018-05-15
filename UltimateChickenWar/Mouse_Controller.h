@@ -107,7 +107,7 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 						iterator++;
 						turn = iterator % 6;
 						cout << "considering turn: " << turn << endl;
-						if (player[turn]->getComponent<StatsComponent>().isAlive) break;
+						if (player[turn]->getComponent<StatsComponent>().isAlive) goto here;
 						//iterator++;
 					}
 				}
@@ -147,7 +147,7 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 							iterator++;
 							turn = iterator % 6;
 							cout << "considering turn: " << turn << endl;
-							if (player[turn]->getComponent<StatsComponent>().isAlive) break;
+							if (player[turn]->getComponent<StatsComponent>().isAlive) goto here;
 						}
 						hit = false;
 				}

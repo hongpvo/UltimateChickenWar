@@ -5,6 +5,7 @@
 #include "Vector2D.h"
 #include "LoadTextureFromText.h"
 #include "Popup.h"
+#include "Menu.h"
 
 
 Map* map;
@@ -43,6 +44,10 @@ Entity* player[6];
 char* image[6] = { "assets/chicken.png", "assets/chicken1.png","assets/chicken.png", "assets/chicken1.png","assets/chicken.png", "assets/chicken1.png" };
 char* turn_indicator = { "assets/lowsnow.png" };
 //int position_ini[6][6] = { {1,1}, {2,2}, {3,3}, {4,4}, {5,5}, {6,6} };
+
+
+Menu menu;
+
 UCW::UCW()
 {
 }
@@ -169,54 +174,67 @@ void UCW::update() {
 };
 
 void UCW::render() {
-	attack.clean();
-	SDL_RenderClear(renderer);
 	//cout << "length: " << manager.returnlength() << endl;
 	//this add stuffs to render
-	map->DrawMap();
-	manager.draw();
-	
-	bool draw_allowing = false;
-	for (int i = 0; i < manager.returnlength(); i++) {
-		if (player[i]->getComponent<StatsComponent>().choosing) {
-			draw_allowing = true;
-			break;
+
+	SDL_RenderClear(renderer);
+	if (checkmenu == false) { 
+		int i = menu.show(); 
+		if (i == 0) {
+			checkmenu = true;
+		}
+		else if (i == 2) {
+			isRunning = false;
 		}
 	}
-	int numPlayerAlive =0;
-	int numPlayer1 = 0;
-	int numPlayer2 = 0;
-	for (int i = 0; i < manager.returnlength(); i++) {
-		if (player[i]->getComponent<StatsComponent>().isAlive) {
-			if (player[i]->getComponent<StatsComponent>().side == 0) numPlayer1++;
-			else numPlayer2++;
-		}
-	}
-	if (numPlayer2 == 0) final1.draw();
-	if (numPlayer1 == 0) final2.draw();
-	final1.clean();
-	final2.clean();
-	
-	for (int i = 0; i < manager.returnlength(); i++) {
-		if (player[i]->getComponent<StatsComponent>().choosing) {
-			draw_allowing = true;
-			break;
-		}
-	}
-	static bool running = false;
-	//if (draw_allowing && !running) {
-		if (draw_allowing){
-		attack.draw();
-		//cout << "drawing" << endl;
-		running = true;
-	}
+
+	if (checkmenu == true) {
 		attack.clean();
+		map->DrawMap();
+		manager.draw();
+
+		bool draw_allowing = false;
+		for (int i = 0; i < manager.returnlength(); i++) {
+			if (player[i]->getComponent<StatsComponent>().choosing) {
+				draw_allowing = true;
+				break;
+			}
+		}
+		int numPlayerAlive = 0;
+		int numPlayer1 = 0;
+		int numPlayer2 = 0;
+		for (int i = 0; i < manager.returnlength(); i++) {
+			if (player[i]->getComponent<StatsComponent>().isAlive) {
+				if (player[i]->getComponent<StatsComponent>().side == 0) numPlayer1++;
+				else numPlayer2++;
+			}
+		}
+		if (numPlayer2 == 0) final1.draw();
+		if (numPlayer1 == 0) final2.draw();
+		final1.clean();
+		final2.clean();
+
+		for (int i = 0; i < manager.returnlength(); i++) {
+			if (player[i]->getComponent<StatsComponent>().choosing) {
+				draw_allowing = true;
+				break;
+			}
+		}
+		static bool running = false;
+		//if (draw_allowing && !running) {
+		if (draw_allowing) {
+			attack.draw();
+			//cout << "drawing" << endl;
+			running = true;
+		}
+		attack.clean();
+
+		//if (player1.getComponent<StatsComponent>().attacking || player2.getComponent<StatsComponent>().attacking) {
+		//	attack.draw();
+		//}
+		SDL_RenderPresent(renderer);
+	}
 	
-	//if (player1.getComponent<StatsComponent>().attacking || player2.getComponent<StatsComponent>().attacking) {
-	//	attack.draw();
-	//}
-	
-	SDL_RenderPresent(renderer);
 
 };
 void UCW::clean() {

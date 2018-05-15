@@ -27,5 +27,7 @@ private:
 	bool isRunning;
 	int cnt = 0;
 	SDL_Window *window;
+	bool checkmenu = false;
+	
 
 };

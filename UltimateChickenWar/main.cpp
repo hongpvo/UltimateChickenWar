@@ -1,6 +1,11 @@
 #include "UCW.h"
 #include <iostream>
+#include <SDL_ttf.h>
+#include "Menu.h"
 UCW *game = nullptr;
+
+
+
 int main(int argc, char *args[]) {
 
 	const int FPS = 60;
@@ -11,6 +16,7 @@ int main(int argc, char *args[]) {
 
 	game = new UCW();
 	game->init("ULITMATE CHICKEN WAR", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1728, 900, false);
+
 	while (game->running()) {
 
 		frameStart = SDL_GetTicks();
