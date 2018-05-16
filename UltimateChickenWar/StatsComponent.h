@@ -1,11 +1,12 @@
 #pragma once
 #include "UCW.h"
 #include "ECS.h"
-#include "Component.h"
+//#include "Component.h"
 
 class StatsComponent : public Component {
 public:
-	double hp, atk, def, acc;
+	int hp, atk, def;
+	double acc;
 	int player_num; // health point, attack, defend, accuracy
 	bool attacking, isAlive, choosing, myturn;
 	int side;

@@ -7,6 +7,7 @@
 #include "Popup.h"
 #include "Menu.h"
 #include <string>
+#include "playerstats.h"
 
 extern int lv1[9][16];
 extern int lv2[9][16];
@@ -52,6 +53,8 @@ Menu menu;
 std::string labels[2] = { "Start","Exit" };
 std::string labels2[2] = { "Restart","Exit" };
 bool endgame = false;
+
+playerstats statsmenu;
 
 UCW::UCW()
 {
@@ -194,6 +197,7 @@ void UCW::render() {
 		map->LoadMap(lv1, lv2);
 		map->DrawMap();
 		manager.draw();
+		statsmenu.draw(&manager);
 
 		bool draw_allowing = false;
 		for (int i = 0; i < manager.returnlength(); i++) {
@@ -239,6 +243,7 @@ void UCW::render() {
 			running = true;
 		}
 		attack.clean();
+		statsmenu.clean();
 
 		//if (player1.getComponent<StatsComponent>().attacking || player2.getComponent<StatsComponent>().attacking) {
 		//	attack.draw();

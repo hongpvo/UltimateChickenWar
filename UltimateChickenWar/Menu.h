@@ -15,6 +15,4 @@ private:
 	bool selected[2] = { 0,0 };
 	SDL_Color color[2] = { { 0,0,0 },{ 255,0,0 } };
 	LoadTextureFromText menus[2];
-
-
 };
