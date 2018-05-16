@@ -4,13 +4,14 @@ playerstats::playerstats() {
 	for (int i = 0; i < 6; i++) {
 		src[i].x = 0;
 		src[i].y = 0;
-		src[i].w = 108;
-		src[i].h = 100;
+		src[i].w = 108/1.5;
+		src[i].h = 100/1.5;
 
-		dest[i].x = 0;
-		dest[i].y = 500;
-		dest[i].w = 108;
-		dest[i].h = 100;
+		if(i<3) dest[i].x = 0 ;
+		else dest[i].x = 1235;
+		dest[i].y = 710 + (i%3)* 50;
+		dest[i].w = 108/1.5;
+		dest[i].h = 100/1.5;
 	}
 }
 playerstats::~playerstats() {
@@ -19,8 +20,6 @@ playerstats::~playerstats() {
 void playerstats::draw(Manager* all_player_manager) {
 	for (int i = 0; i < 6; i++) {
 		player[i] = all_player_manager->getEntityList().at(i);
-	}
-	for (int i = 0; i < 6; i++) {
 		chicken[i] = TextureManager::LoadTexture(image[i]);
 		TextureManager::Draw(chicken[i], src[i], dest[i]);
 		//Open the font
@@ -32,7 +31,7 @@ void playerstats::draw(Manager* all_player_manager) {
 		std::string hp = std::to_string(stats_player->hp);
 		std::string def = std::to_string(stats_player->def);
 		std::string str;
-		str = "HP: " + hp + "     " + "ATK: " + atk + "     " + "DEF: " + def;
+		str = "HP: " + hp + "   " + "ATK: " + atk + "   " + "DEF: " + def;
 		playertext[i].loadFromRenderedText(str, textColor);
 		playertext[i].render((w[i] - playertext[i].getWidth()) / 2, (h[i] - playertext[i].getHeight()) / 2);
 	}
