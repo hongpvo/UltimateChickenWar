@@ -143,6 +143,7 @@ void Mouse_Controller(Manager* all_player_manager, SDL_Rect center_position[9][1
 						stats_opponent[defender]->def -= stats_player->atk;
 						if (stats_opponent[defender]->def < 0) {
 							stats_opponent[defender]->hp += stats_opponent[defender]->def;
+							stats_opponent[defender]->def = 0;
 						}
 					}
 						else if (stats_opponent[defender]->def == 0) stats_opponent[defender]->hp -= 1;

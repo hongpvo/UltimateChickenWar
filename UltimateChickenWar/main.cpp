@@ -10,10 +10,10 @@ int main(int argc, char *args[]) {
 
 	const int FPS = 60;
 	const int frameDelay = 1000 / FPS;
-
+reset:
 	Uint32 frameStart;
 	int frameTime;
-
+	
 	game = new UCW();
 	game->init("ULITMATE CHICKEN WAR", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1728, 900, false);
 
@@ -31,7 +31,12 @@ int main(int argc, char *args[]) {
 			SDL_Delay(frameDelay - frameTime);
 		}
 	}
+	bool restart = game->restart;
 	game->clean();
+	
+	delete game;
+	if (restart == true) goto reset;
+	
 	
 
 	return 0;

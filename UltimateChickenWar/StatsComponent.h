@@ -12,9 +12,9 @@ public:
 	int side;
 	//bool isActive;
 	StatsComponent(int index, int a) {
-		hp = 3;
+		hp = 0;
 		atk = 1;
-		def = 3;
+		def = 0;
 		acc = 0.9;
 		player_num = index;
 		attacking = 0;

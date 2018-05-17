@@ -14,7 +14,8 @@ public:
 	void clean();
 private:
 	int x, y;
-	SDL_Color color = { 0,0,0 };
+	SDL_Color color = { 255,0,0 };
+	SDL_Color textColor = { 0, 0, 0 };
 	LoadTextureFromText playertext[6];
 	SDL_Texture* chicken[6];
 	char* image[6] = { "assets/chicken.png", "assets/chicken.png","assets/chicken.png", "assets/chicken1.png","assets/chicken1.png", "assets/chicken1.png" };

@@ -44,6 +44,7 @@ Manager manager;
 //auto& player2(manager.addEntity());
 
 Entity* player[6];
+
 char* image[6] = { "assets/chicken.png", "assets/chicken1.png","assets/chicken.png", "assets/chicken1.png","assets/chicken.png", "assets/chicken1.png" };
 char* turn_indicator = { "assets/lowsnow.png" };
 //int position_ini[6][6] = { {1,1}, {2,2}, {3,3}, {4,4}, {5,5}, {6,6} };
@@ -52,7 +53,7 @@ char* turn_indicator = { "assets/lowsnow.png" };
 Menu menu;
 std::string labels[2] = { "Start","Exit" };
 std::string labels2[2] = { "Restart","Exit" };
-bool endgame = false;
+
 
 playerstats statsmenu;
 
@@ -87,8 +88,13 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		isRunning = false;
 
 	}
-
 	
+	for (int i = 0; i < manager.returnlength(); i++) {
+		player[i]->destroy();
+	}
+	manager.refresh();
+	manager.update();
+
 	map = new Map();
 	//getPosition
 	for (int row = 0; row < 9; row++) {
@@ -106,13 +112,23 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 
 		}
 	}
-
+	/*
 	position_ini[0] = position[0][0];
 	position_ini[1] = position[0][15];
 	position_ini[2] = position[1][0];
 	position_ini[3] = position[1][15];
 	position_ini[4] = position[2][0];
 	position_ini[5] = position[2][15];
+	*/
+
+	//test 
+	position_ini[0] = position[0][0];
+	position_ini[1] = position[0][1];
+	position_ini[2] = position[1][0];
+	position_ini[3] = position[1][1];
+	position_ini[4] = position[2][0];
+	position_ini[5] = position[2][1];
+
 
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
@@ -139,6 +155,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		player[i]->addComponent<SpriteComponent>(image[i], turn_indicator);
 		player[i]->addComponent<Keyboard_Controller>();
 		player[i]->addComponent<StatsComponent>(i, i%2);
+		
 	}
 	player[0]->getComponent<StatsComponent>().myturn = true;
 	/*
@@ -149,7 +166,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	{
 		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
 	}
-
+	std::cout<<"init passed"<<std::endl;
 }
 
 void UCW::handleEvents() {
@@ -186,6 +203,9 @@ void UCW::render() {
 		else if (i == 0 && endgame == true) {
 			checkmenu = true;
 			//add restart later
+			restart = true;
+			checkmenu = false;
+			isRunning = false;
 		}
 		else if (i == 2) {
 			isRunning = false;
@@ -198,11 +218,12 @@ void UCW::render() {
 		map->DrawMap();
 		manager.draw();
 		statsmenu.draw(&manager);
-
+		
 		bool draw_allowing = false;
 		for (int i = 0; i < manager.returnlength(); i++) {
 			if (player[i]->getComponent<StatsComponent>().choosing) {
 				draw_allowing = true;
+				
 				break;
 			}
 		}
@@ -213,6 +234,7 @@ void UCW::render() {
 			if (player[i]->getComponent<StatsComponent>().isAlive) {
 				if (player[i]->getComponent<StatsComponent>().side == 0) numPlayer1++;
 				else numPlayer2++;
+		
 			}
 		}
 		if (numPlayer2 == 0) {
@@ -250,7 +272,7 @@ void UCW::render() {
 		//}
 		SDL_RenderPresent(renderer);
 		if (endgame == true) {
-			SDL_Delay(5000);
+			SDL_Delay(1000);
 		}
 	}
 	

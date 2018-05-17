@@ -9,6 +9,7 @@ class UCW
 public:
 	UCW();
 	~UCW();
+	
 
 	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
 
@@ -21,13 +22,20 @@ public:
 	static TTF_Font *gFont;
 	static SDL_Renderer* renderer;
 	static SDL_Event event;
+
+	bool restart = false;
 	
 	bool running() { return isRunning; };
+
+
+
 private:
 	bool isRunning;
 	int cnt = 0;
 	SDL_Window *window;
 	bool checkmenu = false;
+	bool endgame = false;
+
 	
 
 };
