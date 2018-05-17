@@ -28,7 +28,7 @@ playerstats::playerstats() {
 	rboxsrc.w = 500;
 	rboxsrc.h = 400;
 
-	rboxdes.x = 1235;
+	rboxdes.x = 1225;
 	rboxdes.y = 700;
 	rboxdes.w = 500;
 	rboxdes.h = 400;
