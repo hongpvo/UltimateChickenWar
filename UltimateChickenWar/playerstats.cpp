@@ -41,18 +41,20 @@ void playerstats::draw(Manager* all_player_manager) {
 	sbox = TextureManager::LoadTexture("assets/sbox.png");
 	TextureManager::Draw(sbox,lboxsrc,lboxdes);
 	TextureManager::Draw(sbox,rboxsrc,rboxdes);
+	//Open the font
+	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 30);
 	for (int i = 0; i < 6; i++) {
 		player[i] = all_player_manager->getEntityList().at(i);
 		chicken[i] = TextureManager::LoadTexture(image[i]);
 		TextureManager::Draw(chicken[i], src[i], dest[i]);
-		//Open the font
-		UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 30);
+		
 		//Render text
 		
 		stats_player = &player[i]->getComponent<StatsComponent>();
 		std::string atk = std::to_string(stats_player->atk);
 		std::string hp = std::to_string(stats_player->hp);
 		std::string def = std::to_string(stats_player->def);
+		bool myturn = stats_player->myturn;
 		std::string str;
 		if (stats_player->isAlive == 0) {
 			str = "DEAD";
@@ -60,7 +62,10 @@ void playerstats::draw(Manager* all_player_manager) {
 		}
 		else {
 			str = "HP: " + hp + "   " + "ATK: " + atk + "   " + "DEF: " + def;
+			if (myturn == false)
 			playertext[i].loadFromRenderedText(str, textColor);
+			else 
+			playertext[i].loadFromRenderedText(str, color);
 		}
 		playertext[i].render((w[i] - playertext[i].getWidth()) / 2, (h[i] - playertext[i].getHeight()) / 2);
 	}
