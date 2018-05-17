@@ -4,12 +4,13 @@ Menu::Menu() {
 
 }
 Menu::~Menu() {
-
+//	SDL_DestroyTexture(background);
 }
 int Menu::show(std::string labels[2]) {
-	int h[2] = { 900,1500 };
+	int h[2] = { 1100,1500 };
 	int w[2] = { 1728,1728 };
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 60);
+	//TextureManager::Draw(background, src, dest);
 	menus[0].loadFromRenderedText(labels[0], color[0]);
 	menus[1].loadFromRenderedText(labels[1], color[0]);
 	menus[0].render((w[0] - menus[0].getWidth()) / 2, (h[0] - menus[0].getHeight()) / 2);
@@ -17,8 +18,8 @@ int Menu::show(std::string labels[2]) {
 	std::cout << "menu Rendered" << std::endl;
 	int orx[2] = { 769,769 };
 	int dex[2] = { 964,964 };
-	int ory[2] = { 414,716 };
-	int dey[2] = { 471,768 };
+	int ory[2] = { 517,716 };
+	int dey[2] = { 569,768 };
 		
 		while (1)
 		{
@@ -58,6 +59,9 @@ int Menu::show(std::string labels[2]) {
 					}
 					break;
 				case SDL_MOUSEBUTTONDOWN:
+					//int mx, my;
+					//SDL_GetMouseState(&mx, &my);
+					//std::cout << "X :" << mx << "  Y: " << my << std::endl;
 					x = UCW::event.button.x;
 					y = UCW::event.button.y;
 					for (int i = 0; i < 2; i += 1) {

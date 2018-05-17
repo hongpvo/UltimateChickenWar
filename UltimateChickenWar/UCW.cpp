@@ -53,10 +53,8 @@ char* turn_indicator = { "assets/lowsnow.png" };
 Menu menu;
 std::string labels[2] = { "Start","Exit" };
 std::string labels2[2] = { "Restart","Exit" };
-
-
 playerstats statsmenu;
-
+SDL_Texture* background;
 UCW::UCW()
 {
 }
@@ -67,6 +65,11 @@ UCW::~UCW()
 }
 
 void UCW::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
+
+
+
+
+
 	int flags = 0;
 	if (fullscreen) {
 		flags = SDL_WINDOW_FULLSCREEN;
@@ -79,7 +82,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		}
 		renderer = SDL_CreateRenderer(window, -1, 0);
 		if (renderer) {
-			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 			std::cout << "Renderer created!" << std::endl;
 		}
 		isRunning = true;
@@ -88,6 +91,12 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		isRunning = false;
 
 	}
+	// draw background
+
+
+
+
+
 	
 	for (int i = 0; i < manager.returnlength(); i++) {
 		player[i]->destroy();
@@ -190,10 +199,21 @@ void UCW::update() {
 };
 
 void UCW::render() {
+	background = TextureManager::LoadTexture("assets/island/background.png"); //3d - Dot - Heroes4
+	SDL_Rect src, dest;
+	src.x = 0;
+	src.y = 0;
+	src.w = 1728;
+	src.h = 900;
+	dest.x = 0;
+	dest.y = 0;
+	dest.w = 1728;
+	dest.h = 900;
+	SDL_RenderClear(renderer);
+	TextureManager::Draw(background, src, dest);
 	//cout << "length: " << manager.returnlength() << endl;
 	//this add stuffs to render
 	int i;
-	SDL_RenderClear(renderer);
 	if (checkmenu == false) { 
 		if (endgame == false) i = menu.show(labels);
 		else i = menu.show(labels2);
@@ -202,7 +222,7 @@ void UCW::render() {
 		}
 		else if (i == 0 && endgame == true) {
 			checkmenu = true;
-			//add restart later
+			//restart
 			restart = true;
 			checkmenu = false;
 			isRunning = false;
@@ -275,14 +295,15 @@ void UCW::render() {
 			SDL_Delay(1000);
 		}
 	}
-	
+	SDL_DestroyTexture(background);
 
 };
 void UCW::clean() {
-	//attack.clean();
+	statsmenu.clean();
 	attack.clean();
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
+	SDL_DestroyTexture(background);
 	SDL_Quit();
 	IMG_Quit();
 	TTF_Quit();

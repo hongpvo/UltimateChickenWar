@@ -40,6 +40,7 @@ Map::Map() {
 	sword = TextureManager::LoadTexture("assets/sword.png");
 	shield = TextureManager::LoadTexture("assets/shield.png");
 	
+	
 	LoadMap(lv1, lv2);
 	src.x = 0;
 	src.y = 0;
@@ -61,8 +62,10 @@ Map::~Map() {
 	SDL_DestroyTexture(pyah);
 	SDL_DestroyTexture(sword);
 	SDL_DestroyTexture(shield);
+
 }
 void Map::LoadMap(int arr[9][16], int arr2[9][16]) {
+	
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
 			map[row][column] = arr[row][column];

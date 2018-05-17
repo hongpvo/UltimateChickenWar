@@ -13,11 +13,34 @@ playerstats::playerstats() {
 		dest[i].w = 108/1.5;
 		dest[i].h = 100/1.5;
 	}
+	lboxsrc.x = 0;
+	lboxsrc.y = 0;
+	lboxsrc.w = 500;
+	lboxsrc.h = 400;
+	
+	lboxdes.x = 0;
+	lboxdes.y = 700;
+	lboxdes.w = 500;
+	lboxdes.h = 400;
+
+	rboxsrc.x = 0;
+	rboxsrc.y = 0;
+	rboxsrc.w = 500;
+	rboxsrc.h = 400;
+
+	rboxdes.x = 1235;
+	rboxdes.y = 700;
+	rboxdes.w = 500;
+	rboxdes.h = 400;
+
 }
 playerstats::~playerstats() {
 
 }
 void playerstats::draw(Manager* all_player_manager) {
+	sbox = TextureManager::LoadTexture("assets/sbox.png");
+	TextureManager::Draw(sbox,lboxsrc,lboxdes);
+	TextureManager::Draw(sbox,rboxsrc,rboxdes);
 	for (int i = 0; i < 6; i++) {
 		player[i] = all_player_manager->getEntityList().at(i);
 		chicken[i] = TextureManager::LoadTexture(image[i]);
@@ -49,5 +72,6 @@ void playerstats::clean() {
 		SDL_DestroyTexture(chicken[i]);
 	}
 	TTF_CloseFont(UCW::gFont);
+	SDL_DestroyTexture(sbox);
 	UCW::gFont = NULL;
 }

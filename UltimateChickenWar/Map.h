@@ -23,6 +23,7 @@ private:
 	SDL_Texture* pyah;
 	SDL_Texture* sword;
 	SDL_Texture* shield;
+	//SDL_Texture* background;
 
 	int map[9][16];
 	int itemMap[9][16];
