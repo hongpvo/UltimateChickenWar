@@ -46,7 +46,8 @@ Manager manager;
 Entity* player[6];
 
 char* image[6] = { "assets/chicken.png", "assets/chicken1.png","assets/chicken.png", "assets/chicken1.png","assets/chicken.png", "assets/chicken1.png" };
-char* turn_indicator = { "assets/lowsnow.png" };
+char* turn_indicator = { "assets/turn_indicator.png" };
+char* range_indicator = { "assets/range_indicator.png" };
 //int position_ini[6][6] = { {1,1}, {2,2}, {3,3}, {4,4}, {5,5}, {6,6} };
 
 
@@ -93,11 +94,6 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	}
 	// draw background
 
-
-
-
-
-	
 	for (int i = 0; i < manager.returnlength(); i++) {
 		player[i]->destroy();
 	}
@@ -161,7 +157,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	for (int i = 0; i <= 5; i++) {
 		player[i] = &manager.addEntity();
 		player[i]->addComponent<TransformComponent>(position_ini[i], 1);
-		player[i]->addComponent<SpriteComponent>(image[i], turn_indicator);
+		player[i]->addComponent<SpriteComponent>(image[i], turn_indicator, range_indicator);
 		player[i]->addComponent<Keyboard_Controller>();
 		player[i]->addComponent<StatsComponent>(i, i%2);
 		
@@ -186,7 +182,7 @@ void UCW::handleEvents() {
 		isRunning = false;
 		break;
 	case SDL_MOUSEBUTTONDOWN:
-		Mouse_Controller(&manager, center_position, map_test, &attack);
+		Mouse_Controller(&manager, map_test, &attack);
 		break;
 	default:
 		break;
