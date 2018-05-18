@@ -5,6 +5,140 @@
 #include <algorithm>
 #include <bitset>
 #include <array>
+using namespace std;
+class Component;
+class Entity;
+
+class Component {
+
+public:
+	Entity * entity;
+	virtual void init() {};
+	virtual void update() {};
+	virtual void draw() {};
+
+	virtual ~Component() {};
+
+};
+
+class Entity {
+private:
+	bool active = true;
+	int index = 0;
+	
+	Component* components[4];
+	
+public:
+	void update()
+	{
+		for (int i = 0; i < 4; i++ ) {
+			components[i]->update();
+		}
+
+	}
+	void draw() {
+		for (int i = 0; i < 4; i++) {
+			components[i]->draw();
+		}
+	}
+
+	bool isActive() { return active; }
+	void destroy() {
+		active = false;
+	}
+
+	
+
+	template <typename T, typename... TArgs>
+	T& addComponent(TArgs... mArgs) {
+		T*c = new T(mArgs...);
+		c->entity = this;
+		Component* uPtr = c;
+		components[index] = uPtr;
+		getComponentTypeID<T>();
+		
+		
+		index++;
+		c->init();
+		return *c;
+	}
+
+	template<typename T> T& getComponent() {
+		auto ptr = components[getComponentTypeID<T>()];
+		return *static_cast<T*>(ptr);
+	}
+
+	template <typename T> int getComponentTypeID() {
+		//static int typeID = getComponentTypeID();
+		static int typeID = index;
+		return typeID;
+	}
+
+};
+
+class Manager {
+private:
+	Entity ** entities;
+	int index = 0;
+public:
+	friend void UCW::init(const char* , int, int , int , int , bool);
+	void update() {
+		for (int i = 0; i < returnlength(); i++) {
+			if (entities[i]!=NULL) entities[i]->update();
+		}
+	}
+	void draw() {
+		for (int i = 0; i < returnlength(); i++) {
+			if (entities[i] != NULL) entities[i]->draw();
+		}
+	}
+	void refresh() {
+		
+		for (int i = 0; i < returnlength(); i++) {
+			if (entities[i] != NULL) {
+				if (!(entities[i]->isActive())) entities[i] = NULL;
+			}
+		}
+	}
+
+	Entity& addEntity() {
+		Entity* e = new Entity();
+		Entity* uPtr{ e };
+		index++;
+		Entity** entities_temp = new Entity*[index];
+		for (int i = 0; i < index - 1; i++) {
+			entities_temp[i] = entities[i];
+		}
+		entities_temp[index - 1] = uPtr;
+		delete[] entities;
+		entities = new Entity*[index];
+		entities = entities_temp;
+		return *e;
+
+	}
+
+	Entity** getEntityList() {
+		return entities;
+	}
+	int returnlength() {
+		int numEntities=0;
+		for (int i = 0; i <= index-1; i++) {
+			if (entities[i] != NULL) numEntities++;
+		}
+		return numEntities;
+	}
+
+	
+};
+
+/*
+#pragma once
+#include<iostream>
+#include <vector>
+#include <memory>
+#include <algorithm>
+#include <bitset>
+#include <array>
 
 class Component;
 class Entity;
@@ -120,3 +254,4 @@ public:
 		return size(entities);
 	}
 };
+*/

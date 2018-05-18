@@ -20,12 +20,14 @@ int mouse_center_x;
 int mouse_center_y;
 int mouse_x, mouse_y, mouse_row, mouse_col;
 int player_row, player_col, player_range;
+static bool first_time = true;
 
 void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attack) {
 	here:
 	Entity* player[6];
-	static bool first_time = true;
+	
 	static int iterator = 0;
+	if (first_time) iterator = 0;
 	static int turn;  //which player to move
 	static Uint32 moveStart;
 	static Uint32 moveTime;
@@ -49,7 +51,8 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attac
 	cout << "turn: " << turn << endl;
 	int j = 0;
 	for (int i = 0; i < 6; i++) {
-		player[i] = all_player_manager->getEntityList().at(i);
+		//player[i] = all_player_manager->getEntityList().at(i);
+		player[i] = (all_player_manager->getEntityList())[i];
 		if (i == turn) {//for player
 			transform_player = &player[i]->getComponent<TransformComponent>();
 			stats_player = &player[i]->getComponent<StatsComponent>();
@@ -164,7 +167,6 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attac
 							stats_opponent[defender]->hp = 0;
 						}
 						stats_player->choosing = 0;
-						cout << "def: " << stats_opponent[defender]->def << ", hp: " << stats_opponent[defender]->hp << endl;
 						//iterator++;
 						if (stats_opponent[defender]->hp == 0) {
 							stats_opponent[defender]->isAlive = 0;

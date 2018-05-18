@@ -66,11 +66,6 @@ UCW::~UCW()
 }
 
 void UCW::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
-
-
-
-
-
 	int flags = 0;
 	if (fullscreen) {
 		flags = SDL_WINDOW_FULLSCREEN;
@@ -93,13 +88,15 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 
 	}
 	// draw background
-
+	
 	for (int i = 0; i < manager.returnlength(); i++) {
 		player[i]->destroy();
 	}
+	manager.index = 0;
 	manager.refresh();
+	cout << "run to here " << endl;
 	manager.update();
-
+	first_time = true;
 	map = new Map();
 	//getPosition
 	for (int row = 0; row < 9; row++) {
@@ -163,9 +160,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		
 	}
 	player[0]->getComponent<StatsComponent>().myturn = true;
-	/*
-	//test ECS
-	*/
+	
 	//Debugfont
 	if (TTF_Init() == -1)
 	{
@@ -253,6 +248,7 @@ void UCW::render() {
 		
 			}
 		}
+
 		if (numPlayer2 == 0) {
 			final1.draw();
 			checkmenu = false;

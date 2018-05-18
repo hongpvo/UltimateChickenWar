@@ -1,5 +1,6 @@
 #include "playerstats.h"
 
+
 playerstats::playerstats() {
 	for (int i = 0; i < 6; i++) {
 		src[i].x = 0;
@@ -44,7 +45,8 @@ void playerstats::draw(Manager* all_player_manager) {
 	//Open the font
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 30);
 	for (int i = 0; i < 6; i++) {
-		player[i] = all_player_manager->getEntityList().at(i);
+		//player[i] = all_player_manager->getEntityList().at(i);
+		player[i] = (all_player_manager->getEntityList())[i];
 		chicken[i] = TextureManager::LoadTexture(image[i]);
 		TextureManager::Draw(chicken[i], src[i], dest[i]);
 		

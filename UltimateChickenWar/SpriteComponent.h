@@ -5,10 +5,10 @@
 #include "StatsComponent.h"
 #include "SDL.h"
 #include "TextureManager.h"
-
+#include "Map.h"
 #include <iostream>
 using namespace std;
-
+extern int lv1[9][16];
 extern SDL_Rect position[9][16];
 extern SDL_Rect center_position[9][16];
 class SpriteComponent : public Component
@@ -60,13 +60,11 @@ public:
 	}
 	void draw() override {
 		find_mouseCenter();
-		cout << "mouse_row: " << mouse_row << "mouse_col: " << mouse_col << endl;
 		if (indicator_allowing) {
 			TextureManager::Draw(turn_indicator, srcRect, destRect);
 			player_x = transform->position.x + 52;
 			player_y = transform->position.y + 50;
-			if (sqrt(pow(player_x - mouse_center_x, 2) + pow(player_y - mouse_center_y, 2)) <= (entity->getComponent<StatsComponent>()).range * 104 ) {
-				cout << " ok to move" << endl;
+			if (sqrt(pow(player_x - mouse_center_x, 2) + pow(player_y - mouse_center_y, 2)) <= (entity->getComponent<StatsComponent>()).range * 104 && lv1[mouse_row][mouse_col]!=5) {
 				if (mouse_row % 2 == 0) {
 					destRect1.x = mouse_col * 104;
 					destRect1.y = mouse_row * 68;
