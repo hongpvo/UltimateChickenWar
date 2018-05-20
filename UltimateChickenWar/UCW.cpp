@@ -8,6 +8,7 @@
 #include "Menu.h"
 #include <string>
 #include "playerstats.h"
+#include "NameInput.h"
 
 extern int lv1[9][16];
 extern int lv2[9][16];
@@ -37,6 +38,8 @@ Popup attack("attack or not?",1500, 1728);
 Popup final1("Player 1 wins", 1500, 1728);
 Popup final2("Player 2 wins", 1500, 1728);
 
+NameInput player1("player 1");
+NameInput player2("player 2");
 
 //test manager
 Manager manager;
@@ -45,7 +48,7 @@ Manager manager;
 
 Entity* player[6];
 
-char* image[6] = { "assets/chicken.png", "assets/chicken1.png","assets/chicken.png", "assets/chicken1.png","assets/chicken.png", "assets/chicken1.png" };
+char* image[6] = { "assets/character/chicken_warrior.png", "assets/character/chicken_warrior2.png","assets/character/chicken_acher.png", "assets/character/chicken_acher2.png","assets/character/chicken_tank.png", "assets/character/chicken_tank2.png" };
 char* turn_indicator = { "assets/turn_indicator.png" };
 char* range_indicator = { "assets/range_indicator.png" };
 //int position_ini[6][6] = { {1,1}, {2,2}, {3,3}, {4,4}, {5,5}, {6,6} };
@@ -56,6 +59,7 @@ std::string labels[2] = { "Start","Exit" };
 std::string labels2[2] = { "Restart","Exit" };
 playerstats statsmenu;
 SDL_Texture* background;
+
 UCW::UCW()
 {
 }
@@ -224,67 +228,85 @@ void UCW::render() {
 	}
 
 	if (checkmenu == true) {
-		attack.clean();
-		map->LoadMap(lv1, lv2);
-		map->DrawMap();
-		manager.draw();
-		statsmenu.draw(&manager);
-		
-		bool draw_allowing = false;
-		for (int i = 0; i < manager.returnlength(); i++) {
-			if (player[i]->getComponent<StatsComponent>().choosing) {
-				draw_allowing = true;
-				
-				break;
-			}
+		if (j1 == 0) {
+			j1 = player1.handle_input();
+			playerwin1 = player1.getName();
+			player1.clean();
+			//SDL_RenderClear(renderer);
 		}
-		int numPlayerAlive = 0;
-		int numPlayer1 = 0;
-		int numPlayer2 = 0;
-		for (int i = 0; i < manager.returnlength(); i++) {
-			if (player[i]->getComponent<StatsComponent>().isAlive) {
-				if (player[i]->getComponent<StatsComponent>().side == 0) numPlayer1++;
-				else numPlayer2++;
-		
-			}
+		else if (j2 == 0){
+			j2 = player2.handle_input();
+			playerwin2 = player2.getName();
+			player2.clean();
+			//SDL_RenderClear(renderer);
 		}
+		if (j2 == 1) {
+			attack.clean();
+			map->LoadMap(lv1, lv2);
+			map->DrawMap();
+			manager.draw();
+			statsmenu.draw(&manager);
 
-		if (numPlayer2 == 0) {
-			final1.draw();
-			checkmenu = false;
-			endgame = true;
-		}
-		if (numPlayer1 == 0) {
-			final2.draw();
-			checkmenu = false;
-			endgame = true;
-		}
-		final1.clean();
-		final2.clean();
-		
+			bool draw_allowing = false;
+			for (int i = 0; i < manager.returnlength(); i++) {
+				if (player[i]->getComponent<StatsComponent>().choosing) {
+					draw_allowing = true;
 
-		for (int i = 0; i < manager.returnlength(); i++) {
-			if (player[i]->getComponent<StatsComponent>().choosing) {
-				draw_allowing = true;
-				break;
+					break;
+				}
 			}
-		}
-		static bool running = false;
-		//if (draw_allowing && !running) {
-		if (draw_allowing) {
-			attack.draw();
-			//cout << "drawing" << endl;
-			running = true;
-		}
-		attack.clean();
-		statsmenu.clean();
+			int numPlayerAlive = 0;
+			int numPlayer1 = 0;
+			int numPlayer2 = 0;
+			for (int i = 0; i < manager.returnlength(); i++) {
+				if (player[i]->getComponent<StatsComponent>().isAlive) {
+					if (player[i]->getComponent<StatsComponent>().side == 0) numPlayer1++;
+					else numPlayer2++;
 
-		//if (player1.getComponent<StatsComponent>().attacking || player2.getComponent<StatsComponent>().attacking) {
-		//	attack.draw();
-		//}
-		SDL_RenderPresent(renderer);
-		if (endgame == true) {
-			SDL_Delay(1000);
+				}
+			}
+
+			if (numPlayer2 == 0) {
+				playerwin1 = playerwin1 + " win!";
+				Popup final1(playerwin1, 1500, 1728);
+				final1.draw();
+				checkmenu = false;
+				endgame = true;
+			}
+			if (numPlayer1 == 0) {
+				playerwin2 = playerwin2 + " win!";
+				Popup final2(playerwin2, 1500, 1728);
+				final2.draw();
+				checkmenu = false;
+				endgame = true;
+			}
+			final1.clean();
+			final2.clean();
+
+
+			for (int i = 0; i < manager.returnlength(); i++) {
+				if (player[i]->getComponent<StatsComponent>().choosing) {
+					draw_allowing = true;
+					break;
+				}
+			}
+			static bool running = false;
+			//if (draw_allowing && !running) {
+			if (draw_allowing) {
+				attack.draw();
+				//cout << "drawing" << endl;
+				running = true;
+			}
+			attack.clean();
+			statsmenu.clean();
+
+			//if (player1.getComponent<StatsComponent>().attacking || player2.getComponent<StatsComponent>().attacking) {
+			//	attack.draw();
+			//}
+			SDL_RenderPresent(renderer);
+			if (endgame == true) {
+				SDL_Delay(1000);
+			}
 		}
 	}
 	SDL_DestroyTexture(background);

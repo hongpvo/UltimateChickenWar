@@ -20,7 +20,7 @@ private:
 	LoadTextureFromText playertext[6];
 	SDL_Texture* chicken[6];
 	SDL_Texture* sbox;
-	char* image[6] = { "assets/chicken.png", "assets/chicken.png","assets/chicken.png", "assets/chicken1.png","assets/chicken1.png", "assets/chicken1.png" };
+	char* image[6] = { "assets/character/chicken_warrior.png", "assets/character/chicken_acher.png","assets/character/chicken_tank.png", "assets/character/chicken_warrior2.png","assets/character/chicken_acher2.png", "assets/character/chicken_tank2.png" };
 	Entity* player[6];
 	StatsComponent* stats_player;
 	SDL_Rect src[6];

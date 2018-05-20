@@ -35,7 +35,9 @@ private:
 	SDL_Window *window;
 	bool checkmenu = false;
 	bool endgame = false;
-
+	int j1 = 0;
+	int j2 = 0;
+	std::string playerwin1, playerwin2;
 	
 
 };

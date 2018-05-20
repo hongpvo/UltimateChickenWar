@@ -8,8 +8,8 @@ playerstats::playerstats() {
 		src[i].w = 108/1.5;
 		src[i].h = 100/1.5;
 
-		if(i<3) dest[i].x = 0 ;
-		else dest[i].x = 1235;
+		if(i<3) dest[i].x = -10 ;
+		else dest[i].x = 1225;
 		dest[i].y = 710 + (i%3)* 50;
 		dest[i].w = 108/1.5;
 		dest[i].h = 100/1.5;

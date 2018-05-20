@@ -42,6 +42,9 @@
     <ClCompile Include="playerstats.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="NameInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ECS.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="playerstats.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NameInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

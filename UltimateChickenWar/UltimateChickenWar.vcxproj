@@ -120,6 +120,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="NameInput.cpp" />
     <ClCompile Include="playerstats.cpp" />
     <ClCompile Include="Popup.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Mouse_Controller.h" />
+    <ClInclude Include="NameInput.h" />
     <ClInclude Include="playerstats.h" />
     <ClInclude Include="Popup.h" />
     <ClInclude Include="SpriteComponent.h" />
