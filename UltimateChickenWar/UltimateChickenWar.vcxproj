@@ -130,7 +130,6 @@
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="ECS.h" />
-    <ClInclude Include="Keyboard_Controller.h" />
     <ClInclude Include="LoadTextureFromText.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
