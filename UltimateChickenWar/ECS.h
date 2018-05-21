@@ -1,10 +1,7 @@
 #pragma once
 #include<iostream>
-#include <vector>
-#include <memory>
-#include <algorithm>
-#include <bitset>
-#include <array>
+
+
 using namespace std;
 class Component;
 class Entity;
@@ -64,12 +61,12 @@ public:
 	}
 
 	template<typename T> T& getComponent() {
-		auto ptr = components[getComponentTypeID<T>()];
-		return *static_cast<T*>(ptr);
+		Component* ptr = components[getComponentTypeID<T>()];
+		return *dynamic_cast<T*>(ptr);
 	}
 
 	template <typename T> int getComponentTypeID() {
-		//static int typeID = getComponentTypeID();
+
 		static int typeID = index;
 		return typeID;
 	}

@@ -91,11 +91,11 @@ int NameInput::handle_input() {
 			gInput.render((1728 - gInput.getWidth()) / 2, (900 - gInput.getHeight()+60) / 2);
 			SDL_RenderPresent(UCW::renderer);
 			
-			if (event.type = SDL_KEYDOWN) {
+			if (event.type = SDL_KEYDOWN && event.key.repeat==0) {
 				if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_KP_ENTER) {
 					end = true;
 					if (name.length()==0) name = temp;
-					SDL_Delay(100);
+					//SDL_Delay(100);
 				}
 			}
 
