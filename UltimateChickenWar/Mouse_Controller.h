@@ -13,19 +13,17 @@ using namespace std;
 extern SDL_Rect position[9][16];
 extern int lv2[9][16];
 extern SDL_Rect center_position[9][16];
-int* find_mouseRC(int mouse_x, int mouse_y);
-void find_mouseCenter(int &mouse_x, int &mouse_y);
+int* find_mouseRC(int, int);
+void find_mouseCenter(int&, int &, int &, int &, int &, int &);
 int player_x, player_y;
-int mouse_center_x;
-int mouse_center_y;
-int mouse_x, mouse_y, mouse_row, mouse_col;
+
 int player_row, player_col, player_range;
 static bool first_time = true;
 
 void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attack) {
 	here:
 	Entity* player[6];
-	
+	int mouse_x, mouse_y, mouse_row, mouse_col, mouse_center_y, mouse_center_x;
 	static int iterator = 0;
 	if (first_time) iterator = 0;
 	static int turn;  //which player to move
@@ -69,15 +67,12 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attac
 			transform_opponent[j]->getPosition();
 			opponent_row[j] = transform_opponent[j]->posRow;
 			opponent_col[j] = transform_opponent[j]->posCol;
-			//cout << "opponent" << j << " col: " << opponent_col[j] << ", row: " << opponent_row[j] << endl;
 			j++;
 		}
 	}
 	
 	SDL_GetMouseState(&mouse_x, &mouse_y);
-	find_mouseCenter(mouse_x, mouse_y);
-	//mouse_row = find_mouseRC(mouse_x, mouse_y, center_position)[0];
-	//mouse_col = find_mouseRC(mouse_x, mouse_y, center_position)[1];
+	find_mouseCenter(mouse_x, mouse_y, mouse_col, mouse_row, mouse_center_x, mouse_center_y);
 	
 	moveTime = SDL_GetTicks() - moveStart;
  	//turn-based algorithm
@@ -88,11 +83,9 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attac
 			static int defender = 0;
 			for (int i = 0; i <= 4; i++) {
 				if ((opponent_col[i] != mouse_col || opponent_row[i] != mouse_row) && !(stats_player->choosing)) {
-					//cout << "opponent" << i << " col: " << opponent_col[i] << ", row: " << opponent_row[i] << endl;
 					count++;
 				}
 			}
-			//cout << "mouse_col " << mouse_col << " ,mouse row " << mouse_row << endl;
 			player_x = transform_player->position.x + 52;
 			player_y = transform_player->position.y + 50;
 			
@@ -120,29 +113,22 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attac
 						stats_player->def++;
 						lv2[mouse_row][mouse_col] = 0;
 					}
-					//bool foundNextTurn = false;
 					while (1) {
 						iterator++;
 						turn = iterator % 6;
-						cout << "considering turn: " << turn << endl;
 						if (player[turn]->getComponent<StatsComponent>().isAlive) {
 							gettime = true;
 							goto here;
 						}
-						//iterator++;
 					}
 				}
 			}
 
-
-			
 			static bool hit = false;
 			//count < 5 means mouse position = defender's position -->attack turn on
 			for (int i = 0; i <= 4; i++) {
 				if (mouse_col == opponent_col[i] && mouse_row == opponent_row[i]){
-					//cout << "called" << endl;
 					defender = i;
-					cout << "defender: " << defender << endl;
 					hit = true;
 					
 				}
@@ -167,7 +153,6 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attac
 							stats_opponent[defender]->hp = 0;
 						}
 						stats_player->choosing = 0;
-						//iterator++;
 						if (stats_opponent[defender]->hp == 0) {
 							stats_opponent[defender]->isAlive = 0;
 							transform_opponent[defender]->position.x = 0;
@@ -176,7 +161,6 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attac
 						while (1) {
 							iterator++;
 							turn = iterator % 6;
-							cout << "considering turn: " << turn << endl;
 							if (player[turn]->getComponent<StatsComponent>().isAlive) goto here;
 						}
 						hit = false;
@@ -191,10 +175,7 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attac
 	}
 		
 }
-//}
 
-
-//int* find_mouseRC(int mouse_x, int mouse_y, SDL_Rect center_position[9][16]) {
 int* find_mouseRC(int mouse_x, int mouse_y) {
 	int mouse_row_col[2];
 	double dist[9][16];
@@ -223,7 +204,7 @@ int* find_mouseRC(int mouse_x, int mouse_y) {
 	return mouse_row_col;
 }
 
-void find_mouseCenter(int &mouse_x, int &mouse_y) {
+void find_mouseCenter(int &mouse_x,int &mouse_y, int &mouse_col, int &mouse_row, int &mouse_center_x, int &mouse_center_y) {
 	
 	mouse_row = find_mouseRC(mouse_x, mouse_y)[0];
 	mouse_col = find_mouseRC(mouse_x, mouse_y)[1];

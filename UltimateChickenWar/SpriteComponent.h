@@ -5,6 +5,7 @@
 #include "StatsComponent.h"
 #include "SDL.h"
 #include "TextureManager.h"
+#include "Mouse_Controller.h"
 #include "Map.h"
 #include <iostream>
 using namespace std;
@@ -27,7 +28,6 @@ private:
 	int player_x, player_y, player_range;
 	
 public:
-	
 	SpriteComponent() = default;
 	SpriteComponent(const char* path, char* background, char* moving_background)
 	{
@@ -59,7 +59,9 @@ public:
 		destRect1.w = 108;
 	}
 	void draw() override {
-		find_mouseCenter();
+		SDL_GetMouseState(&mouse_x, &mouse_y);
+		int mouse_row_col[2];
+		find_mouseCenter(mouse_x, mouse_y, mouse_col, mouse_row, mouse_center_x, mouse_center_y);
 		if (indicator_allowing) {
 			TextureManager::Draw(turn_indicator, srcRect, destRect);
 			player_x = transform->position.x + 52;
@@ -77,13 +79,12 @@ public:
 			}
 
 		}
-		//else SDL_DestroyTexture(indicator);
 		TextureManager::Draw(texture, srcRect, destRect);
 		//to update indicator_allowing
 		indicator_allowing = (entity->getComponent<StatsComponent>()).myturn;
 		
 	}
-
+/*
 	int* find_mouseRC() {
 		int mouse_row_col[2];
 		double dist[9][16];
@@ -119,6 +120,5 @@ public:
 		mouse_center_x = position[mouse_row][mouse_col].x + 52;
 		mouse_center_y = position[mouse_row][mouse_col].y + 50;
 	}
-	
-	
+	*/
 };
