@@ -159,6 +159,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		player[i] = &manager.addEntity();
 		player[i]->addComponent<TransformComponent>(position_ini[i], 1);
 		player[i]->addComponent<SpriteComponent>(image[i], turn_indicator, range_indicator);
+		player[i]->addComponent<Keyboard_Controller>();
 		player[i]->addComponent<StatsComponent>(i, i%2);
 		
 	}

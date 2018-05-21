@@ -23,18 +23,18 @@ private:
 	bool active = true;
 	int index = 0;
 	
-	Component* components[3];
+	Component* components[4];
 	
 public:
 	void update()
 	{
-		for (int i = 0; i < 3; i++ ) {
+		for (int i = 0; i < 4; i++ ) {
 			components[i]->update();
 		}
 
 	}
 	void draw() {
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 4; i++) {
 			components[i]->draw();
 		}
 	}
