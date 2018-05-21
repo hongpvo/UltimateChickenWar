@@ -6,7 +6,7 @@ Menu::Menu() {
 Menu::~Menu() {
 //	SDL_DestroyTexture(background);
 }
-int Menu::show(std::string labels[2]) {
+int Menu::draw(std::string labels[2]) {
 	int h[2] = { 1100,1500 };
 	int w[2] = { 1728,1728 };
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 60);

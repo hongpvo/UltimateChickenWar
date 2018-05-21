@@ -4,12 +4,13 @@
 #include <string>
 #include "TextureManager.h"
 #include "Popup.h"
+#include "UI.h"
 
-class NameInput{
+class NameInput: public UI{
 public:
 	NameInput(std::string str);
 	~NameInput();
-	int handle_input();
+	int draw();
 	std::string getName();
 	void clean();
 

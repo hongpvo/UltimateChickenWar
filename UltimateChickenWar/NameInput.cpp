@@ -30,7 +30,7 @@ NameInput::~NameInput() {
 	UCW::gFont = NULL;
 	SDL_DestroyTexture(box);
 }
-int NameInput::handle_input() {
+int NameInput::draw() {
 	box = TextureManager::LoadTexture("assets/button/box.png");
 	background = TextureManager::LoadTexture("assets/island/background.png");
 	SDL_RenderClear(UCW::renderer);

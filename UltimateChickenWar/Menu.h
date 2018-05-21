@@ -3,12 +3,13 @@
 #include "LoadTextureFromText.h"
 #include <string>
 #include "TextureManager.h"
+#include "UI.h"
 
-class Menu {
+class Menu : public UI {
 public:
 	Menu();
 	~Menu();
-	int show(std::string labels[2]);
+	int draw(std::string labels[2]);
 private:
 	Uint32 time;
 	int x, y;

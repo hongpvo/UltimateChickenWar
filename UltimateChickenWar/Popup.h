@@ -3,12 +3,13 @@
 #include "LoadTextureFromText.h"
 #include <string>
 #include "TextureManager.h"
+#include "UI.h"
 
-class Popup {
+class Popup: public UI {
 public:
 	Popup(std::string str,int h,int w);
 	~Popup();
-	void draw();
+	int draw();
 	void clean();
 
 private:

@@ -7,7 +7,7 @@
 #include "Popup.h"
 #include "Menu.h"
 #include <string>
-#include "playerstats.h"
+#include "stats_table.h"
 #include "NameInput.h"
 
 extern int lv1[9][16];
@@ -50,7 +50,7 @@ char* range_indicator = { "assets/range_indicator.png" };
 Menu menu;
 std::string labels[2] = { "Start","Exit" };
 std::string labels2[2] = { "Restart","Exit" };
-playerstats statsmenu;
+stats_table statsmenu;
 SDL_Texture* background;
 
 UCW::UCW()
@@ -185,8 +185,8 @@ void UCW::render() {
 	//this add stuffs to render
 	int i;
 	if (checkmenu == false) { 
-		if (endgame == false) i = menu.show(labels);
-		else i = menu.show(labels2);
+		if (endgame == false) i = menu.draw(labels);
+		else i = menu.draw(labels2);
 		if (i == 0 && endgame == false) {
 			checkmenu = true;
 		}
@@ -204,13 +204,13 @@ void UCW::render() {
 
 	if (checkmenu == true) {
 		if (j1 == 0) {
-			j1 = player1.handle_input();
+			j1 = player1.draw();
 			playerwin1 = player1.getName();
 			player1.clean();
 			//SDL_RenderClear(renderer);
 		}
 		else if (j2 == 0){
-			j2 = player2.handle_input();
+			j2 = player2.draw();
 			playerwin2 = player2.getName();
 			player2.clean();
 			//SDL_RenderClear(renderer);
@@ -218,7 +218,7 @@ void UCW::render() {
 		if (j2 == 1) {
 			attack.clean();
 			map->LoadMap(lv1, lv2);
-			map->DrawMap();
+			map->draw();
 			manager.draw();
 			statsmenu.draw(&manager);
 

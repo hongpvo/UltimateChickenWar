@@ -1,7 +1,7 @@
-#include "playerstats.h"
+#include "stats_table.h"
 
 
-playerstats::playerstats() {
+stats_table::stats_table() {
 	for (int i = 0; i < 6; i++) {
 		src[i].x = 0;
 		src[i].y = 0;
@@ -35,10 +35,10 @@ playerstats::playerstats() {
 	rboxdes.h = 400;
 
 }
-playerstats::~playerstats() {
+stats_table::~stats_table() {
 
 }
-void playerstats::draw(Manager* all_player_manager) {
+int stats_table::draw(Manager* all_player_manager) {
 	sbox = TextureManager::LoadTexture("assets/sbox.png");
 	TextureManager::Draw(sbox,lboxsrc,lboxdes);
 	TextureManager::Draw(sbox,rboxsrc,rboxdes);
@@ -71,9 +71,10 @@ void playerstats::draw(Manager* all_player_manager) {
 		}
 		playertext[i].render((w[i] - playertext[i].getWidth()) / 2, (h[i] - playertext[i].getHeight()) / 2);
 	}
+	return 0;
 	
 }
-void playerstats::clean() {
+void stats_table::clean() {
 	for (int i = 0; i < 6; i++) {
 		playertext[i].free();
 		SDL_DestroyTexture(chicken[i]);

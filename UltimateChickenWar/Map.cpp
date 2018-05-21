@@ -84,7 +84,7 @@ void Map::GetMap(int arr[9][16]) {
 		}
 	}
 }
-void Map::DrawMap() {
+int Map::draw() {
 	int type = 0;
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
@@ -152,5 +152,6 @@ void Map::DrawMap() {
 			}
 		}
 	}
+	return 0;
 }
 

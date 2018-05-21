@@ -121,7 +121,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="NameInput.cpp" />
-    <ClCompile Include="playerstats.cpp" />
+    <ClCompile Include="stats_table.cpp" />
     <ClCompile Include="Popup.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="UCW.cpp" />
@@ -135,13 +135,14 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Mouse_Controller.h" />
     <ClInclude Include="NameInput.h" />
-    <ClInclude Include="playerstats.h" />
+    <ClInclude Include="stats_table.h" />
     <ClInclude Include="Popup.h" />
     <ClInclude Include="SpriteComponent.h" />
     <ClInclude Include="StatsComponent.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="UCW.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

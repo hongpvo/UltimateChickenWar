@@ -1,5 +1,6 @@
 #pragma once
 #include "UCW.h"
+#include "UI.h"
 
 class Map {
 public:
@@ -8,7 +9,7 @@ public:
 	
 	void GetMap(int arr[9][16]);
 	void LoadMap(int arr[9][16], int arr2[9][16]);
-	void DrawMap();
+	int draw();
 
 
 private:

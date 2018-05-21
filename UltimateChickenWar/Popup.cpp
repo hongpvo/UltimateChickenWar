@@ -19,7 +19,7 @@ Popup::~Popup(){
 	SDL_DestroyTexture(box);
 	gTextTexture.free(); 
 };
-void Popup::draw() {
+int Popup::draw() {
 	box = TextureManager::LoadTexture("assets/button/box.png");
 	TextureManager::Draw(box, src, dest);
 	//Open the font
@@ -28,6 +28,7 @@ void Popup::draw() {
 	SDL_Color textColor = { 0, 0, 0 };
 	gTextTexture.loadFromRenderedText(text, textColor);
 	gTextTexture.render((width - gTextTexture.getWidth()) / 2, (height- gTextTexture.getHeight()) / 2);
+	return 0;
 };
 void Popup::clean() {
 	gTextTexture.free();

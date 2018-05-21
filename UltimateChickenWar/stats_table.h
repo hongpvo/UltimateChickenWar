@@ -5,13 +5,14 @@
 #include "TextureManager.h"
 #include "ECS.h"
 #include "StatsComponent.h"
+#include "UI.h"
 
 
-class playerstats {
+class stats_table : public UI {
 public:
-	playerstats();
-	~playerstats();
-	void draw(Manager* all_player_manager);
+	stats_table();
+	~stats_table();
+	int draw(Manager* all_player_manager);
 	void clean();
 private:
 	int x, y;

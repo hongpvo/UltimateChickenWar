@@ -39,10 +39,10 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="playerstats.cpp">
+    <ClCompile Include="NameInput.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="NameInput.cpp">
+    <ClCompile Include="stats_table.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,10 +86,13 @@
     <ClInclude Include="Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="playerstats.h">
+    <ClInclude Include="NameInput.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="NameInput.h">
+    <ClInclude Include="UI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stats_table.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
