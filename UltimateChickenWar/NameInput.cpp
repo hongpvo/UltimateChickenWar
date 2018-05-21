@@ -3,6 +3,7 @@
 NameInput::NameInput(std::string str) {
 	if (str != "") player = str;
 	else player = "Player";
+	// box Rect
 	src.x = 0;
 	src.y = 0;
 	src.h = 210*1.5;
@@ -12,7 +13,7 @@ NameInput::NameInput(std::string str) {
 	dest.w = 610*1.5;
 	dest.x = 390;
 	dest.y = 300;
-
+	// background Rect
 	bsrc.x = 0;
 	bsrc.y = 0;
 	bsrc.w = 1728;
@@ -31,20 +32,29 @@ NameInput::~NameInput() {
 	SDL_DestroyTexture(box);
 }
 int NameInput::draw() {
+	//Load
 	box = TextureManager::LoadTexture("assets/button/box.png");
 	background = TextureManager::LoadTexture("assets/island/background.png");
+
 	SDL_RenderClear(UCW::renderer);
+	//Draw
 	TextureManager::Draw(background, bsrc, bdest);
 	TextureManager::Draw(box, src, dest);
+
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 30);
+
 	std::string temp = player;
-	player = "Enter " + player + " 's name:";
-	title.loadFromRenderedText(player, color);
-	title.render((1728 - title.getWidth()) / 2, (900 - title.getHeight()-60) / 2);
 	name = "Input name & Enter when done";
+	player = "Enter " + player + " 's name:";
+
+	title.loadFromRenderedText(player, color);
 	gInput.loadFromRenderedText(name.c_str(), color);
+
+	title.render((1728 - title.getWidth()) / 2, (900 - title.getHeight()-60) / 2);
 	gInput.render((1728 - gInput.getWidth()) / 2, (900 - gInput.getHeight()+60) / 2);
+
 	SDL_RenderPresent(UCW::renderer);
+
 	name = "";
 	SDL_StartTextInput();
 	while (!end) {
@@ -74,8 +84,6 @@ int NameInput::draw() {
 					renderText = true;
 				}
 			}
-			
-			///////
 			if (renderText) {
 				if (name != "") {
 					gInput.loadFromRenderedText(name.c_str(), color);

@@ -10,20 +10,9 @@
 #include "stats_table.h"
 #include "NameInput.h"
 
-extern int lv1[9][16];
-extern int lv2[9][16];
 Map* map;
-int map_test[9][16]= 
-{	2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,
-	2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,
-	5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,
-	5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,
-	5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0
-};
+int map1[9][16];
+int itemMap[9][16];
 
 SDL_Renderer* UCW::renderer = nullptr;
 SDL_Event UCW::event;
@@ -130,8 +119,6 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	position_ini[4] = position[2][0];
 	position_ini[5] = position[2][1];
 
-
-	
 	for (int i = 0; i <= 5; i++) {
 		player[i] = &manager.addEntity();
 		player[i]->addComponent<TransformComponent>(position_ini[i], 1);
@@ -150,14 +137,14 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 }
 
 void UCW::handleEvents() {
-
+	map->LoadMap(map1, itemMap);
 	SDL_PollEvent(&event);
 	switch (event.type) {
 	case SDL_QUIT:
 		isRunning = false;
 		break;
 	case SDL_MOUSEBUTTONDOWN:
-		Mouse_Controller(&manager, map_test, &attack);
+		Mouse_Controller(&manager, map1,itemMap, &attack);
 		break;
 	default:
 		break;
@@ -217,7 +204,6 @@ void UCW::render() {
 		}
 		if (j2 == 1) {
 			attack.clean();
-			map->LoadMap(lv1, lv2);
 			map->draw();
 			manager.draw();
 			statsmenu.draw(&manager);

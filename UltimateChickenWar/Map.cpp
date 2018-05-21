@@ -2,32 +2,6 @@
 #include "TextureManager.h"
 #include <fstream>
 
-std::fstream input;
-int lv1[9][16] =
-{	2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,
-	2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,
-	5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,
-	5,5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,
-	5,5,5,5,5,5,5,5,0,0,0,0,0,0,0,0
-};
-
-int lv2[9][16] = 
-{	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,2,0,0,0,0,2,0,0,0,0,0,
-	0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,1,0,2,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-	0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0
-};
-
-
 SDL_Rect pos[9][16];
 
 Map::Map() {
@@ -40,8 +14,7 @@ Map::Map() {
 	sword = TextureManager::LoadTexture("assets/sword.png");
 	shield = TextureManager::LoadTexture("assets/shield.png");
 	
-	
-	LoadMap(lv1, lv2);
+	LoadMap(map, itemMap);
 	src.x = 0;
 	src.y = 0;
 	src.h = 100;
@@ -65,25 +38,48 @@ Map::~Map() {
 
 }
 void Map::LoadMap(int arr[9][16], int arr2[9][16]) {
-	
+
+	std::ifstream input_map ,input_item;
+	input_map.open("map/map1.txt");
+	input_item.open("map/item.txt");
+
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
-			map[row][column] = arr[row][column];
+			input_map>>arr[row][column];
+			
 		}
 	}
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
-			itemMap[row][column] = arr2[row][column];
+			input_item>>arr2[row][column];
 		}
 	}
+	input_map.close();
+	input_item.close();
 }
-void Map::GetMap(int arr[9][16]) {
+void Map::LoadMap(int arr[9][16]) {
+	std::ifstream input_map;
+	input_map.open("map/map1.txt");
+
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
-			arr[row][column] = lv1[row][column];
+			input_map >> arr[row][column];
 		}
 	}
+	input_map.close();
 }
+void Map::LoadItem(int arr[9][16]) {
+	std::ifstream input_item;
+	input_item.open("map/item.txt");
+
+	for (int row = 0; row < 9; row++) {
+		for (int column = 0; column < 16; column++) {
+			input_item >> arr[row][column];
+		}
+	}
+	input_item.close();
+}
+
 int Map::draw() {
 	int type = 0;
 	for (int row = 0; row < 9; row++) {

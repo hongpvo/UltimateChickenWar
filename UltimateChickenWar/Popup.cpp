@@ -36,5 +36,4 @@ void Popup::clean() {
 	UCW::gFont = NULL;
 	SDL_DestroyTexture(box);
 	gTextTexture.free();
-
 }

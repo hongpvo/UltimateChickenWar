@@ -6,9 +6,10 @@ class Map {
 public:
 	Map();
 	~Map();
-	
-	void GetMap(int arr[9][16]);
+
 	void LoadMap(int arr[9][16], int arr2[9][16]);
+	void LoadMap(int arr[9][16]);
+	void LoadItem(int arr[9][16]);
 	int draw();
 
 
@@ -28,4 +29,5 @@ private:
 
 	int map[9][16];
 	int itemMap[9][16];
+
 };

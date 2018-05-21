@@ -11,7 +11,6 @@
 #include "Popup.h"
 using namespace std;
 extern SDL_Rect position[9][16];
-extern int lv2[9][16];
 extern SDL_Rect center_position[9][16];
 int* find_mouseRC(int, int);
 void find_mouseCenter(int&, int &, int &, int &, int &, int &);
@@ -20,7 +19,7 @@ int player_x, player_y;
 int player_row, player_col, player_range;
 static bool first_time = true;
 
-void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attack) {
+void Mouse_Controller(Manager* all_player_manager,  int map[9][16], int itemMap[9][16], Popup* attack) {
 	here:
 	Entity* player[6];
 	int mouse_x, mouse_y, mouse_row, mouse_col, mouse_center_y, mouse_center_x;
@@ -99,13 +98,13 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attac
 						transform_player->position.x = mouse_col * 104 + 52;
 						transform_player->position.y = mouse_row * 68;
 					}
-					if (lv2[mouse_row][mouse_col] == 1) {
+					if (itemMap[mouse_row][mouse_col] == 1) {
 						stats_player->atk++;
-						lv2[mouse_row][mouse_col] = 0;
+						itemMap[mouse_row][mouse_col] = 0;
 					}
-					if (lv2[mouse_row][mouse_col] == 2) {
+					if (itemMap[mouse_row][mouse_col] == 2) {
 						stats_player->def++;
-						lv2[mouse_row][mouse_col] = 0;
+						itemMap[mouse_row][mouse_col] = 0;
 					}
 					while (1) {
 						iterator++;

@@ -14,6 +14,7 @@ stats_table::stats_table() {
 		dest[i].w = 108/1.5;
 		dest[i].h = 100/1.5;
 	}
+	//left stats box of player 1
 	lboxsrc.x = 0;
 	lboxsrc.y = 0;
 	lboxsrc.w = 500;
@@ -23,7 +24,7 @@ stats_table::stats_table() {
 	lboxdes.y = 700;
 	lboxdes.w = 500;
 	lboxdes.h = 400;
-
+	//right stats box of player 2
 	rboxsrc.x = 0;
 	rboxsrc.y = 0;
 	rboxsrc.w = 500;
@@ -45,13 +46,10 @@ int stats_table::draw(Manager* all_player_manager) {
 	//Open the font
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 30);
 	for (int i = 0; i < 6; i++) {
-		//player[i] = all_player_manager->getEntityList().at(i);
 		player[i] = (all_player_manager->getEntityList())[i];
 		chicken[i] = TextureManager::LoadTexture(image[i]);
 		TextureManager::Draw(chicken[i], src[i], dest[i]);
-		
 		//Render text
-		
 		stats_player = &player[i]->getComponent<StatsComponent>();
 		std::string atk = std::to_string(stats_player->atk);
 		std::string hp = std::to_string(stats_player->hp);
