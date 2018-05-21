@@ -32,8 +32,7 @@ SDL_Rect position_ini[6];
 SDL_Rect center_position[9][16];
 
 TTF_Font* UCW::gFont=nullptr;
-//render texture
-//LoadTextureFromText gTextTexture;
+
 Popup attack("attack or not?",1500, 1728);
 Popup final1("Player 1 wins", 1500, 1728);
 Popup final2("Player 2 wins", 1500, 1728);
@@ -41,18 +40,12 @@ Popup final2("Player 2 wins", 1500, 1728);
 NameInput player1("player 1");
 NameInput player2("player 2");
 
-//test manager
 Manager manager;
-//auto& player1(manager.addEntity());
-//auto& player2(manager.addEntity());
-
 Entity* player[6];
 
 char* image[6] = { "assets/character/chicken_warrior.png", "assets/character/chicken_warrior2.png","assets/character/chicken_acher.png", "assets/character/chicken_acher2.png","assets/character/chicken_tank.png", "assets/character/chicken_tank2.png" };
 char* turn_indicator = { "assets/turn_indicator.png" };
 char* range_indicator = { "assets/range_indicator.png" };
-//int position_ini[6][6] = { {1,1}, {2,2}, {3,3}, {4,4}, {5,5}, {6,6} };
-
 
 Menu menu;
 std::string labels[2] = { "Start","Exit" };
@@ -91,18 +84,16 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		isRunning = false;
 
 	}
-	// draw background
 	
 	for (int i = 0; i < manager.returnlength(); i++) {
 		player[i]->destroy();
 	}
 	manager.index = 0;
 	manager.refresh();
-	cout << "run to here " << endl;
 	manager.update();
 	first_time = true;
 	map = new Map();
-	//getPosition
+	//Calculating render box coordinate drawn from top left corner or center
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
 			position[row][column].h = 100;
@@ -110,10 +101,14 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 			if (row % 2 == 0) {
 				position[row][column].x = column * 104 ;
 				position[row][column].y = row * 100 - 32 * row ;
+				center_position[row][column].x = 52 + 104 * column;
+				center_position[row][column].y = 50 + 68 * row;
 			}
 			else {
 				position[row][column].x = column * 104 + 52 ;
 				position[row][column].y = row * 100 - 32 * row;
+				center_position[row][column].x = 104 + 104 * column;
+				center_position[row][column].y = 50 + 68 * row;
 			}
 
 		}
@@ -136,24 +131,6 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	position_ini[5] = position[2][1];
 
 
-	for (int row = 0; row < 9; row++) {
-		for (int column = 0; column < 16; column++) {
-			center_position[row][column].h = 100;
-			center_position[row][column].w = 104;
-			if (row == 0) {
-				center_position[row][column].x = 52 + 104 * column;
-				center_position[row][column].y = 50;
-			}
-			else if (row % 2 == 0) {
-				center_position[row][column].x = 52 + 104 * column;
-				center_position[row][column].y = 50 + 68 * row;
-			}
-			else {
-				center_position[row][column].x = 104 + 104 * column;
-				center_position[row][column].y = 50 + 68 * row;
-			}
-		}
-	}
 	
 	for (int i = 0; i <= 5; i++) {
 		player[i] = &manager.addEntity();
@@ -205,7 +182,6 @@ void UCW::render() {
 	dest.h = 900;
 	SDL_RenderClear(renderer);
 	TextureManager::Draw(background, src, dest);
-	//cout << "length: " << manager.returnlength() << endl;
 	//this add stuffs to render
 	int i;
 	if (checkmenu == false) { 
@@ -290,18 +266,13 @@ void UCW::render() {
 				}
 			}
 			static bool running = false;
-			//if (draw_allowing && !running) {
 			if (draw_allowing) {
 				attack.draw();
-				//cout << "drawing" << endl;
 				running = true;
 			}
 			attack.clean();
 			statsmenu.clean();
 
-			//if (player1.getComponent<StatsComponent>().attacking || player2.getComponent<StatsComponent>().attacking) {
-			//	attack.draw();
-			//}
 			SDL_RenderPresent(renderer);
 			if (endgame == true) {
 				SDL_Delay(1000);

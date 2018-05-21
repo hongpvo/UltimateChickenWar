@@ -49,7 +49,6 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attac
 	cout << "turn: " << turn << endl;
 	int j = 0;
 	for (int i = 0; i < 6; i++) {
-		//player[i] = all_player_manager->getEntityList().at(i);
 		player[i] = (all_player_manager->getEntityList())[i];
 		if (i == turn) {//for player
 			transform_player = &player[i]->getComponent<TransformComponent>();
@@ -91,11 +90,6 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], Popup* attac
 			
 			if (count == 5) moving_allow = true;
 			if (moving_allow) {
-				cout << "turn moving: " << turn << endl;
-
-				//render position of bounding box of mouse_col +52 = mouse_col_center
-				int mouse_center_x = position[mouse_row][mouse_col].x + 52;
-				int mouse_center_y = position[mouse_row][mouse_col].y + 50;
 				if (sqrt(pow(player_x - mouse_center_x, 2) + pow(player_y - mouse_center_y, 2)) <= 104*player_range) {
 					if (mouse_row % 2 == 0) {
 						transform_player->position.x = mouse_col * 104;
@@ -205,11 +199,11 @@ int* find_mouseRC(int mouse_x, int mouse_y) {
 }
 
 void find_mouseCenter(int &mouse_x,int &mouse_y, int &mouse_col, int &mouse_row, int &mouse_center_x, int &mouse_center_y) {
-	
 	mouse_row = find_mouseRC(mouse_x, mouse_y)[0];
 	mouse_col = find_mouseRC(mouse_x, mouse_y)[1];
-	mouse_center_x = position[mouse_row][mouse_col].x + 52;
-	mouse_center_y = position[mouse_row][mouse_col].y + 50;
+	mouse_center_x = center_position[mouse_row][mouse_col].x ;
+	mouse_center_y = center_position[mouse_row][mouse_col].y ;
 }
 
-
+//mouse_center_x = position[mouse_row][mouse_col].x + 52;
+//mouse_center_y = position[mouse_row][mouse_col].y + 50;
