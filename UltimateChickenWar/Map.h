@@ -2,7 +2,7 @@
 #include "UCW.h"
 #include "UI.h"
 
-class Map {
+class Map : public UI {
 public:
 	Map();
 	~Map();
@@ -11,11 +11,10 @@ public:
 	void LoadMap(int arr[9][16]);
 	void LoadItem(int arr[9][16]);
 	int draw();
-
+	friend void UCW::handleEvents();
 
 private:
 
-	SDL_Rect src, dest;
 
 	SDL_Texture* flow;
 	SDL_Texture* lowsnow;

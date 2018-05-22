@@ -15,8 +15,6 @@ public:
 private:
 	LoadTextureFromText gTextTexture;
 	std::string text;
-	SDL_Texture* box;
-	SDL_Rect src, dest;
 	int height;
 	int width;
 };

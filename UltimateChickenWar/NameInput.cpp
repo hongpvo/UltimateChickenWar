@@ -2,23 +2,26 @@
 #include <iostream>
 NameInput::NameInput(std::string str) {
 	if (str != "") player = str;
-	else player = "Player";
 	// box Rect
+	color[0] = { 0,0,0 };
+	// top-left corner
 	src.x = 0;
 	src.y = 0;
 	src.h = 210*1.5;
 	src.w = 610*1.5;
-
+	//bottom right corner
 	dest.h = 210*1.5;
 	dest.w = 610*1.5;
 	dest.x = 390;
 	dest.y = 300;
+	
 	// background Rect
+	//top-left corner
 	bsrc.x = 0;
 	bsrc.y = 0;
 	bsrc.w = 1728;
 	bsrc.h = 900;
-
+	//bottom right corner
 	bdest.x = 0;
 	bdest.y = 0;
 	bdest.w = 1728;
@@ -30,6 +33,7 @@ NameInput::~NameInput() {
 	TTF_CloseFont(UCW::gFont);
 	UCW::gFont = NULL;
 	SDL_DestroyTexture(box);
+	SDL_DestroyTexture(background);
 }
 int NameInput::draw() {
 	//Load
@@ -47,8 +51,8 @@ int NameInput::draw() {
 	name = "Input name & Enter when done";
 	player = "Enter " + player + " 's name:";
 
-	title.loadFromRenderedText(player, color);
-	gInput.loadFromRenderedText(name.c_str(), color);
+	title.loadFromRenderedText(player, color[0]);
+	gInput.loadFromRenderedText(name, color[0]);
 
 	title.render((1728 - title.getWidth()) / 2, (900 - title.getHeight()-60) / 2);
 	gInput.render((1728 - gInput.getWidth()) / 2, (900 - gInput.getHeight()+60) / 2);
@@ -58,8 +62,7 @@ int NameInput::draw() {
 	name = "";
 	SDL_StartTextInput();
 	while (!end) {
-		SDL_Delay(300);
-		while (SDL_PollEvent(&event) != 0 && end == false) {
+		while (SDL_PollEvent(&event) != 0) {
 			if (event.type == SDL_KEYDOWN) {
 				if (event.key.keysym.sym == SDLK_BACKSPACE && name.length() > 0) {
 					name.pop_back();
@@ -86,30 +89,30 @@ int NameInput::draw() {
 			}
 			if (renderText) {
 				if (name != "") {
-					gInput.loadFromRenderedText(name.c_str(), color);
+					gInput.loadFromRenderedText(name.c_str(), color[0]);
 				}
 				else {
-					gInput.loadFromRenderedText(" ", color);
+					gInput.loadFromRenderedText(" ", color[0]);
 				}
-			}
-			TextureManager::Draw(background, bsrc, bdest);
-			TextureManager::Draw(box, src, dest);
 
-			title.render((1728 - title.getWidth()) / 2, (900 - title.getHeight() - 60) / 2);
-			gInput.render((1728 - gInput.getWidth()) / 2, (900 - gInput.getHeight()+60) / 2);
-			SDL_RenderPresent(UCW::renderer);
-			
+				TextureManager::Draw(background, bsrc, bdest);
+				TextureManager::Draw(box, src, dest);
+
+				title.render((1728 - title.getWidth()) / 2, (900 - title.getHeight() - 60) / 2);
+				gInput.render((1728 - gInput.getWidth()) / 2, (900 - gInput.getHeight() + 60) / 2);
+				SDL_RenderPresent(UCW::renderer);
+			}
 			if (event.type = SDL_KEYDOWN && event.key.repeat==0) {
 				if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_KP_ENTER) {
 					end = true;
 					if (name.length()==0) name = temp;
-					//SDL_Delay(100);
+					SDL_Delay(100);
 				}
 			}
 
 		}
 	}
-	SDL_StopTextInput;
+	SDL_StopTextInput();
 	return 1;
 }
 
@@ -122,6 +125,7 @@ void NameInput::clean() {
 	TTF_CloseFont(UCW::gFont);
 	UCW::gFont = NULL;
 	SDL_DestroyTexture(box);
+	SDL_DestroyTexture(background);
 	end = false;
 	renderText = false;
 	name = "";

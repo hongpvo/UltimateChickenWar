@@ -10,9 +10,7 @@
 #include "stats_table.h"
 #include "NameInput.h"
 
-Map* map;
-int map1[9][16];
-int itemMap[9][16];
+Map* GameMap;
 
 SDL_Renderer* UCW::renderer = nullptr;
 SDL_Event UCW::event;
@@ -81,7 +79,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	manager.refresh();
 	manager.update();
 	first_time = true;
-	map = new Map();
+	GameMap = new Map();
 	//Calculating render box coordinate drawn from top left corner or center
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
@@ -137,14 +135,13 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 }
 
 void UCW::handleEvents() {
-	map->LoadMap(map1, itemMap);
 	SDL_PollEvent(&event);
 	switch (event.type) {
 	case SDL_QUIT:
 		isRunning = false;
 		break;
 	case SDL_MOUSEBUTTONDOWN:
-		Mouse_Controller(&manager, map1,itemMap, &attack);
+		Mouse_Controller(&manager, GameMap->map,GameMap->itemMap, &attack);
 		break;
 	default:
 		break;
@@ -171,17 +168,16 @@ void UCW::render() {
 	TextureManager::Draw(background, src, dest);
 	//this add stuffs to render
 	int i;
-	if (checkmenu == false) { 
+	if (menu_checked == false) { 
 		if (endgame == false) i = menu.draw(labels);
 		else i = menu.draw(labels2);
 		if (i == 0 && endgame == false) {
-			checkmenu = true;
+			menu_checked = true;
 		}
 		else if (i == 0 && endgame == true) {
-			checkmenu = true;
 			//restart
 			restart = true;
-			checkmenu = false;
+			menu_checked = false;
 			isRunning = false;
 		}
 		else if (i == 2) {
@@ -189,22 +185,20 @@ void UCW::render() {
 		}
 	}
 
-	if (checkmenu == true) {
-		if (j1 == 0) {
-			j1 = player1.draw();
-			playerwin1 = player1.getName();
+	if (menu_checked == true) {
+		if (player1nameInput == false) {
+			player1nameInput = player1.draw();
+			player1name = player1.getName();
 			player1.clean();
-			//SDL_RenderClear(renderer);
 		}
-		else if (j2 == 0){
-			j2 = player2.draw();
-			playerwin2 = player2.getName();
+		else if (player2nameInput == false){
+			player2nameInput = player2.draw();
+			player2name = player2.getName();
 			player2.clean();
-			//SDL_RenderClear(renderer);
 		}
-		if (j2 == 1) {
+		if (player2nameInput == true) {
 			attack.clean();
-			map->draw();
+			GameMap->draw();
 			manager.draw();
 			statsmenu.draw(&manager);
 
@@ -228,17 +222,17 @@ void UCW::render() {
 			}
 
 			if (numPlayer2 == 0) {
-				playerwin1 = playerwin1 + " win!";
-				Popup final1(playerwin1, 1500, 1728);
+				player1name = player1name + " win!";
+				Popup final1(player1name, 1500, 1728);
 				final1.draw();
-				checkmenu = false;
+				menu_checked = false;
 				endgame = true;
 			}
 			if (numPlayer1 == 0) {
-				playerwin2 = playerwin2 + " win!";
-				Popup final2(playerwin2, 1500, 1728);
+				player2name = player2name + " win!";
+				Popup final2(player2name, 1500, 1728);
 				final2.draw();
-				checkmenu = false;
+				menu_checked = false;
 				endgame = true;
 			}
 			final1.clean();

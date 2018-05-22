@@ -33,11 +33,11 @@ private:
 	bool isRunning;
 	int cnt = 0;
 	SDL_Window *window;
-	bool checkmenu = false;
+	bool menu_checked = false;
 	bool endgame = false;
-	int j1 = 0;
-	int j2 = 0;
-	std::string playerwin1, playerwin2;
+	bool player1nameInput = false;
+	bool player2nameInput = false;
+	std::string player1name, player2name;
 	
 
 };

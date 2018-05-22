@@ -9,5 +9,9 @@ public:
 	virtual void clean() {
 		std::cout << "Default Clean Nothing" << std::endl;
 	};
-
+protected:
+	SDL_Rect src, dest;
+	SDL_Rect bsrc, bdest;
+	SDL_Texture* box, *background;
+	SDL_Color color[2];
 };

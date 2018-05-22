@@ -18,9 +18,6 @@ private:
 	std::string name, player;
 	SDL_Event event;
 	LoadTextureFromText gInput, title;
-	SDL_Texture* box,*background;
-	SDL_Color color = { 0,0,0 };
-	SDL_Rect src, dest,bsrc,bdest;
 	bool renderText = false;
 	bool end = false;
 };

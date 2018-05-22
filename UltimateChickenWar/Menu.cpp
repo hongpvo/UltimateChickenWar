@@ -1,7 +1,8 @@
 #include "Menu.h"
 #include <iostream>
 Menu::Menu() {
-
+	color[0] = { 0,0,0 };
+	color[1] = { 255,0,0 };  
 }
 Menu::~Menu() {
 //	SDL_DestroyTexture(background);
@@ -15,10 +16,10 @@ int Menu::draw(std::string labels[2]) {
 	menus[0].render((w[0] - menus[0].getWidth()) / 2, (h[0] - menus[0].getHeight()) / 2);
 	menus[1].render((w[1] - menus[1].getWidth()) / 2, (h[1] - menus[1].getHeight()) / 2);
 	std::cout << "menu Rendered" << std::endl;
-	int origin_x[2] = { 769,769 };
-	int dest_x[2] = { 964,964 };
-	int origin_y[2] = { 517,716 };
-	int dest_y[2] = { 569,768 };
+	int topLeft_x[2] = { 769,769 };
+	int bottomRight_x[2] = { 964,964 };
+	int topLeft_y[2] = { 517,716 };
+	int bottomRight_y[2] = { 569,768 };
 	while (1)
 	{
 		while (SDL_PollEvent(&UCW::event))
@@ -33,7 +34,7 @@ int Menu::draw(std::string labels[2]) {
 				x = UCW::event.motion.x;
 				y = UCW::event.motion.y;
 				for (int i = 0; i < 2; i += 1) {
-					if (x >= origin_x[i] && x <= dest_x[i] && y >= origin_y[i] && y <= dest_y[i])
+					if (x >= topLeft_x[i] && x <= bottomRight_x[i] && y >= topLeft_y[i] && y <= bottomRight_y[i])
 					{
 						if (!selected[i])
 						{
@@ -59,7 +60,7 @@ int Menu::draw(std::string labels[2]) {
 				x = UCW::event.button.x;
 				y = UCW::event.button.y;
 				for (int i = 0; i < 2; i += 1) {
-					if (x >= origin_x[i] && x <= dest_x[i] && y >= origin_y[i] && y <= dest_y[i])
+					if (x >= topLeft_x[i] && x <= bottomRight_x[i] && y >= topLeft_y[i] && y <= bottomRight_y[i])
 					{
 						menus[0].free();
 						menus[1].free();
@@ -77,7 +78,7 @@ int Menu::draw(std::string labels[2]) {
 				{
 					menus[0].free();
 					menus[1].free();
-					return 0;
+					return 2;
 				}
 			}
 			SDL_RenderPresent(UCW::renderer);
