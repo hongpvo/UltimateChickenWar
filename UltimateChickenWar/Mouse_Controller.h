@@ -1,7 +1,7 @@
 #pragma once
 
 //#include "UCW.h"
-//#include "ECS.h"
+#include "ECS.h"
 #include "Component.h"
 #include "StatsComponent.h"
 #include "Map.h"
@@ -19,7 +19,7 @@ int player_x, player_y;
 int player_row, player_col, player_range;
 static bool first_time = true;
 
-void Mouse_Controller(Manager* all_player_manager,  int map[9][16], int itemMap[9][16], Popup* attack) {
+void Mouse_Controller(Manager* player1_manager, int map[9][16], int itemMap[9][16], Popup* attack) {
 	here:
 	Entity* player[6];
 	int mouse_x, mouse_y, mouse_row, mouse_col, mouse_center_y, mouse_center_x;
@@ -29,7 +29,7 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], int itemMap[
 	static Uint32 moveStart;
 	static Uint32 moveTime;
 	static bool gettime = true;
-	//cout << "gettime: " << gettime << endl;
+	
 	if (gettime) {
 		moveStart = SDL_GetTicks();
 		gettime = false;
@@ -48,7 +48,7 @@ void Mouse_Controller(Manager* all_player_manager,  int map[9][16], int itemMap[
 	cout << "turn: " << turn << endl;
 	int j = 0;
 	for (int i = 0; i < 6; i++) {
-		player[i] = (all_player_manager->getEntityList())[i];
+		player[i] = Manager::allEntities[i];
 		if (i == turn) {//for player
 			transform_player = &player[i]->getComponent<TransformComponent>();
 			stats_player = &player[i]->getComponent<StatsComponent>();

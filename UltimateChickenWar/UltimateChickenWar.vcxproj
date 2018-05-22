@@ -116,6 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ECS.cpp" />
     <ClCompile Include="LoadTextureFromText.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />

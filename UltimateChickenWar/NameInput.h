@@ -20,4 +20,5 @@ private:
 	LoadTextureFromText gInput, title;
 	bool renderText = false;
 	bool end = false;
+	
 };

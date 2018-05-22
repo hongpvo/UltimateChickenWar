@@ -39,14 +39,14 @@ stats_table::stats_table() {
 stats_table::~stats_table() {
 
 }
-int stats_table::draw(Manager* all_player_manager) {
+int stats_table::draw(Manager* player1_manager) {
 	sbox = TextureManager::LoadTexture("assets/sbox.png");
 	TextureManager::Draw(sbox,lboxsrc,lboxdes);
 	TextureManager::Draw(sbox,rboxsrc,rboxdes);
 	//Open the font
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 30);
 	for (int i = 0; i < 6; i++) {
-		player[i] = (all_player_manager->getEntityList())[i];
+		player[i] = player1_manager->allEntities[i];
 		chicken[i] = TextureManager::LoadTexture(image[i]);
 		TextureManager::Draw(chicken[i], src[i], dest[i]);
 		//Render text

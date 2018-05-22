@@ -23,15 +23,6 @@ public:
 		position.Zero();
 
 	}
-	TransformComponent(int sc) {
-		position.Zero();
-		scale = sc;
-	}
-
-	TransformComponent(float x, float y) {
-		position.x = x;
-		position.y = y;
-	}
 	TransformComponent(float x, float y, int h, int w, int sc) {
 		position.x = x;
 		position.y = y;

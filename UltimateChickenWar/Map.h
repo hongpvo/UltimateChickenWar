@@ -1,18 +1,18 @@
 #pragma once
 #include "UCW.h"
 #include "UI.h"
+#include "ECS.h"
 
 class Map : public UI {
 public:
 	Map();
 	~Map();
 
-	void LoadMap(int arr[9][16], int arr2[9][16]);
-	void LoadMap(int arr[9][16]);
-	void LoadItem(int arr[9][16]);
+	void LoadMap();
 	int draw();
 	friend void UCW::handleEvents();
-
+	friend class SpriteComponent;
+	//friend void SpriteComponent::draw();
 private:
 
 

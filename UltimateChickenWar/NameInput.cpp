@@ -47,7 +47,7 @@ int NameInput::draw() {
 
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 30);
 
-	std::string temp = player;
+	std::string default_name = player;
 	name = "Input name & Enter when done";
 	player = "Enter " + player + " 's name:";
 
@@ -63,7 +63,7 @@ int NameInput::draw() {
 	SDL_StartTextInput();
 	while (!end) {
 		while (SDL_PollEvent(&event) != 0) {
-			if (event.type == SDL_KEYDOWN) {
+			if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
 				if (event.key.keysym.sym == SDLK_BACKSPACE && name.length() > 0) {
 					name.pop_back();
 					renderText = true;
@@ -105,13 +105,15 @@ int NameInput::draw() {
 			if (event.type = SDL_KEYDOWN && event.key.repeat==0) {
 				if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_KP_ENTER) {
 					end = true;
-					if (name.length()==0) name = temp;
+					if (name.length()==0) name = default_name;
 					SDL_Delay(100);
+			
 				}
 			}
-
 		}
+		//while (event.type != SDL_KEYUP && end == true) {};
 	}
+	
 	SDL_StopTextInput();
 	return 1;
 }

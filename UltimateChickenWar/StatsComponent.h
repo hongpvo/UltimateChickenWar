@@ -9,9 +9,9 @@ public:
 	double acc;
 	int player_num; // health point, attack, defend, accuracy
 	bool attacking, isAlive, choosing, myturn;
-	int side, range;
+	int  range;
 	//bool isActive;
-	StatsComponent(int index, int a) {
+	StatsComponent(int index) {
 		hp = 0;
 		atk = 1;
 		def = 0;
@@ -20,7 +20,6 @@ public:
 		attacking = 0;
 		isAlive = 1;
 		choosing = 0;
-		side = a;
 		myturn = false;
 		range = 2;
 	}
