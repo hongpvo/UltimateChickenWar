@@ -20,7 +20,7 @@ Popup::~Popup(){
 	gTextTexture.free(); 
 };
 int Popup::draw() {
-	box = TextureManager::LoadTexture("assets/button/box.png");
+	box = TextureManager::LoadTexture("assets/box/box.png");
 	TextureManager::Draw(box, src, dest);
 	//Open the font
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 60);

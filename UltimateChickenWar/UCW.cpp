@@ -33,8 +33,8 @@ Chicken* player1[3];
 Chicken* player2[3];
 
 char* image[6] = { "assets/character/chicken_warrior.png", "assets/character/chicken_warrior2.png","assets/character/chicken_acher.png", "assets/character/chicken_acher2.png","assets/character/chicken_tank.png", "assets/character/chicken_tank2.png" };
-char* turn_indicator = { "assets/turn_indicator.png" };
-char* range_indicator = { "assets/range_indicator.png" };
+char* turn_indicator = { "assets/indicator/turn_indicator.png" };
+char* range_indicator = { "assets/indicator/range_indicator.png" };
 
 Menu menu;
 std::string labels[2] = { "Start","Exit" };
@@ -172,7 +172,7 @@ void UCW::update() {
 };
 
 void UCW::render() {
-	background = TextureManager::LoadTexture("assets/island/background.png"); //3d - Dot - Heroes4
+	background = TextureManager::LoadTexture("assets/background/background.png"); //3d - Dot - Heroes4
 	SDL_Rect src, dest;
 	src.x = 0;
 	src.y = 0;

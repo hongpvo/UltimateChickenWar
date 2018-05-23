@@ -40,7 +40,7 @@ stats_table::~stats_table() {
 
 }
 int stats_table::draw() {
-	sbox = TextureManager::LoadTexture("assets/sbox.png");
+	sbox = TextureManager::LoadTexture("assets/box/sbox.png");
 	TextureManager::Draw(sbox,lboxsrc,lboxdes);
 	TextureManager::Draw(sbox,rboxsrc,rboxdes);
 	//Open the font

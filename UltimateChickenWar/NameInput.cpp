@@ -38,8 +38,8 @@ NameInput::~NameInput() {
 int NameInput::draw() {
 	//Load
 
-	box = TextureManager::LoadTexture("assets/button/box.png");
-	background = TextureManager::LoadTexture("assets/island/background.png");
+	box = TextureManager::LoadTexture("assets/box/box.png");
+	background = TextureManager::LoadTexture("assets/background/background.png");
 
 	SDL_RenderClear(UCW::renderer);
 	//Draw

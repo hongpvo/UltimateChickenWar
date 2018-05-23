@@ -1,19 +1,32 @@
 #include "Map.h"
 #include "TextureManager.h"
 #include <fstream>
+#include <stdlib.h>
+#include <time.h>
 
 SDL_Rect pos[9][16];
 
 Map::Map() {
-	flow = TextureManager::LoadTexture("assets/grass/grass1.png");
-	lowsnow = TextureManager::LoadTexture("assets/grass/grass4.png");
-	yeltree = TextureManager::LoadTexture("assets/sand/sand1.png");
-	water = TextureManager::LoadTexture("assets/water.png");
-	mount = TextureManager::LoadTexture("assets/mout.png");
-	pyah = TextureManager::LoadTexture("assets/water/water1.png");
-	sword = TextureManager::LoadTexture("assets/sword.png");
-	shield = TextureManager::LoadTexture("assets/shield.png");
-	
+	grass1 = TextureManager::LoadTexture("assets/tiles/grass1.png");
+	grass2 = TextureManager::LoadTexture("assets/tiles/grass2.png");
+	grass3 = TextureManager::LoadTexture("assets/tiles/grass3.png");
+	grass4 = TextureManager::LoadTexture("assets/tiles/grass4.png");
+	sand1 = TextureManager::LoadTexture("assets/tiles/sand1.png");
+	sand2 = TextureManager::LoadTexture("assets/tiles/sand2.png");
+	water1 = TextureManager::LoadTexture("assets/tiles/water1.png");
+	water2 = TextureManager::LoadTexture("assets/tiles/water2.png");
+	water3 = TextureManager::LoadTexture("assets/tiles/water3.png");
+	water4 = TextureManager::LoadTexture("assets/tiles/water4.png");
+
+	sword = TextureManager::LoadTexture("assets/item/sword.png");
+	shield = TextureManager::LoadTexture("assets/item/shield.png");
+	heart = TextureManager::LoadTexture("assets/item/heart.png");
+
+	srand(time(NULL));
+	map_rand = rand() % 5;
+	srand(time(NULL));
+	item_rand = rand() % 5;
+
 	LoadMap();
 	src.x = 0;
 	src.y = 0;
@@ -27,21 +40,29 @@ Map::Map() {
 }
 
 Map::~Map() {
-	SDL_DestroyTexture(flow);
-	SDL_DestroyTexture(lowsnow);
-	SDL_DestroyTexture(yeltree);
-	SDL_DestroyTexture(water);
-	SDL_DestroyTexture(mount);
-	SDL_DestroyTexture(pyah);
+	SDL_DestroyTexture(grass1);
+	SDL_DestroyTexture(grass2);
+	SDL_DestroyTexture(grass3);
+	SDL_DestroyTexture(grass4);
+	SDL_DestroyTexture(sand1);
+	SDL_DestroyTexture(sand2);
+	SDL_DestroyTexture(water1);
+	SDL_DestroyTexture(water2);
+	SDL_DestroyTexture(water3);
+	SDL_DestroyTexture(water4);
+
 	SDL_DestroyTexture(sword);
+	SDL_DestroyTexture(heart);
 	SDL_DestroyTexture(shield);
 
 }
 void Map::LoadMap() {
 
 	std::ifstream input_map ,input_item;
-	input_map.open("map/map1.txt");
-	input_item.open("map/item.txt");
+
+
+	input_map.open(map_list[map_rand]);
+	input_item.open(item_list[item_rand]);
 
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
@@ -78,22 +99,34 @@ int Map::draw() {
 			}
 			switch (type) {
 			case 0:
-				TextureManager::Draw(flow, src, dest);
+				TextureManager::Draw(grass1, src, dest);
 				break;
 			case 1:
-				TextureManager::Draw(lowsnow, src, dest);
+				TextureManager::Draw(grass2, src, dest);
 				break;
 			case 2:
-				TextureManager::Draw(yeltree, src, dest);
+				TextureManager::Draw(grass3, src, dest);
 				break;
 			case 3:
-				TextureManager::Draw(water, src, dest);
+				TextureManager::Draw(grass4, src, dest);
 				break;
 			case 4:
-				TextureManager::Draw(mount, src, dest);
+				TextureManager::Draw(sand1, src, dest);
 				break;
 			case 5:
-				TextureManager::Draw(pyah, src, dest);
+				TextureManager::Draw(sand2, src, dest);
+				break;
+			case 6:
+				TextureManager::Draw(water1, src, dest);
+				break;
+			case 7:
+				TextureManager::Draw(water2, src, dest);
+				break;
+			case 8:
+				TextureManager::Draw(water3, src, dest);
+				break;
+			case 9:
+				TextureManager::Draw(water4, src, dest);
 				break;
 			default:
 				break;
@@ -121,6 +154,9 @@ int Map::draw() {
 				break;
 			case 2:
 				TextureManager::Draw(shield, src, dest);
+				break;
+			case 3:
+				TextureManager::Draw(heart, src, dest);
 				break;
 			default:
 				break;

@@ -76,7 +76,7 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
  	//turn-based algorithm
 	if (moveTime > 500 || first_time) {
 		first_time = false;
-		if (map[mouse_row][mouse_col] != 5 || stats_player->choosing) {
+		if ((map[mouse_row][mouse_col] != 6 || map[mouse_row][mouse_col] != 7 || map[mouse_row][mouse_col] != 8 || map[mouse_row][mouse_col] != 9) || stats_player->choosing) {
 			int count = 0;
 			static int defender = 0;
 			for (int i = 0; i <= 4; i++) {
@@ -104,6 +104,10 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
 					}
 					if (itemMap[mouse_row][mouse_col] == 2) {
 						stats_player->def++;
+						itemMap[mouse_row][mouse_col] = 0;
+					}
+					if (itemMap[mouse_row][mouse_col] == 3) {
+						stats_player->hp++;
 						itemMap[mouse_row][mouse_col] = 0;
 					}
 					while (1) {
