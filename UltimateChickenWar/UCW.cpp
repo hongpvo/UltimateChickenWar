@@ -11,7 +11,7 @@
 #include "NameInput.h"
 
 Map* GameMap;
-Entity* Manager::allEntities[6];
+Chicken* Player::allChickens[6];
 SDL_Renderer* UCW::renderer = nullptr;
 SDL_Event UCW::event;
 SDL_Rect position[9][16];
@@ -27,10 +27,10 @@ Popup final2("Player 2 wins", 1500, 1728);
 NameInput name_input1("player 1");
 NameInput name_input2("player 2");
 
-Manager manager1;
-Manager manager2;
-Entity* player1[3];
-Entity* player2[3];
+Player manager1;
+Player manager2;
+Chicken* player1[3];
+Chicken* player2[3];
 
 char* image[6] = { "assets/character/chicken_warrior.png", "assets/character/chicken_warrior2.png","assets/character/chicken_acher.png", "assets/character/chicken_acher2.png","assets/character/chicken_tank.png", "assets/character/chicken_tank2.png" };
 char* turn_indicator = { "assets/turn_indicator.png" };
@@ -84,12 +84,8 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	for (int i = 0; i < manager2.returnlength(); i++) {
 		player2[i]->destroy();
 	}
-	/*
-	for (int i = 0; i < 6; i++) {
-		manager2.allEntities[i] = NULL;
-	}*/
-	//manager2.allEntities = new Entity*[6];
-	Manager::initialiser();
+	
+	Player::initialiser();
 	manager2.index = 0;
 	manager2.refresh();
 	manager2.update();
@@ -133,12 +129,12 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	position_ini[5] = position[2][1];
 
 	for (int i = 0; i <= 2; i++) {
-		player1[i] = &manager1.addEntity(2*i);
+		player1[i] = &manager1.addChicken(2*i);
 		player1[i]->addComponent<TransformComponent>(position_ini[2*i], 1);
 		player1[i]->addComponent<SpriteComponent>(image[2*i], turn_indicator, range_indicator);
 		player1[i]->addComponent<StatsComponent>(2*i);
 
-		player2[i] = &manager2.addEntity(2*i+1);
+		player2[i] = &manager2.addChicken(2*i+1);
 		player2[i]->addComponent<TransformComponent>(position_ini[2*i+1], 1);
 		player2[i]->addComponent<SpriteComponent>(image[2*i+1], turn_indicator, range_indicator);
 		player2[i]->addComponent<StatsComponent>(2*i+1);
@@ -161,7 +157,7 @@ void UCW::handleEvents() {
 		isRunning = false;
 		break;
 	case SDL_MOUSEBUTTONDOWN:
-		Mouse_Controller(&manager1, GameMap->map,GameMap->itemMap, &attack);
+		Mouse_Controller( GameMap->map,GameMap->itemMap, &attack);
 		break;
 	default:
 		break;
@@ -223,11 +219,11 @@ void UCW::render() {
 			GameMap->draw();
 			manager1.draw();
 			manager2.draw();
-			statsmenu.draw(&manager1);
+			statsmenu.draw();
 
 			bool draw_allowing = false;
 			for (int i = 0; i < 6; i++) {
-				if ((Manager::allEntities[i])->getComponent<StatsComponent>().choosing) {
+				if ((Player::allChickens[i])->getComponent<StatsComponent>().choosing) {
 					draw_allowing = true;
 					break;
 				}

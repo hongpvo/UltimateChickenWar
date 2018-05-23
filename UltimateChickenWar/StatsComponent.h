@@ -1,6 +1,6 @@
 #pragma once
 #include "UCW.h"
-#include "ECS.h"
+#include"Player_system.h"
 //#include "Component.h"
 
 class StatsComponent : public Component {
@@ -17,7 +17,6 @@ public:
 		def = 0;
 		acc = 0.9;
 		player_num = index;
-		attacking = 0;
 		isAlive = 1;
 		choosing = 0;
 		myturn = false;

@@ -12,7 +12,7 @@ class stats_table : public UI {
 public:
 	stats_table();
 	~stats_table();
-	int draw(Manager* all_player_manager);
+	int draw();
 	void clean();
 private:
 	int x, y;
@@ -22,7 +22,7 @@ private:
 	SDL_Texture* chicken[6];
 	SDL_Texture* sbox;
 	char* image[6] = { "assets/character/chicken_warrior.png", "assets/character/chicken_acher.png","assets/character/chicken_tank.png", "assets/character/chicken_warrior2.png","assets/character/chicken_acher2.png", "assets/character/chicken_tank2.png" };
-	Entity* player[6];
+	Chicken* player[6];
 	StatsComponent* stats_player;
 	SDL_Rect src[6];
 	SDL_Rect dest[6];

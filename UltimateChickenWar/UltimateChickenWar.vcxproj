@@ -129,7 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
-    <ClInclude Include="ECS.h" />
+    <ClInclude Include="Player_system.h" />
     <ClInclude Include="LoadTextureFromText.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />

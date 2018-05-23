@@ -46,7 +46,7 @@ public:
 		range_indicator = TextureManager::LoadTexture(range_background);
 	}
 	void init() override {
-		transform = &entity->getComponent<TransformComponent>();
+		transform = &chicken->getComponent<TransformComponent>();
 		loadmap = new Map();
 		srcRect.x = srcRect.y = 0;
 		srcRect.w = 108;
@@ -69,7 +69,7 @@ public:
 			TextureManager::Draw(turn_indicator, srcRect, destRect);
 			player_x = transform->position.x + 52;
 			player_y = transform->position.y + 50;
-			if (sqrt(pow(player_x - mouse_center_x, 2) + pow(player_y - mouse_center_y, 2)) <= (entity->getComponent<StatsComponent>()).range * 104 && (loadmap->map)[mouse_row][mouse_col]!=5) {
+			if (sqrt(pow(player_x - mouse_center_x, 2) + pow(player_y - mouse_center_y, 2)) <= (chicken->getComponent<StatsComponent>()).range * 104 && (loadmap->map)[mouse_row][mouse_col]!=5) {
 				if (mouse_row % 2 == 0) {
 					destRect1.x = mouse_col * 104;
 					destRect1.y = mouse_row * 68;
@@ -84,7 +84,7 @@ public:
 		}
 		TextureManager::Draw(texture, srcRect, destRect);
 		//to update indicator_allowing
-		indicator_allowing = (entity->getComponent<StatsComponent>()).myturn;
+		indicator_allowing = (chicken->getComponent<StatsComponent>()).myturn;
 		
 	}
 };

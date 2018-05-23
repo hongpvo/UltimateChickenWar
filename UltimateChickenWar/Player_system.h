@@ -6,12 +6,12 @@
 
 using namespace std;
 class Component;
-class Entity;
+class Chicken;
 
 class Component {
 
 public:
-	Entity * entity;
+	Chicken * chicken;
 	virtual void init() {};
 	virtual void update() {};
 	virtual void draw() {};
@@ -20,7 +20,7 @@ public:
 
 };
 
-class Entity {
+class Chicken {
 private:
 	bool active = true;
 	int index = 0;
@@ -51,7 +51,7 @@ public:
 	template <typename T, typename... TArgs>
 	T& addComponent(TArgs... mArgs) {
 		T*c = new T(mArgs...);
-		c->entity = this;
+		c->chicken = this;
 		Component* uPtr = c;
 		components[index] = uPtr;
 		getComponentTypeID<T>();
@@ -68,70 +68,73 @@ public:
 	}
 
 	template <typename T> int getComponentTypeID() {
-
 		static int typeID = index;
 		return typeID;
 	}
 
 };
 
-class Manager {
+class Player {
 private:
-	Entity ** entities;
+	Chicken ** chickens;
 	int index = 0;
+	Chicken* e;
 public:
-	static Entity* allEntities[6];
-	static void Manager::initialiser() {
+	static Chicken* allChickens[6];
+	~Player() {
+		delete[] chickens;
+	}
+	static void Player::initialiser() {
 		for (int i = 0; i < 6; i++) {
-			Manager::allEntities[i] = NULL;
+			Player::allChickens[i] = NULL;
 		}
 	}
 	friend void UCW::init(const char* , int, int , int , int , bool);
 	void update() {
 		for (int i = 0; i < returnlength(); i++) {
-			if (entities[i]!=NULL) entities[i]->update();
+			if (chickens[i]!=NULL) chickens[i]->update();
 		}
 	}
 	void draw() {
 		for (int i = 0; i < returnlength(); i++) {
-			if (entities[i] != NULL) entities[i]->draw();
+			if (chickens[i] != NULL) chickens[i]->draw();
 		}
 	}
 	void refresh() {
 		
 		for (int i = 0; i < returnlength(); i++) {
-			if (entities[i] != NULL) {
-				if (!(entities[i]->isActive())) entities[i] = NULL;
+			if (chickens[i] != NULL) {
+				if (!(chickens[i]->isActive())) chickens[i] = NULL;
 			}
 		}
 	}
 
-	Entity& addEntity(int i) {
-		Entity* e = new Entity();
-		Entity* uPtr{ e };
+	Chicken& addChicken(int i) {
+		e = new Chicken();
 		index++;
-		Entity** entities_temp = new Entity*[index];
+		Chicken** entities_temp = new Chicken*[index];
 		for (int i = 0; i < index - 1; i++) {
-			entities_temp[i] = entities[i];
+			entities_temp[i] = chickens[i];
 		}
-		entities_temp[index - 1] = uPtr;
-		delete[] entities;
-		entities = new Entity*[index];
-		entities = entities_temp;
-		allEntities[i] = e;
+		entities_temp[index - 1] = e;
+		delete[] chickens;
+		chickens = new Chicken*[index];
+		chickens = entities_temp;
+	
+		allChickens[i] = e;
 		return *e;
 
 	}
 
-	Entity** getEntityList() {
-		return entities;
+	Chicken** getChickenList() {
+		return chickens;
 	}
 	int returnlength() {
-		int numEntities=0;
+		int numChickens=0;
 		for (int i = 0; i <= index-1; i++) {
-			if (entities[i] != NULL) numEntities++;
+			if (chickens[i] != NULL) numChickens++;
 		}
-		return numEntities;
+		return numChickens;
 	}
 
 	

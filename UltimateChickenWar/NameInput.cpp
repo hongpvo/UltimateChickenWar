@@ -37,6 +37,7 @@ NameInput::~NameInput() {
 }
 int NameInput::draw() {
 	//Load
+
 	box = TextureManager::LoadTexture("assets/button/box.png");
 	background = TextureManager::LoadTexture("assets/island/background.png");
 
@@ -106,7 +107,7 @@ int NameInput::draw() {
 				if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_KP_ENTER) {
 					end = true;
 					if (name.length()==0) name = default_name;
-					SDL_Delay(100);
+					SDL_Delay(300);
 			
 				}
 			}

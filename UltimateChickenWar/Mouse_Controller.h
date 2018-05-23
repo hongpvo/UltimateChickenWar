@@ -1,14 +1,14 @@
 #pragma once
 
 //#include "UCW.h"
-#include "ECS.h"
+#include "Player_system.h"
 #include "Component.h"
 #include "StatsComponent.h"
 #include "Map.h"
 #include<vector>
 #include "vector2D.h"
-
 #include "Popup.h"
+
 using namespace std;
 extern SDL_Rect position[9][16];
 extern SDL_Rect center_position[9][16];
@@ -19,9 +19,9 @@ int player_x, player_y;
 int player_row, player_col, player_range;
 static bool first_time = true;
 
-void Mouse_Controller(Manager* player1_manager, int map[9][16], int itemMap[9][16], Popup* attack) {
+void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
 	here:
-	Entity* player[6];
+	Chicken* chicken[6];
 	int mouse_x, mouse_y, mouse_row, mouse_col, mouse_center_y, mouse_center_x;
 	static int iterator = 0;
 	if (first_time) iterator = 0;
@@ -48,10 +48,10 @@ void Mouse_Controller(Manager* player1_manager, int map[9][16], int itemMap[9][1
 	cout << "turn: " << turn << endl;
 	int j = 0;
 	for (int i = 0; i < 6; i++) {
-		player[i] = Manager::allEntities[i];
+		chicken[i] = Player::allChickens[i];
 		if (i == turn) {//for player
-			transform_player = &player[i]->getComponent<TransformComponent>();
-			stats_player = &player[i]->getComponent<StatsComponent>();
+			transform_player = &chicken[i]->getComponent<TransformComponent>();
+			stats_player = &chicken[i]->getComponent<StatsComponent>();
 			stats_player->myturn = true;
 			player_range = stats_player->range;
 			transform_player->getPosition();
@@ -59,8 +59,8 @@ void Mouse_Controller(Manager* player1_manager, int map[9][16], int itemMap[9][1
 			player_col = transform_player->posCol;
 		}
 		if (i != turn) {
-			transform_opponent[j] = &player[i]->getComponent<TransformComponent>();
-			stats_opponent[j] = &player[i]->getComponent<StatsComponent>();
+			transform_opponent[j] = &chicken[i]->getComponent<TransformComponent>();
+			stats_opponent[j] = &chicken[i]->getComponent<StatsComponent>();
 			stats_opponent[j]->myturn =false;
 			transform_opponent[j]->getPosition();
 			opponent_row[j] = transform_opponent[j]->posRow;
@@ -109,7 +109,7 @@ void Mouse_Controller(Manager* player1_manager, int map[9][16], int itemMap[9][1
 					while (1) {
 						iterator++;
 						turn = iterator % 6;
-						if (player[turn]->getComponent<StatsComponent>().isAlive) {
+						if (chicken[turn]->getComponent<StatsComponent>().isAlive) {
 							gettime = true;
 							goto here;
 						}
@@ -154,7 +154,7 @@ void Mouse_Controller(Manager* player1_manager, int map[9][16], int itemMap[9][1
 						while (1) {
 							iterator++;
 							turn = iterator % 6;
-							if (player[turn]->getComponent<StatsComponent>().isAlive) goto here;
+							if (chicken[turn]->getComponent<StatsComponent>().isAlive) goto here;
 						}
 						hit = false;
 				}
