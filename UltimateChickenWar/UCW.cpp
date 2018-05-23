@@ -11,7 +11,7 @@
 #include "NameInput.h"
 
 Map* GameMap;
-
+Entity* Manager::allEntities[6];
 SDL_Renderer* UCW::renderer = nullptr;
 SDL_Event UCW::event;
 SDL_Rect position[9][16];
@@ -89,7 +89,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		manager2.allEntities[i] = NULL;
 	}*/
 	//manager2.allEntities = new Entity*[6];
-	
+	Manager::initialiser();
 	manager2.index = 0;
 	manager2.refresh();
 	manager2.update();

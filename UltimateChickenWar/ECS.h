@@ -81,7 +81,11 @@ private:
 	int index = 0;
 public:
 	static Entity* allEntities[6];
-	static void Manager::initialiser();
+	static void Manager::initialiser() {
+		for (int i = 0; i < 6; i++) {
+			Manager::allEntities[i] = NULL;
+		}
+	}
 	friend void UCW::init(const char* , int, int , int , int , bool);
 	void update() {
 		for (int i = 0; i < returnlength(); i++) {
@@ -132,6 +136,7 @@ public:
 
 	
 };
+//Entity* Manager::allEntities[6];
 
 /*
 #pragma once
