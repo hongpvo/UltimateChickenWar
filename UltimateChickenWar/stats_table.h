@@ -3,7 +3,7 @@
 #include "LoadTextureFromText.h"
 #include <string>
 #include "TextureManager.h"
-//#include "ECS.h"
+#include "ECS.h"
 #include "StatsComponent.h"
 #include "UI.h"
 
