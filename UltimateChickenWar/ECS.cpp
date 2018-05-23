@@ -1,6 +1,8 @@
 #include "ECS.h"
 #include<iostream>
-
+#include "UCW.h"
+#include "Popup.h"
+#include "UI.h"
 //DON'T remove this - this is correct
 Entity* Manager::allEntities[6];
 void Manager::initialiser() {
@@ -33,7 +35,7 @@ void Entity:: update()
 		active = false;
 	}
 
-	
+
 
 	template <typename T, typename... TArgs>
 	T& Entity::addComponent(TArgs... mArgs) {
@@ -48,7 +50,7 @@ void Entity:: update()
 		c->init();
 		return *c;
 	}
-	
+
 	template<typename T> T& Entity::getComponent() {
 		Component* ptr = components[getComponentTypeID<T>()];
 		return *dynamic_cast<T*>(ptr);
