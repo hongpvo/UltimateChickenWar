@@ -55,9 +55,9 @@ Map::~Map() {
 
 }
 void Map::LoadMap() {
-
+	//input map from file *.txt
 	std::ifstream input_map ,input_item;
-
+	//input random map from list
 	input_map.open(map_list[map_rand]);
 	input_item.open(item_list[map_rand]);
 

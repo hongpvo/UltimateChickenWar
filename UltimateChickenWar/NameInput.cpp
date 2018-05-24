@@ -64,6 +64,9 @@ int NameInput::draw() {
 	SDL_StartTextInput();
 	while (!end) {
 		while (SDL_PollEvent(&event) != 0) {
+			if(event.type == SDL_QUIT) {
+				return 2;
+			}
 			if (event.type == SDL_KEYDOWN && event.key.repeat == 0) {
 				if (event.key.keysym.sym == SDLK_BACKSPACE && name.length() > 0) {
 					name.pop_back();

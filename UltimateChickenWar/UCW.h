@@ -28,14 +28,16 @@ public:
 
 
 
+
+
 private:
 	bool isRunning;
 	int cnt = 0;
 	SDL_Window *window;
 	bool menu_checked = false;
 	bool endgame = false;
-	bool player1nameInput = false;
-	bool player2nameInput = false;
+	int player1nameInput = false;
+	int player2nameInput = false;
 	std::string player1name, player2name;
 	
 

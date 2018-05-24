@@ -12,7 +12,7 @@ public:
 	int  range;
 	//bool isActive;
 	StatsComponent(int index) {
-		hp = 0;
+		hp = 3;
 		atk = 1;
 		def = 0;
 		acc = 0.9;

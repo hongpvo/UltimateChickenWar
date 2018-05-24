@@ -111,22 +111,23 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 
 		}
 	}
-	/*
+	
 	position_ini[0] = position[0][0];
-	position_ini[1] = position[0][15];
+	position_ini[1] = position[6][15];
 	position_ini[2] = position[1][0];
-	position_ini[3] = position[1][15];
+	position_ini[3] = position[7][15];
 	position_ini[4] = position[2][0];
-	position_ini[5] = position[2][15];
-	*/
+	position_ini[5] = position[8][15];
+	
 
-	//test 
+	/* 
 	position_ini[0] = position[0][0];
 	position_ini[1] = position[0][1];
 	position_ini[2] = position[1][0];
 	position_ini[3] = position[1][1];
 	position_ini[4] = position[2][0];
 	position_ini[5] = position[2][1];
+	*/
 
 	for (int i = 0; i <= 2; i++) {
 		player1[i] = &manager1.addChicken(2*i);
@@ -204,13 +205,15 @@ void UCW::render() {
 	}
 
 	if (menu_checked == true) {
-		if (player1nameInput == false) {
+		if (player1nameInput == 0) {
 			player1nameInput = name_input1.draw();
+			if (player1nameInput == 2) isRunning = false;
 			player1name = name_input1.getName();
 			name_input1.clean();
 		}
-		else if (player2nameInput == false){
+		else if (player2nameInput == 0){
 			player2nameInput = name_input2.draw();
+			if (player2nameInput == 2) isRunning = false;
 			player2name = name_input2.getName();
 			name_input2.clean();
 		}
