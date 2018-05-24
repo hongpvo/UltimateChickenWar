@@ -24,8 +24,6 @@ Map::Map() {
 
 	srand(time(NULL));
 	map_rand = rand() % 5;
-	srand(time(NULL));
-	item_rand = rand() % 5;
 
 	LoadMap();
 	src.x = 0;
@@ -60,9 +58,8 @@ void Map::LoadMap() {
 
 	std::ifstream input_map ,input_item;
 
-
 	input_map.open(map_list[map_rand]);
-	input_item.open(item_list[item_rand]);
+	input_item.open(item_list[map_rand]);
 
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {

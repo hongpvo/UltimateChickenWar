@@ -38,6 +38,6 @@ private:
 	std::string map_list[5] = { "map/map1.txt","map/map2.txt","map/map3.txt","map/map4.txt","map/map5.txt" };
 	std::string item_list[5] = { "map/item1.txt","map/item2.txt","map/item3.txt","map/item4.txt","map/item5.txt" };
 
-	int map_rand, item_rand;
+	int map_rand;
 
 };

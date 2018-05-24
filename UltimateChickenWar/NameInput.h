@@ -16,6 +16,7 @@ public:
 
 private:
 	std::string name, player;
+	std::string default_name;
 	SDL_Event event;
 	LoadTextureFromText gInput, title;
 	bool renderText = false;

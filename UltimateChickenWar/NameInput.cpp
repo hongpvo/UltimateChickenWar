@@ -48,9 +48,9 @@ int NameInput::draw() {
 
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 30);
 
-	std::string default_name = player;
+	if (player != "") default_name = player;
 	name = "Input name & Enter when done";
-	player = "Enter " + player + " 's name:";
+	player = "Enter " + default_name + " 's name:";
 
 	title.loadFromRenderedText(player, color[0]);
 	gInput.loadFromRenderedText(name, color[0]);
