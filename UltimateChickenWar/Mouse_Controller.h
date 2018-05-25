@@ -1,8 +1,7 @@
 #pragma once
-
-//#include "UCW.h"
 #include "Player_system.h"
-#include "Component.h"
+#include "SpriteComponent.h"
+#include "TransformComponent.h"
 #include "StatsComponent.h"
 #include "Map.h"
 #include<vector>

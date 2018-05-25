@@ -1,11 +1,12 @@
 #pragma once
-#include "Component.h"
-//#include "ECS.h"
+#include "Player_system.h"
+#include "SpriteComponent.h"
 #include "TransformComponent.h"
+#include "Mouse_Controller.h"
 #include "StatsComponent.h"
+//#include "ECS.h"
 #include "SDL.h"
 #include "TextureManager.h"
-#include "Mouse_Controller.h"
 #include "Map.h"
 #include <iostream>
 using namespace std;
@@ -69,7 +70,11 @@ public:
 			TextureManager::Draw(turn_indicator, srcRect, destRect);
 			player_x = transform->position.x + 52;
 			player_y = transform->position.y + 50;
-			if (sqrt(pow(player_x - mouse_center_x, 2) + pow(player_y - mouse_center_y, 2)) <= (chicken->getComponent<StatsComponent>()).range * 104 && ((loadmap->map)[mouse_row][mouse_col]!=6 && (loadmap->map)[mouse_row][mouse_col] != 7 && (loadmap->map)[mouse_row][mouse_col] != 8 && (loadmap->map)[mouse_row][mouse_col] != 9)) {
+			player_range = (chicken->getComponent<StatsComponent>()).range * 104;
+			//cout << "mouse_row: " << mouse_row << " ,mouse_col: " << mouse_col << " ,range: " << player_range << 
+				//" ,distance: " << sqrt(pow(player_x - mouse_center_x, 2) + pow(player_y - mouse_center_y, 2)) << endl; 
+			if (sqrt(pow(player_x - mouse_center_x, 2) + pow(player_y - mouse_center_y, 2)) <= player_range && ((loadmap->map)[mouse_row][mouse_col] != 6
+				 && (loadmap->map)[mouse_row][mouse_col] != 7 && (loadmap->map)[mouse_row][mouse_col] != 8 && (loadmap->map)[mouse_row][mouse_col] != 9)) {
 				if (mouse_row % 2 == 0) {
 					destRect1.x = mouse_col * 104;
 					destRect1.y = mouse_row * 68;
