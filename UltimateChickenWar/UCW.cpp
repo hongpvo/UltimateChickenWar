@@ -35,6 +35,7 @@ Chicken* player2[3];
 char* image[6] = { "assets/character/chicken_warrior.png", "assets/character/chicken_warrior2.png","assets/character/chicken_acher.png", "assets/character/chicken_acher2.png","assets/character/chicken_tank.png", "assets/character/chicken_tank2.png" };
 char* turn_indicator = { "assets/indicator/turn_indicator.png" };
 char* range_indicator = { "assets/indicator/range_indicator.png" };
+int stats_array[3][4] = { {3,2,1,1},{3,1,0,2},{3,1,2,1} };
 
 Menu menu;
 std::string labels[2] = { "Start","Exit" };
@@ -133,12 +134,12 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		player1[i] = &manager1.addChicken(2*i);
 		player1[i]->addComponent<TransformComponent>(position_ini[2*i], 1);
 		player1[i]->addComponent<SpriteComponent>(image[2*i], turn_indicator, range_indicator);
-		player1[i]->addComponent<StatsComponent>(2*i);
+		player1[i]->addComponent<StatsComponent>(2*i, stats_array[i][0], stats_array[i][1], stats_array[i][2], stats_array[i][3]);
 
 		player2[i] = &manager2.addChicken(2*i+1);
 		player2[i]->addComponent<TransformComponent>(position_ini[2*i+1], 1);
 		player2[i]->addComponent<SpriteComponent>(image[2*i+1], turn_indicator, range_indicator);
-		player2[i]->addComponent<StatsComponent>(2*i+1);
+		player2[i]->addComponent<StatsComponent>(2*i+1, stats_array[i][0], stats_array[i][1], stats_array[i][2], stats_array[i][3]);
 		
 	}
 	player1[0]->getComponent<StatsComponent>().myturn = true;
