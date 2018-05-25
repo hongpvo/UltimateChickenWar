@@ -21,7 +21,7 @@ stats_table::stats_table() {
 	lboxsrc.h = 400;
 	
 	lboxdes.x = 0;
-	lboxdes.y = 700;
+	lboxdes.y = 650;
 	lboxdes.w = 500;
 	lboxdes.h = 400;
 	//right stats box of player 2
@@ -31,7 +31,7 @@ stats_table::stats_table() {
 	rboxsrc.h = 400;
 
 	rboxdes.x = 1225;
-	rboxdes.y = 700;
+	rboxdes.y = 650;
 	rboxdes.w = 500;
 	rboxdes.h = 400;
 
@@ -39,12 +39,16 @@ stats_table::stats_table() {
 stats_table::~stats_table() {
 
 }
-int stats_table::draw() {
+int stats_table::draw(std::string name_player1, std::string name_player2) {
 	sbox = TextureManager::LoadTexture("assets/box/sbox.png");
 	TextureManager::Draw(sbox,lboxsrc,lboxdes);
 	TextureManager::Draw(sbox,rboxsrc,rboxdes);
 	//Open the font
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 30);
+	player1.loadFromRenderedText(name_player1, player_color);
+	player2.loadFromRenderedText(name_player2, player_color);
+	player1.render((500 - player2.getWidth()) / 2, (1370 - player2.getHeight()) / 2);
+	player2.render((2950 - player2.getWidth()) / 2, (1370 - player2.getHeight()) / 2);
 	for (int i = 0; i < 6; i++) {
 		player[i] = Player::allChickens[i];
 		chicken[i] = TextureManager::LoadTexture(image[i]);

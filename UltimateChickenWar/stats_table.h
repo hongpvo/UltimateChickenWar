@@ -12,13 +12,17 @@ class stats_table : public UI {
 public:
 	stats_table();
 	~stats_table();
-	int draw();
+	int draw(std::string name_player1, std::string name_player2);
 	void clean();
 private:
 	int x, y;
 	SDL_Color color = { 255,0,0 };
 	SDL_Color textColor = { 0, 0, 0 };
+	SDL_Color player_color = { 0,0,255 };
+
 	LoadTextureFromText playertext[6];
+	LoadTextureFromText player1, player2;
+
 	SDL_Texture* chicken[6];
 	SDL_Texture* sbox;
 	char* image[6] = { "assets/character/chicken_warrior.png", "assets/character/chicken_acher.png","assets/character/chicken_tank.png", "assets/character/chicken_warrior2.png","assets/character/chicken_acher2.png", "assets/character/chicken_tank2.png" };

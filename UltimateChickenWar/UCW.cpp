@@ -228,7 +228,7 @@ void UCW::render() {
 			GameMap->draw();
 			manager1.draw();
 			manager2.draw();
-			statsmenu.draw();
+			statsmenu.draw(player1name,player2name);
 
 			bool draw_allowing = false;
 			for (int i = 0; i < 6; i++) {
