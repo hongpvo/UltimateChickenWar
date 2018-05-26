@@ -16,7 +16,7 @@ public:
 	virtual void update() {};
 	virtual void draw() {};
 
-	virtual ~Component() {};
+	
 
 };
 
@@ -52,8 +52,7 @@ public:
 	T& addComponent(TArgs... mArgs) {
 		T*c = new T(mArgs...);
 		c->chicken = this;
-		Component* uPtr = c;
-		components[index] = uPtr;
+		components[index] = static_cast<Component*>(c);
 		getComponentTypeID<T>();
 		
 		
@@ -62,9 +61,9 @@ public:
 		return *c;
 	}
 
-	template<typename T> T& getComponent() {
+	template<typename T> T* getComponent() {
 		Component* ptr = components[getComponentTypeID<T>()];
-		return *dynamic_cast<T*>(ptr);
+		return dynamic_cast<T*>(ptr);
 	}
 
 	template <typename T> int getComponentTypeID() {
@@ -84,7 +83,7 @@ public:
 	~Player() {
 		delete[] chickens;
 	}
-	static void Player::initialiser() {
+	static void initialiser() {
 		for (int i = 0; i < 6; i++) {
 			Player::allChickens[i] = NULL;
 		}
@@ -109,7 +108,7 @@ public:
 		}
 	}
 
-	Chicken& addChicken(int i) {
+	Chicken* addChicken(int i) {
 		e = new Chicken();
 		index++;
 		Chicken** entities_temp = new Chicken*[index];
@@ -122,7 +121,7 @@ public:
 		chickens = entities_temp;
 	
 		allChickens[i] = e;
-		return *e;
+		return e;
 
 	}
 

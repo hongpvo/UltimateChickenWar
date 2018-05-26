@@ -49,8 +49,8 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
 	for (int i = 0; i < 6; i++) {
 		chicken[i] = Player::allChickens[i];
 		if (i == turn) {//for player
-			transform_player = &chicken[i]->getComponent<TransformComponent>();
-			stats_player = &chicken[i]->getComponent<StatsComponent>();
+			transform_player = chicken[i]->getComponent<TransformComponent>();
+			stats_player = chicken[i]->getComponent<StatsComponent>();
 			stats_player->myturn = true;
 			player_range = stats_player->range;
 			transform_player->getPosition();
@@ -58,8 +58,8 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
 			player_col = transform_player->posCol;
 		}
 		if (i != turn) {
-			transform_opponent[j] = &chicken[i]->getComponent<TransformComponent>();
-			stats_opponent[j] = &chicken[i]->getComponent<StatsComponent>();
+			transform_opponent[j] = chicken[i]->getComponent<TransformComponent>();
+			stats_opponent[j] = chicken[i]->getComponent<StatsComponent>();
 			stats_opponent[j]->myturn =false;
 			transform_opponent[j]->getPosition();
 			opponent_row[j] = transform_opponent[j]->posRow;
@@ -112,7 +112,7 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
 					while (1) {
 						iterator++;
 						turn = iterator % 6;
-						if (chicken[turn]->getComponent<StatsComponent>().isAlive) {
+						if (chicken[turn]->getComponent<StatsComponent>()->isAlive) {
 							gettime = true;
 							goto here;
 						}
@@ -144,7 +144,7 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
 							stats_opponent[defender]->def = 0;
 						}
 					}
-						else if (stats_opponent[defender]->def == 0) stats_opponent[defender]->hp -= 1;
+						else if (stats_opponent[defender]->def == 0) stats_opponent[defender]->hp -= stats_player->atk;
 						if (stats_opponent[defender]->hp < 0) {
 							stats_opponent[defender]->hp = 0;
 						}
@@ -157,7 +157,7 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
 						while (1) {
 							iterator++;
 							turn = iterator % 6;
-							if (chicken[turn]->getComponent<StatsComponent>().isAlive) goto here;
+							if (chicken[turn]->getComponent<StatsComponent>()->isAlive) goto here;
 						}
 						hit = false;
 				}

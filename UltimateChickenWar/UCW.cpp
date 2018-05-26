@@ -114,10 +114,9 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 				center_position[row][column].x = 104 + 104 * column;
 				center_position[row][column].y = 50 + 68 * row;
 			}
-
+			//TransformComponent::positionRC[row][column] = center_position[row][column];
 		}
 	}
-	
 	position_ini[0] = position[0][0];
 	position_ini[1] = position[6][15];
 	position_ini[2] = position[1][0];
@@ -136,18 +135,18 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	*/
 
 	for (int i = 0; i <= 2; i++) {
-		player1[i] = &manager1.addChicken(2*i);
+		player1[i] = manager1.addChicken(2*i);
 		player1[i]->addComponent<TransformComponent>(position_ini[2*i], 1);
 		player1[i]->addComponent<SpriteComponent>(image[2*i], turn_indicator, range_indicator);
 		player1[i]->addComponent<StatsComponent>(2*i, stats_array[i][0], stats_array[i][1], stats_array[i][2], stats_array[i][3]);
 
-		player2[i] = &manager2.addChicken(2*i+1);
+		player2[i] = manager2.addChicken(2*i+1);
 		player2[i]->addComponent<TransformComponent>(position_ini[2*i+1], 1);
 		player2[i]->addComponent<SpriteComponent>(image[2*i+1], turn_indicator, range_indicator);
 		player2[i]->addComponent<StatsComponent>(2*i+1, stats_array[i][0], stats_array[i][1], stats_array[i][2], stats_array[i][3]);
 		
 	}
-	player1[0]->getComponent<StatsComponent>().myturn = true;
+	player1[0]->getComponent<StatsComponent>()->myturn = true;
 	
 	//Debugfont
 	if (TTF_Init() == -1)
@@ -232,7 +231,7 @@ void UCW::render() {
 
 			bool draw_allowing = false;
 			for (int i = 0; i < 6; i++) {
-				if ((Player::allChickens[i])->getComponent<StatsComponent>().choosing) {
+				if ((Player::allChickens[i])->getComponent<StatsComponent>()->choosing) {
 					draw_allowing = true;
 					break;
 				}
@@ -240,8 +239,8 @@ void UCW::render() {
 			int numPlayer1 = 0;
 			int numPlayer2 = 0;
 			for (int i = 0; i < manager1.returnlength(); i++) {
-				if (player1[i]->getComponent<StatsComponent>().isAlive) numPlayer1++;
-				if (player2[i]->getComponent<StatsComponent>().isAlive) numPlayer2++;
+				if (player1[i]->getComponent<StatsComponent>()->isAlive) numPlayer1++;
+				if (player2[i]->getComponent<StatsComponent>()->isAlive) numPlayer2++;
 			}
 
 			if (numPlayer2 == 0) {

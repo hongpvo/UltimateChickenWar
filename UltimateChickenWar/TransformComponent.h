@@ -3,18 +3,18 @@
 #include "Player_system.h"
 #include "SpriteComponent.h"
 #include "TransformComponent.h"
-//#include "Mouse_Controller.h"
+
 #include "StatsComponent.h"
 #include "Vector2D.h"
 #include <math.h>
-
+extern SDL_Rect center_position[9][16];
 class TransformComponent : public Component
 {
 public:
 	Vector2D position;
 	Vector2D velocity;
-	SDL_Rect positionRC[9][16];
-	
+
+
 	int height = 100;
 	int width = 104;
 	int scale = 1;
@@ -40,38 +40,11 @@ public:
 		width = in.w;
 		height = in.h;
 		scale = sc;
-		//define positionRC[9][16]
-		for (int row = 0; row < 9; row++) {
-			for (int column = 0; column < 16; column++) {
-				positionRC[row][column].h = 100;
-				positionRC[row][column].w = 104;
-				if (row == 0) {
-					positionRC[row][column].x = 52 + 104*column;
-					positionRC[row][column].y = 50;
-				}
-				else if (row % 2 == 0) {
-					positionRC[row][column].x = 52 + 104 * column ;
-					positionRC[row][column].y = 50 + 68 * row;
-				}
-				else {
-					positionRC[row][column].x = 104 + 104 * column;
-					positionRC[row][column].y = 50 + 68 * row;
-				}
-
-			}
-		}
-	}
-
-	void init() override {
-		velocity.Zero();
-
+		
 	}
 
 	void update() override {
 		getPosition();
-
-		//position.x += velocity.x*speed;
-		//position.y += velocity.y*speed;
 	}
 
 	void getPosition() {
@@ -80,7 +53,7 @@ public:
 		int b = 50;
 		for (int row = 0; row < 9; row++) {
 			for (int column = 0; column < 16; column++) {
-				gPosition[row][column] = sqrt((position.x+a - positionRC[row][column].x)*(position.x+a - positionRC[row][column].x) + (position.y+b - positionRC[row][column].y)*(position.y+b - positionRC[row][column].y));
+				gPosition[row][column] = sqrt((position.x+a - center_position[row][column].x)*(position.x+a - center_position[row][column].x) + (position.y+b - center_position[row][column].y)*(position.y+b - center_position[row][column].y));
 			}
 		}
 		//find the closet distance
