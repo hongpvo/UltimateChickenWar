@@ -279,6 +279,7 @@ void UCW::render() {
 
 };
 void UCW::clean() {
+
 	statsmenu.clean();
 	attack.clean();
 	SDL_DestroyWindow(window);

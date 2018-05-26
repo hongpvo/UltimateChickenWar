@@ -5,17 +5,37 @@ Menu::Menu() {
 	color[1] = { 255,0,0 };  
 }
 Menu::~Menu() {
-//	SDL_DestroyTexture(background);
 }
 int Menu::draw(std::string labels[2]) {
-	
 	int h[2] = { 1100,1500 };
 	int w[2] = { 1728,1728 };
+	//The upper title
+	UCW::gFont = TTF_OpenFont("HUMANOID.TTF", 180);
+	Game_title[0].loadFromRenderedText("Ultimate", color2);
+	Game_title[0].render(501, 101);
+	Game_title[0].loadFromRenderedText("Ultimate", color[1]);
+	Game_title[0].render(503, 103);
+	Game_title[0].loadFromRenderedText("Ultimate", color[0]);
+	Game_title[0].render(505, 105);
+	TTF_CloseFont(UCW::gFont);
+	UCW::gFont = NULL;
+	//the lower title
+	UCW::gFont = TTF_OpenFont("HUMANOIDSTRAIGHT.TTF", 140);
+	Game_title[1].loadFromRenderedText("Chicken War!", color3);
+	Game_title[1].render(501,251);
+	Game_title[1].loadFromRenderedText("Chicken War!", color[1]);
+	Game_title[1].render(503, 253);
+	Game_title[1].loadFromRenderedText("Chicken War!", color[0]);
+	Game_title[1].render(505, 255);
+	TTF_CloseFont(UCW::gFont);
+	UCW::gFont = NULL;
+
 	UCW::gFont = TTF_OpenFont("pixelFJ8pt1__.ttf", 60);
 	menus[0].loadFromRenderedText(labels[0], color[0]);
 	menus[1].loadFromRenderedText(labels[1], color[0]);
 	menus[0].render((w[0] - menus[0].getWidth()) / 2, (h[0] - menus[0].getHeight()) / 2);
 	menus[1].render((w[1] - menus[1].getWidth()) / 2, (h[1] - menus[1].getHeight()) / 2);
+
 	std::cout << "menu Rendered" << std::endl;
 	int topLeft_x[2] = { 769,769 };
 	int bottomRight_x[2] = { 964,964 };
@@ -86,3 +106,4 @@ int Menu::draw(std::string labels[2]) {
 		}
 	}
 }
+
