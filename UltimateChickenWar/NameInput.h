@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "Popup.h"
 #include "UI.h"
+#include "Player_system.h"
 //This class is used to display 2 Name Input box after you pressed Start/Restart
 //Derived from UI
 class NameInput: public UI{
@@ -12,10 +13,9 @@ public:
 	//get the default name from UCW
 	NameInput(std::string str);
 	~NameInput();
-	//Override from base class
-	int draw();
-	//get the name that player has input back
-	std::string getName();
+	//Override from base class and return name to player 
+	int draw(Player* manager);
+
 	//Override from the base class to destroy all texture in Input name section
 	void clean();
 

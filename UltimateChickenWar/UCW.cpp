@@ -211,15 +211,13 @@ void UCW::render() {
 
 	if (menu_checked == true) {
 		if (player1nameInput == 0) {
-			player1nameInput = name_input1.draw();
+			player1nameInput = name_input1.draw(&manager1);
 			if (player1nameInput == 2) isRunning = false;
-			player1name = name_input1.getName();
 			name_input1.clean();
 		}
 		else if (player2nameInput == 0){
-			player2nameInput = name_input2.draw();
+			player2nameInput = name_input2.draw(&manager2);
 			if (player2nameInput == 2) isRunning = false;
-			player2name = name_input2.getName();
 			name_input2.clean();
 		}
 		if (player2nameInput == true) {
@@ -227,7 +225,7 @@ void UCW::render() {
 			GameMap->draw();
 			manager1.draw();
 			manager2.draw();
-			statsmenu.draw(player1name,player2name);
+			statsmenu.draw(manager1.name,manager2.name);
 
 			bool draw_allowing = false;
 			for (int i = 0; i < 6; i++) {
@@ -244,14 +242,14 @@ void UCW::render() {
 			}
 
 			if (numPlayer2 == 0) {
-				player1name = player1name + " win!";
+				player1name = manager1.name + " win!";
 				Popup final1(player1name, 1500, 1728);
 				final1.draw();
 				menu_checked = false;
 				endgame = true;
 			}
 			if (numPlayer1 == 0) {
-				player2name = player2name + " win!";
+				player2name = manager2.name + " win!";
 				Popup final2(player2name, 1500, 1728);
 				final2.draw();
 				menu_checked = false;

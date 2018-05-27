@@ -79,6 +79,7 @@ private:
 	int index = 0;
 	Chicken* e;
 public:
+	std::string name="";
 	static Chicken* allChickens[6];
 	~Player() {
 		delete[] chickens;

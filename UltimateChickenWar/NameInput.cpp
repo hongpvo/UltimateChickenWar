@@ -1,5 +1,6 @@
 #include "NameInput.h"
 #include <iostream>
+
 NameInput::NameInput(std::string str) {
 	//we store the input string to the default player name 
 	if (str != "") player = str;
@@ -36,7 +37,9 @@ NameInput::~NameInput() {
 	SDL_DestroyTexture(box);
 	SDL_DestroyTexture(background);
 }
-int NameInput::draw() {
+int NameInput::draw(Player* manager) {
+	//Empty the previous name (if any)
+	manager->name = "";
 	//Load Texture from *.PNG image 
 	box = TextureManager::LoadTexture("assets/box/box.png");
 	background = TextureManager::LoadTexture("assets/background/background.png");
@@ -125,6 +128,7 @@ int NameInput::draw() {
 				if (event.key.keysym.sym == SDLK_RETURN || event.key.keysym.sym == SDLK_KP_ENTER) {
 					end = true;
 					if (name.length()==0) name = default_name;				//if you have not input anything, we will give you default name such as "player 1"
+					manager->name = name;									// Return the name to Player
 					SDL_Delay(300);											//Delay for the next section
 			
 				}
@@ -136,10 +140,6 @@ int NameInput::draw() {
 	return 1;																//return that the input section is over
 }
 
-// function to get the name stored in the instances because name is a private member
-std::string NameInput::getName() {
-	return name;
-}
 void NameInput::clean() {
 	//close box, background, font and texture that we have used. 
 	gInput.free();
