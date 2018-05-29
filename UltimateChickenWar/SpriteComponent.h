@@ -71,7 +71,8 @@ public:
 	}
 	//overriding base class virtual function
 	void draw() override {
-		SDL_GetMouseState(&mouse_x, &mouse_y);	//get current position of the mouse
+		mouse_x = UCW::event.button.x;
+		mouse_y = UCW::event.button.y;	//get current position of the mouse
 		int mouse_row_col[2];
 		find_mouseCenter(mouse_x, mouse_y, mouse_col, mouse_row, mouse_center_x, mouse_center_y);	//use functions from Mouse_controller.h
 		if (indicator_allowing) {	//if this is the chicken's turn

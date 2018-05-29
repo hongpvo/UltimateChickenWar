@@ -13,7 +13,7 @@ reset:
 	int frameTime;	//display time of each frame
 	
 	game = new UCW();	//create a  game
-	game->init("ULITMATE CHICKEN WAR", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1728, 900, false);	//init the game
+	game->init("ULITMATE CHICKEN WAR", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1152, 600, false);	//init the game
 
 	while (game->running()) {
 

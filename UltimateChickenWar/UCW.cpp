@@ -59,11 +59,11 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	//create game window
 	int flags = 0;
 	if (fullscreen) {
-		flags = SDL_WINDOW_FULLSCREEN;	//screen mode
+		flags = SDL_WINDOW_FULLSCREEN_DESKTOP;	//screen mode
 	}
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
 		std::cout << "Subsystems Initialised!..." << std::endl;
-		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);	//create window
+		window = SDL_CreateWindow(title, xpos, ypos, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);	//create window
 		if (window) {
 			std::cout << "Window created!" << std::endl;
 		}
@@ -78,6 +78,8 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		isRunning = false;
 
 	}
+	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
+	SDL_RenderSetLogicalSize(renderer, 1728, 900);
 	
 	for (int i = 0; i < manager1.returnlength(); i++) {
 		player1[i]->destroy();	//deactivate all the chicken of player1

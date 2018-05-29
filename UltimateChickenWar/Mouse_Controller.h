@@ -69,7 +69,8 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
 		}
 	}
 	
-	SDL_GetMouseState(&mouse_x, &mouse_y);	//get the position of the  mouse (in pixels coordinates)
+	mouse_x = UCW::event.button.x;
+	mouse_y = UCW::event.button.y;	//get the position of the  mouse (in pixels coordinates)
 	//calculate the time between 2 mouse clicks
 	moveTime = SDL_GetTicks() - moveStart;
 	//find the center position of the tiles that the mouse is staying in
