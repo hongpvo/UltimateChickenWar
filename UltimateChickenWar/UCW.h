@@ -7,9 +7,6 @@
 class UCW
 {
 public:
-	UCW();
-	~UCW();
-	
 	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
 
 	void handleEvents(); 
