@@ -17,9 +17,7 @@ public:
 	virtual void init() {};
 	virtual void update() {};
 	virtual void draw() {};
-
 	
-
 };
 
 //this class represents each chicken
@@ -33,6 +31,10 @@ private:
 	
 public:
 	//update each component in the components array
+	//destructor
+	~Chicken() {
+		delete[] components;	//release the heap memory
+	}
 	void update()
 	{
 		for (int i = 0; i < 3; i++ ) {
@@ -52,16 +54,17 @@ public:
 		active = false;
 	}
 	//add the component to the component list
+	
 	template <typename T, typename... TArgs> //T is the type of the component, TArgs are the types of arguments to pass into component's construtor
-	T& addComponent(TArgs... Args) {
+	void addComponent(TArgs... Args) {
 		T*c = new T(Args...); //create a new instance of T by passing Args into the constructor and make the pointer "c" points to it
 		c->chicken = this; //assign the chicken that is possessing this component to be "this"
 		components[index] = static_cast<Component*>(c); //upcast the c pointer (from "T*" type to "Component*" type)
 		getComponentTypeID<T>();	//assign a new id to T component
 		index++;	
 		c->init();	//initialize the component
-		return *c;
 	}
+	
 	//get the pointer that points to the component of type T*
 	template<typename T> T* getComponent() {
 		Component* ptr = components[getComponentTypeID<T>()]; //Get the id of the component, then take it out from the components array
@@ -100,7 +103,7 @@ public:
 		}
 	}
 	//UCW::init() need to access to private members of Player class
-	friend void UCW::init(const char* , int, int , int , int , bool);
+	friend void UCW::init(const char* , int, int , int , int);
 	//update all the chickens
 	void update() {
 		for (int i = 0; i < returnlength(); i++) {

@@ -55,15 +55,12 @@ std::string labels2[2] = { "Restart","Exit" };	//string for last menu (end game)
 stats_table statsmenu;	//stats table to display stats
 SDL_Texture* background;	//background image of the game
 
-void UCW::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen) {
+void UCW::init(const char* title, int xpos, int ypos, int width, int height) {
 	//create game window
 	int flags = 0;
-	if (fullscreen) {
-		flags = SDL_WINDOW_FULLSCREEN_DESKTOP;	//screen mode
-	}
 	if (SDL_Init(SDL_INIT_EVERYTHING) == 0) {
 		std::cout << "Subsystems Initialised!..." << std::endl;
-		window = SDL_CreateWindow(title, xpos, ypos, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);	//create window
+		window = SDL_CreateWindow(title, xpos, ypos, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);	//create window and enable it to resize
 		if (window) {
 			std::cout << "Window created!" << std::endl;
 		}
@@ -78,6 +75,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 		isRunning = false;
 
 	}
+	//Set logical size to be 1728x900 so that you can change the resolution of the game without affecting it (especially mouse location)  
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, 0);
 	SDL_RenderSetLogicalSize(renderer, 1728, 900);
 	
@@ -120,6 +118,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	}
 
 	//starting position of each chicken
+	
 	position_ini[0] = position[0][0];
 	position_ini[1] = position[6][15];
 	position_ini[2] = position[1][0];
@@ -127,8 +126,7 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	position_ini[4] = position[2][0];
 	position_ini[5] = position[8][15];
 	
-
-	/* 
+	/*
 	position_ini[0] = position[0][0];
 	position_ini[1] = position[0][1];
 	position_ini[2] = position[1][0];
@@ -152,11 +150,8 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height, boo
 	}
 	player1[0]->getComponent<StatsComponent>()->myturn = true;	//first chicken of player 1 will get the first turn
 	
-	//Debugfont
-	if (TTF_Init() == -1)
-	{
-		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
-	}
+	//initialize font
+	TTF_Init();
 	std::cout<<"init passed"<<std::endl;
 }
 

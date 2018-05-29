@@ -128,7 +128,6 @@
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h" />
     <ClInclude Include="Player_system.h" />
     <ClInclude Include="LoadTextureFromText.h" />
     <ClInclude Include="Map.h" />
