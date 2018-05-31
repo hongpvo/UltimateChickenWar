@@ -18,8 +18,7 @@
 
 4.  Game start
 
-> Player 1 has 3 white chicken and Player 2 has 3 black chicken. 
-
+> Player 1 has 3 white chicken and Player 2 has 3 black chicken.
 > Map will random automatically like:
 
  ![](./readmeMedia/media/image5.png)
@@ -67,7 +66,7 @@
 >
 > Each kind of Item will give you a bonus stat point when you pick it up (click on it)
 >
-> ![](./readmeMedia/media/image12.png)+1 HP
+> ![](./readmeMedia/media/image12.png) +1 HP
 >
 > ![](./readmeMedia/media/image13.png) +1 DEF
 >
