@@ -67,11 +67,11 @@
 >
 > Each kind of Item will give you a bonus stat point when you pick it up (click on it)
 >
-> ![](./readmeMedia/media/image12.png) +1 HP
+> ![](./readmeMedia/media/image12.png)                **+1 HP**
 >
-> ![](./readmeMedia/media/image13.png) +1 DEF
+> ![](./readmeMedia/media/image13.png)                **+1 DEF**
 >
-> ![](./readmeMedia/media/image1.png) +1 ATK
+> ![](./readmeMedia/media/image1.png)                 **+1 ATK**
 >
   **Win Condition**
 >
