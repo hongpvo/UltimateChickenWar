@@ -19,6 +19,7 @@
 4.  Game start
 
 > Player 1 has 3 white chicken and Player 2 has 3 black chicken.
+>
 > Map will random automatically like:
 
  ![](./readmeMedia/media/image5.png)
