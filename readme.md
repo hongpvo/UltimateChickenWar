@@ -24,7 +24,7 @@
 
 > Map will random automatically like:
 
-    **Rules**
+   **Rules**
 
 > Each player will take turn to move 1 of their chickens, starting with
 > player 1. The red hexagon surrounding the tile will indicate which
@@ -46,7 +46,7 @@
 >
 > ![https://lh3.googleusercontent.com/QAjtesjtKLNZ1hY6g7n\_Pj3YRq9RS\_jTQrJrk2wFBMfqZnYNcZRXzgLR9Q3DnMew9BBlMEuS4-IUBf5fWcb51OMOdPi78YeZn\_FZ0RZBrkQA5s\_fDwxnoaoH2Sv1-TKNyK3pw0EC](./readmeMedia/media/image10.png)
 
-> **Attack**
+  **Attack**
 >
 > When you click on another chicken, one popup will display between 2
 > stats table
@@ -63,7 +63,7 @@
 >
 > There is one way to increase your Stats: Pick Item
 >
-> **Item**
+  **Item**
 >
 > Each kind of Item will give you a bonus stat point when you pick it up (click on it)
 >
@@ -73,7 +73,7 @@
 >
 > ![](./readmeMedia/media/image1.png) +1 ATK
 >
-> **Win Condition**
+  **Win Condition**
 >
 > When one player killed all enemy's chickens, he will count as Victory
 > and the Win box popup with his name on it.
