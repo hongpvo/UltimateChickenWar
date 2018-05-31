@@ -33,6 +33,7 @@
 > there, which is dependent on the chicken's range.
 >
 > ![](./readmeMedia/media/image6.png)
+>
 > ![](./readmeMedia/media/image7.png)
 > ![](./readmeMedia/media/image8.png)
 >
