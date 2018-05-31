@@ -20,7 +20,7 @@
 
 > Player 1 has 3 white chicken and Player 2 has 3 black chicken. 
 
-    ![](./readmeMedia/media/image5.png)
+   ![](./readmeMedia/media/image5.png)
 
 > Map will random automatically like:
 
