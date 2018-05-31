@@ -20,9 +20,9 @@
 
 > Player 1 has 3 white chicken and Player 2 has 3 black chicken. 
 
-   ![](./readmeMedia/media/image5.png)
-
 > Map will random automatically like:
+
+ ![](./readmeMedia/media/image5.png)
 
    **Rules**
 
@@ -56,7 +56,7 @@
 > Click on the attack text if you want to attack and not if you don't
 > want to do so.
 >
-> ***Opponent's HP = Opponent's HP + Opponent's DEF -- Your ATK***
+> ***Opponent's HP = Opponent's HP + Opponent's DEF -- Your ATK (if its DEF is smaller than 0)*** 
 >
 > ***Opponent's DEF = Opponent's DEF -- Your ATK (if its DEF is greater
 > than your ATK)***
