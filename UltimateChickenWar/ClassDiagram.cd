@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="LoadTextureFromText" Collapsed="true">
+    <Position X="12" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAgCAAAAABABAAAAAAAAAAAAAQAAAAAAQQABQAAI=</HashCode>
+      <FileName>LoadTextureFromText.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Map" Collapsed="true">
+    <Position X="6.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAGAAAABgAAAEhAAIEAAEAAAIAAAgAIAAIIAAAAAA=</HashCode>
+      <FileName>Map.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Menu" Collapsed="true">
+    <Position X="8.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAABAAAAQAAIAAAAAAAAIBAAAAABgAgAAAAA=</HashCode>
+      <FileName>Menu.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="menus" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NameInput" Collapsed="true">
+    <Position X="10.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAmQAAAgAAAAAIAAAABAEAEAAIBAABAAAAAAAA=</HashCode>
+      <FileName>NameInput.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="title" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Component">
+    <Position X="8.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAIAAAAAAAAAAAIAAAAAAAAEAAA=</HashCode>
+      <FileName>Player_system.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="chicken" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Chicken">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAECAKAAFAAAAAAAAAAAAAAIAAFAAg=</HashCode>
+      <FileName>Player_system.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="components" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Player">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAMAAAAAAABAAAAIAAAABAAAEAAACAAAEAAAFEBA=</HashCode>
+      <FileName>Player_system.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="allChickens" />
+      <Field Name="chickens" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Popup" Collapsed="true">
+    <Position X="13" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAQAQAoAAAAAAAAACAAIAABAAAAAAAA=</HashCode>
+      <FileName>Popup.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="gTextTexture" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SpriteComponent" Collapsed="true">
+    <Position X="8.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAgAABwAAAAAAAAQAIIAEAAgAAEAgIAAFAQCQAFwIA=</HashCode>
+      <FileName>SpriteComponent.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="transform" />
+      <Field Name="stats" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="stats_table" Collapsed="true">
+    <Position X="15.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>wAAAAAACIAAEggAAAAICCAAEEQAACgCBQAhAAAAAAIA=</HashCode>
+      <FileName>stats_table.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="player1" />
+      <Field Name="player2" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="StatsComponent" Collapsed="true">
+    <Position X="10.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAkAAAAIAAAAAAAAAAAAgAAAABAAAAAAgABAAAkAAAA=</HashCode>
+      <FileName>StatsComponent.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextureManager" Collapsed="true">
+    <Position X="0.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TextureManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransformComponent" Collapsed="true">
+    <Position X="6.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAIAAAAEAAAAQAQACAIAACAAAAAAAAAAAAAAAEAgA=</HashCode>
+      <FileName>TransformComponent.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="position" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="UCW" Collapsed="true">
+    <Position X="3" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABgAAAAAIBBAEAQAAAAAAAoAAAIICABAAAIUgAA=</HashCode>
+      <FileName>UCW.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UI">
+    <Position X="10.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAgAAACAACgCAAEBAAAAAIAA=</HashCode>
+      <FileName>UI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector2D" Collapsed="true">
+    <Position X="6.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAQAAEAAAAAADAQAAAQAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>Vector2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
