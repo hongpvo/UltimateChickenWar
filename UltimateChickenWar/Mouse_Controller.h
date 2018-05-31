@@ -34,9 +34,9 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
 		gettime = false;	//stop getting time
 		
 	}
-	TransformComponent * transform_player;	//transform component of the chicken having this turn
+	TransformComponent * transform_player = nullptr;	//transform component of the chicken having this turn
 	TransformComponent * transform_opponent[5];	//transform component of the other 5 chickens
-	StatsComponent* stats_player;	//stats of the chicken having this turn
+	StatsComponent* stats_player = nullptr;	//stats of the chicken having this turn
 	StatsComponent* stats_opponent[5];	//stats of the other 5 chickens
 	//position of other 5 chickens
 	int opponent_row[5];	
