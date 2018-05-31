@@ -48,7 +48,6 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack, bool &e
 	bool moving_allow = 0;	//not allowed to move
 	
 	turn = iterator % 6;	//turn is calculated by taking the remainder of the division
-	cout << "turn: " << turn << endl;
 	int j = 0;
 	for (int i = 0; i < 6; i++) {
 		chicken[i] = Player::allChickens[i];	//get the list of all 6 chickens
@@ -142,7 +141,7 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack, bool &e
 			static bool hit = false;	//this variable inidicate the chicken is attacking another chickens
 			//count < 5 means mouse position = defender's position -->attack turn on
 			for (int i = 0; i <= 4; i++) {
-				if (mouse_col == opponent_col[i] && mouse_row == opponent_row[i]){	//if mouse click is on other chickens
+				if (mouse_col == opponent_col[i] && mouse_row == opponent_row[i] ){	//if mouse click is on other chickens
 					defender = i;	//get the index if chicken being attacked (we call the attacked chicken is "defender")
 					hit = true;		//this chicken is attacking another chicken
 					first_time = false;		//next time will not be first time anymore
@@ -155,7 +154,6 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack, bool &e
 			if (hit && sqrt(pow(player_x - defender_x, 2) + pow(player_y - defender_y, 2)) <= 104*player_range) {
 				stats_player->choosing = 1;	//now, the attack popup will display, meaning the chicken is choosing the options
 				if (mouse_x > 590 && mouse_x < 831 && mouse_y > 680 && mouse_y < 830) {	//if the mouse is clicked on the "attack" option
-					cout << "click attack" << endl;
 					if (stats_opponent[defender]->def > 0) {	//if defender's def stats is > 0
 						stats_opponent[defender]->def -= stats_player->atk;	//subtract the defender's def by the attacker's atk
 						if (stats_opponent[defender]->def < 0) {	//else if the above subtraction result in the defender's def < 0

@@ -34,7 +34,7 @@ reset:
 	game->clean();	//clean everything in game
 	
 	delete game;	//release the dynamic memory
-	if (restart == true) goto reset;//restart the game
+	if (restart == true) goto reset; //restart the game
 	
 	return 0;
 
