@@ -8,8 +8,9 @@
 #include "TextureManager.h"
 #include "Map.h"
 #include <iostream>
+
 using namespace std;
-Map* loadmap = NULL;
+int loadmap[9][16];
 //these are variables used in UCW.cpp, so we use extern to use them
 extern SDL_Rect position[9][16];
 extern SDL_Rect center_position[9][16];
@@ -30,12 +31,19 @@ private:
 	int mouse_center_x, mouse_center_y;
 	int player_x, player_y, player_range;
 	
+	
 public:
 	//SpriteComponent() = default;
 	//constructor
-	SpriteComponent(const char* path, char* background, char* moving_background)
+	SpriteComponent(const char* path, char* background, char* moving_background,int map[9][16])
 	{
 		setTex(path,background, moving_background);	//load the texture by the specified path
+		//load map info
+		for (int row = 0; row < 9; row++) {
+			for (int column = 0; column < 16; column++) {
+				loadmap[row][column] = map[row][column];
+			}
+		}
 	}
 	//destructor
 	~SpriteComponent() {
@@ -43,7 +51,6 @@ public:
 		SDL_DestroyTexture(texture);	
 		SDL_DestroyTexture(turn_indicator);
 		SDL_DestroyTexture(range_indicator);
-		delete loadmap;	//release the dynamic memory
 	}
 	//load the texture
 	void setTex(const char* path, char* background, char* range_background) {
@@ -53,7 +60,6 @@ public:
 	}
 	void init() override {	//init the transform component
 		transform = chicken->getComponent<TransformComponent>();	//get the transform component of this chicken
-		loadmap = new Map();	//get the map
 		srcRect.x = srcRect.y = 0;
 		srcRect.w = 108;
 		srcRect.h = 100;
@@ -74,15 +80,16 @@ public:
 		mouse_x = UCW::event.button.x;
 		mouse_y = UCW::event.button.y;	//get current position of the mouse
 		int mouse_row_col[2];
+		stats = chicken->getComponent<StatsComponent>();
 		find_mouseCenter(mouse_x, mouse_y, mouse_col, mouse_row, mouse_center_x, mouse_center_y);	//use functions from Mouse_controller.h
 		if (indicator_allowing) {	//if this is the chicken's turn
 			TextureManager::Draw(turn_indicator, srcRect, destRect);	//draw the turn indicator
 			player_x = transform->position.x + 52;
 			player_y = transform->position.y + 50;
-			player_range = (chicken->getComponent<StatsComponent>())->range * 104;	//104 is a circle with radius 104 pixels at the origin of the player
+			player_range = stats->range * 104;	//104 is a circle with radius 104 pixels at the origin of the player
 			//check if mouse within range and not on water tiles
-			if (sqrt(pow(player_x - mouse_center_x, 2) + pow(player_y - mouse_center_y, 2)) <= player_range && ((loadmap->map)[mouse_row][mouse_col] != 6
-				 && (loadmap->map)[mouse_row][mouse_col] != 7 && (loadmap->map)[mouse_row][mouse_col] != 8 && (loadmap->map)[mouse_row][mouse_col] != 9)) {
+			if (sqrt(pow(player_x - mouse_center_x, 2) + pow(player_y - mouse_center_y, 2)) <= player_range && (loadmap[mouse_row][mouse_col] != 6
+				 && loadmap[mouse_row][mouse_col] != 7 && loadmap[mouse_row][mouse_col] != 8 && loadmap[mouse_row][mouse_col] != 9)) {
 				if (mouse_row % 2 == 0) {	//if row is even
 					destRect1.x = mouse_col * 104;	//position to render the range_indicator
 					destRect1.y = mouse_row * 68;
@@ -91,10 +98,12 @@ public:
 					destRect1.x = mouse_col * 104 + 52;
 					destRect1.y = mouse_row * 68;
 				}
+				
 				TextureManager::Draw(range_indicator, srcRect, destRect1);	//draw the range_indicator
 			}
-
+			
 		}
+		
 		TextureManager::Draw(texture, srcRect, destRect);	//draw the image of the chicken
 		//to update indicator_allowing
 		indicator_allowing = (chicken->getComponent<StatsComponent>())->myturn;	//check the turn

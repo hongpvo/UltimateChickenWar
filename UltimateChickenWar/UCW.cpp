@@ -14,16 +14,16 @@
 #include "stats_table.h"
 #include "NameInput.h"
 
-Map* GameMap;	
+//Game Map
+Map* GameMap;
 Chicken* Player::allChickens[6];	//foward declaration of static variable in class Player
 SDL_Renderer* UCW::renderer = nullptr;	//definition of static variable in UCW class 
 SDL_Event UCW::event;	//foward declaration of static variable in class UCW
 SDL_Rect position[9][16];	//rendering rectangles of map tiles drawn from top left corner 
 SDL_Rect position_ini[6];	//intial rendering position for 6 chickens
 SDL_Rect center_position[9][16];		//center of rendering rectangles of map tiles 
-
 TTF_Font* UCW::gFont=nullptr;	//font is null
-
+bool temp_endgame = false;
 //creating instances of class popup (constructor ("string to display", location of text))
 Popup attack("attack or not?",1500, 1728);	//Popup when you attack opponent
 Popup final1("Player 1 wins", 1500, 1728);	//Popup when player1 wins
@@ -118,33 +118,33 @@ void UCW::init(const char* title, int xpos, int ypos, int width, int height) {
 	}
 
 	//starting position of each chicken
-	
+	/*
 	position_ini[0] = position[0][0];
 	position_ini[1] = position[6][15];
 	position_ini[2] = position[1][0];
 	position_ini[3] = position[7][15];
 	position_ini[4] = position[2][0];
 	position_ini[5] = position[8][15];
+	*/
 	
-	/*
 	position_ini[0] = position[0][0];
 	position_ini[1] = position[0][1];
 	position_ini[2] = position[1][0];
 	position_ini[3] = position[1][1];
 	position_ini[4] = position[2][0];
 	position_ini[5] = position[2][1];
-	*/
+	
 	
 	for (int i = 0; i <= 2; i++) {
 		player1[i] = manager1.addChicken(2*i); // add the chickens in player1 to chickens list of player1
 		player1[i]->addComponent<TransformComponent>(position_ini[2*i], 1);	//position_ini[0,2,4], 1 is scale
-		player1[i]->addComponent<SpriteComponent>(image[2*i], turn_indicator, range_indicator); //image[0,2,4]
+		player1[i]->addComponent<SpriteComponent>(image[2*i], turn_indicator, range_indicator,GameMap->map); //image[0,2,4]
 		player1[i]->addComponent<StatsComponent>(2*i, stats_array[i][0], stats_array[i][1], stats_array[i][2], stats_array[i][3]);	//2*i is turn
 
 		//same as player1
 		player2[i] = manager2.addChicken(2*i+1);
 		player2[i]->addComponent<TransformComponent>(position_ini[2*i+1], 1);	//position_ini[1,3,5]
-		player2[i]->addComponent<SpriteComponent>(image[2*i+1], turn_indicator, range_indicator);
+		player2[i]->addComponent<SpriteComponent>(image[2*i+1], turn_indicator, range_indicator,GameMap->map);
 		player2[i]->addComponent<StatsComponent>(2*i+1, stats_array[i][0], stats_array[i][1], stats_array[i][2], stats_array[i][3]);
 		
 	}
@@ -163,7 +163,7 @@ void UCW::handleEvents() {
 		isRunning = false;	//close game
 		break;
 	case SDL_MOUSEBUTTONDOWN:
-		Mouse_Controller( GameMap->map,GameMap->itemMap, &attack);	//call mouse_controller to handle mouse click
+		Mouse_Controller( GameMap->map,GameMap->itemMap, &attack, temp_endgame);	//call mouse_controller to handle mouse click
 		break;
 	default:
 		break;
@@ -264,17 +264,17 @@ void UCW::render() {
 			final1.clean();	
 			final2.clean();
 
-			static bool running = false;	//attack popup is not running. This variable will stote the same value in subsequent calls
+			//when attacking
 			if (draw_allowing) {	
 				attack.draw();	//draw the attack popup
-				running = true;	//set the attack popup to be running
 			}
 			attack.clean();		//clean the attack popup
 			statsmenu.clean();	//clean the stats table
 
 			SDL_RenderPresent(renderer);	//present the renderer on the window
 			if (endgame == true) {	//if game has ended
-				SDL_Delay(1000);	//delay 1000s before displaying restart menu
+				SDL_Delay(1000);//delay 1s before displaying restart menu
+				temp_endgame = endgame;
 			}
 		}
 	}

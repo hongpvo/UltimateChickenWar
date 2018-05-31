@@ -33,6 +33,7 @@ public:
 	
 	//function to check if the game is still running 
 	bool running() { return isRunning; };
+	
 
 private:
 	//check running variable, using for exit game
@@ -40,10 +41,10 @@ private:
 	int cnt = 0;
 	//Create window 
 	SDL_Window *window;
-
+	bool endgame = false;
 	//Check variable for menu, endgame, nameInput
 	bool menu_checked = false;
-	bool endgame = false;
+	
 	int player1nameInput = false;
 	int player2nameInput = false;
 	// Player info to output when endgame

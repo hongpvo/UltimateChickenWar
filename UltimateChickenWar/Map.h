@@ -14,8 +14,8 @@ public:
 	void LoadMap();
 	//To display Map and Item list - override draw of UI
 	int draw();
-	//Friend function allows this function/class to acess private instances such as map and item
-	friend void UCW::handleEvents();
+	//Friend function allows these classes to acess private instances such as map and item
+	friend class UCW;
 	friend class SpriteComponent;
 private:
 	//Initializes items' textures

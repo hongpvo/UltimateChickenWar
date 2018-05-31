@@ -18,12 +18,16 @@ int player_x, player_y;	//chicken position in pixels
 int player_row, player_col, player_range;	//chicken position in row, column
 static bool first_time = true;	//this is the first mouse click
 
-void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
+void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack, bool &endgame) {
 	here:
 	Chicken* chicken[6];	//list of all 6 chickens
 	int mouse_x, mouse_y, mouse_row, mouse_col, mouse_center_y, mouse_center_x;	//mouse coordinates in pixels, row,column and mouse_center
 	static int iterator = 0;	//iterator will increase after a player make a move or attack
 	//if (first_time) iterator = 0;
+	if (endgame) {
+		iterator = 0;
+		endgame = false;
+	}
 	static int turn;  //which player to move
 	static Uint32 moveStart;	//the mark of start counting time 
 	static Uint32 moveTime;		//storing the time between 2 mouse clicks
@@ -92,7 +96,6 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack) {
 			//get the pixel position of the center of the tile that the chicken is in
 			player_x = transform_player->position.x + 52;
 			player_y = transform_player->position.y + 50;
-
 			if (count == 5) moving_allow = true;	//moving is allowed if mouse click is not on any other chicken
 			if (moving_allow) {
 				//check if move is within the range of that chicken
@@ -199,8 +202,8 @@ int* find_mouseRC(int mouse_x, int mouse_y) {
 	//calculate distance from all the centroids
 	for (int row = 0; row < 9; row++) {
 		for (int column = 0; column < 16; column++) {
-			dist[row][column] = sqrt(pow(mouse_x - center_position[row][column].x, 2) + pow(mouse_y - center_position[row][column].y, 2));
-			double a = dist[row][column];
+			dist[row][column] = sqrt(pow(mouse_x - center_position[row][column].x, 2) + pow(mouse_y - center_position[row][column].y, 2));	
+
 		}
 	}
 	double min_dist = dist[0][0];
