@@ -82,7 +82,6 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack, bool &e
  	//turn-based algorithm
 	//to prevent repeated mouse clicks
 	if (moveTime > 500 || first_time) {		//if this is the first mouse click or the time between this mouse click and the last mouse click < 500ms
-		first_time = false;		//next time will not be first time anymore
 		//if mouse is not clicked on water
 		if ((map[mouse_row][mouse_col] != 6 && map[mouse_row][mouse_col] != 7 && map[mouse_row][mouse_col] != 8 && map[mouse_row][mouse_col] != 9) || stats_player->choosing) {
 			int count = 0;
@@ -98,6 +97,7 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack, bool &e
 			player_y = transform_player->position.y + 50;
 			if (count == 5) moving_allow = true;	//moving is allowed if mouse click is not on any other chicken
 			if (moving_allow) {
+				first_time = false;		//next time will not be first time anymore
 				//check if move is within the range of that chicken
 				if (sqrt(pow(player_x - mouse_center_x, 2) + pow(player_y - mouse_center_y, 2)) <= 104*player_range) {
 					//if mouse click is on even row
@@ -145,6 +145,7 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack, bool &e
 				if (mouse_col == opponent_col[i] && mouse_row == opponent_row[i]){	//if mouse click is on other chickens
 					defender = i;	//get the index if chicken being attacked (we call the attacked chicken is "defender")
 					hit = true;		//this chicken is attacking another chicken
+					first_time = false;		//next time will not be first time anymore
 				}
 			}
 			//get the center position of the defender
@@ -154,6 +155,7 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack, bool &e
 			if (hit && sqrt(pow(player_x - defender_x, 2) + pow(player_y - defender_y, 2)) <= 104*player_range) {
 				stats_player->choosing = 1;	//now, the attack popup will display, meaning the chicken is choosing the options
 				if (mouse_x > 590 && mouse_x < 831 && mouse_y > 680 && mouse_y < 830) {	//if the mouse is clicked on the "attack" option
+					cout << "click attack" << endl;
 					if (stats_opponent[defender]->def > 0) {	//if defender's def stats is > 0
 						stats_opponent[defender]->def -= stats_player->atk;	//subtract the defender's def by the attacker's atk
 						if (stats_opponent[defender]->def < 0) {	//else if the above subtraction result in the defender's def < 0
@@ -177,6 +179,7 @@ void Mouse_Controller(int map[9][16], int itemMap[9][16], Popup* attack, bool &e
 					while (1) {
 						iterator++;
 						turn = iterator % 6;
+						gettime = true;
 						if (chicken[turn]->getComponent<StatsComponent>()->isAlive) goto here;
 					}
 					hit = false;	//since you have already attacked, "hit" is set back to false
